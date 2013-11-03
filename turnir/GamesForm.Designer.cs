@@ -72,7 +72,6 @@
       this.label2.TabIndex = 2;
       this.label2.Text = "Партии участника";
       this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-      this.label2.Click += new System.EventHandler(this.label2_Click);
       // 
       // lvGames
       // 
@@ -124,6 +123,7 @@
       // columnHeader3
       // 
       this.columnHeader3.Text = "Результат";
+      this.columnHeader3.Width = 70;
       // 
       // GamesForm
       // 
