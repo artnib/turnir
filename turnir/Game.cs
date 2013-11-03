@@ -26,6 +26,6 @@ namespace turnir
     /// <summary>
     /// Результат партии
     /// </summary>
-    GameResult result;
+    internal GameResult Result;
   }
 }

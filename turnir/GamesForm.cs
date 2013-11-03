@@ -37,24 +37,37 @@ namespace turnir
 
     void ShowGames(List<Game> games)
     {
-      lvGames.Items.Clear();      
+      lvGames.Items.Clear();
+      ListViewItem lvi;
       foreach (Game game in games)
       {
-        lvGames.Items.Add(new ListViewItem(
-          new string[] {
+        lvi = new ListViewItem(new string[] {
             players.Find(p => p.Number == game.White).ToString(),
-            players.Find(p => p.Number == game.Black).ToString()
+            players.Find(p => p.Number == game.Black).ToString(),
+            Result(game.Result)
           }
-        ));
+        );
+        lvi.Tag = game;
+        lvGames.Items.Add(lvi);
+      }
+    }
+
+    string Result(GameResult result)
+    {
+      switch (result)
+      { 
+        case GameResult.Black:
+          return "0-1";
+        case GameResult.White:
+          return "1-0";
+        case GameResult.Draw:
+          return "=";
+        default:
+          return String.Empty;
       }
     }
 
     RoundRobin rr;
     List<Player> players;
-
-    private void label2_Click(object sender, EventArgs e)
-    {
-
-    }
   }
 }
