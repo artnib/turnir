@@ -83,11 +83,25 @@ namespace turnir
 
     private void white_Click(object sender, EventArgs e)
     {
+      SetResult(GameResult.White);
+    }
+
+    void SetResult(GameResult result)
+    {
       var lvi = lvGames.SelectedItems[0];
       var game = (Game)lvi.Tag;
-      var result = GameResult.White;
       game.Result = result;
       lvi.SubItems[2].Text = Result(result);
+    }
+
+    private void black_Click(object sender, EventArgs e)
+    {
+      SetResult(GameResult.Black);
+    }
+
+    private void draw_Click(object sender, EventArgs e)
+    {
+      SetResult(GameResult.Draw);
     }
   }
 }
