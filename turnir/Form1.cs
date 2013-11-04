@@ -1,6 +1,5 @@
 ﻿using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Linq;
 using System;
 using System.Drawing;
 using System.IO;
@@ -285,6 +284,9 @@ namespace turnir
     {
       if (gamesForm == null)
         gamesForm = new GamesForm(CurTurnir);
+      var selected = lvPlayers.SelectedIndices;
+      if (selected.Count > 0)
+        gamesForm.SetPlayer(selected[0]);
       gamesForm.ShowDialog(this);
     }
   }

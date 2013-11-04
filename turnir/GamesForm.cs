@@ -18,11 +18,20 @@ namespace turnir
       players = tur.Players;
     }
 
+    internal void SetPlayer(int index)
+    {
+      playerIndex = index;
+    }
+
+    int playerIndex = -1;
     Turnir tur;
 
     private void GamesForm_Load(object sender, EventArgs e)
     {
-      cbPlayer.Items.AddRange(players.ToArray());
+      if(cbPlayer.Items.Count == 0)
+        cbPlayer.Items.AddRange(players.ToArray());
+      if (playerIndex >= 0)
+        cbPlayer.SelectedIndex = playerIndex;
     }
 
     private void cbPlayer_SelectedIndexChanged(object sender, EventArgs e)
