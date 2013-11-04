@@ -28,6 +28,7 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
       this.cbPlayer = new System.Windows.Forms.ComboBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
@@ -37,8 +38,13 @@
       this.pnGames = new System.Windows.Forms.Panel();
       this.pnPlayer = new System.Windows.Forms.Panel();
       this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.cmenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+      this.white = new System.Windows.Forms.ToolStripMenuItem();
+      this.black = new System.Windows.Forms.ToolStripMenuItem();
+      this.draw = new System.Windows.Forms.ToolStripMenuItem();
       this.pnGames.SuspendLayout();
       this.pnPlayer.SuspendLayout();
+      this.cmenu.SuspendLayout();
       this.SuspendLayout();
       // 
       // cbPlayer
@@ -79,6 +85,7 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
+      this.lvGames.ContextMenuStrip = this.cmenu;
       this.lvGames.Dock = System.Windows.Forms.DockStyle.Fill;
       this.lvGames.FullRowSelect = true;
       this.lvGames.Location = new System.Drawing.Point(0, 23);
@@ -88,6 +95,8 @@
       this.lvGames.TabIndex = 3;
       this.lvGames.UseCompatibleStateImageBehavior = false;
       this.lvGames.View = System.Windows.Forms.View.Details;
+      this.lvGames.SelectedIndexChanged += new System.EventHandler(this.lvGames_SelectedIndexChanged);
+      this.lvGames.DoubleClick += new System.EventHandler(this.lvGames_DoubleClick);
       // 
       // columnHeader1
       // 
@@ -125,6 +134,34 @@
       this.columnHeader3.Text = "Результат";
       this.columnHeader3.Width = 70;
       // 
+      // cmenu
+      // 
+      this.cmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.white,
+            this.black,
+            this.draw});
+      this.cmenu.Name = "cmenu";
+      this.cmenu.Size = new System.Drawing.Size(174, 92);
+      // 
+      // white
+      // 
+      this.white.Name = "white";
+      this.white.Size = new System.Drawing.Size(173, 22);
+      this.white.Text = "Выигрыш белых";
+      this.white.Click += new System.EventHandler(this.white_Click);
+      // 
+      // black
+      // 
+      this.black.Name = "black";
+      this.black.Size = new System.Drawing.Size(173, 22);
+      this.black.Text = "Выигрыш чёрных";
+      // 
+      // draw
+      // 
+      this.draw.Name = "draw";
+      this.draw.Size = new System.Drawing.Size(173, 22);
+      this.draw.Text = "Ничья";
+      // 
       // GamesForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -137,6 +174,7 @@
       this.Load += new System.EventHandler(this.GamesForm_Load);
       this.pnGames.ResumeLayout(false);
       this.pnPlayer.ResumeLayout(false);
+      this.cmenu.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -153,5 +191,9 @@
     private System.Windows.Forms.Panel pnGames;
     private System.Windows.Forms.Panel pnPlayer;
     private System.Windows.Forms.ColumnHeader columnHeader3;
+    private System.Windows.Forms.ContextMenuStrip cmenu;
+    private System.Windows.Forms.ToolStripMenuItem white;
+    private System.Windows.Forms.ToolStripMenuItem black;
+    private System.Windows.Forms.ToolStripMenuItem draw;
   }
 }

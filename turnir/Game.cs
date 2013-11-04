@@ -6,7 +6,7 @@ namespace turnir
   /// Партия
   /// </summary>
   [Serializable]
-  struct Game
+  class Game
   {
     /// <summary>
     /// Группа
