@@ -69,12 +69,12 @@ namespace turnir
 
     void SaveTurnir2()
     {
-      var fs = new FileStream(turPath, FileMode.Create);
+      var fs = new FileStream(curFile, FileMode.Create);
       var bf = new BinaryFormatter();
       CurTurnir.Date = dtDate.Value;
       CurTurnir.Name = tbTurnir.Text;
       CurTurnir.Referee = tbReferee.Text;
-      CurTurnir.Players = PlayersFromListView();
+      //CurTurnir.Players = PlayersFromListView();
       bf.Serialize(fs, CurTurnir);
       fs.Close();
     }
@@ -82,11 +82,11 @@ namespace turnir
     void WriteLastTurnir()
     {
       var sw = new StreamWriter(LastPath);
-      sw.Write(FileName);
+      sw.Write(curFile);
       sw.Close();
     }
 
-    void RestoreTurnir2()
+    void RestoreTurnir(string turPath)
     {
       if (File.Exists(turPath))
       {
@@ -103,6 +103,7 @@ namespace turnir
         else
           CurTurnir = new Turnir();
         fs.Close();
+        curFile = turPath;
       }
     }
 
@@ -152,6 +153,7 @@ namespace turnir
     {
       //SaveTurnir();
       SaveTurnir2();
+      WriteLastTurnir();
     }
 
     private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -161,6 +163,7 @@ namespace turnir
 
     private void Form1_Load(object sender, System.EventArgs e)
     {
+      bf = new BinaryFormatter();
       AppDir = Path.GetDirectoryName(Application.ExecutablePath);
       LastPath = Path.Combine(AppDir, "last.txt");
       var files = Directory.GetFiles(AppDir, "*.tur");
@@ -168,9 +171,10 @@ namespace turnir
       //{
       //  AllTurnirs.Add(TurnirInfo(file));
       //}
-      turPath = Path.Combine(AppDir, "turnir.bin");
+      //turPath = Path.Combine(AppDir, "turnir.bin");
+      turPath = File.ReadAllText(LastPath);
       //RestoreTurnir();
-      RestoreTurnir2();
+      RestoreTurnir(turPath);
     }
 
     #endregion
@@ -288,6 +292,40 @@ namespace turnir
       if (selected.Count > 0)
         gamesForm.SetPlayer(selected[0]);
       gamesForm.ShowDialog(this);
+    }
+
+    private void mnuDel_Click(object sender, EventArgs e)
+    {
+
+    }
+    
+    BinaryFormatter bf;
+    FileStream fs;
+    string curFile;
+
+    private void mnuSave_Click(object sender, EventArgs e)
+    {
+      if (saveDlg.ShowDialog() == DialogResult.OK)
+      {
+        fs = new FileStream(saveDlg.FileName, FileMode.Create);
+        CurTurnir.Date = dtDate.Value;
+        CurTurnir.Name = tbTurnir.Text;
+        CurTurnir.Referee = tbReferee.Text;
+        bf.Serialize(fs, CurTurnir);
+        fs.Close();
+        curFile = saveDlg.FileName;
+      }
+    }
+
+    private void mnuOpen_Click(object sender, EventArgs e)
+    {
+      if (openDlg.ShowDialog() == DialogResult.OK)
+      {
+        curFile = openDlg.FileName;
+        fs = File.OpenRead(curFile);
+        CurTurnir = (Turnir)bf.Deserialize(fs);
+        fs.Close();
+      }
     }
   }
 }
