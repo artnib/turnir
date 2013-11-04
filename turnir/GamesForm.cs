@@ -31,7 +31,7 @@ namespace turnir
       if(index == -1) return;
       if (rr == null)
         rr = new RoundRobin(tur);
-      var games = rr.PendingGames((Player)cbPlayer.Items[index]);
+      var games = rr.PlayerGames((Player)cbPlayer.Items[index]);
       ShowGames(games);
     }
 
@@ -69,5 +69,25 @@ namespace turnir
 
     RoundRobin rr;
     List<Player> players;
+
+    private void lvGames_DoubleClick(object sender, EventArgs e)
+    {
+
+    }
+
+    private void lvGames_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      var selected = lvGames.SelectedItems;
+      cmenu.Enabled = selected.Count > 0;
+    }
+
+    private void white_Click(object sender, EventArgs e)
+    {
+      var lvi = lvGames.SelectedItems[0];
+      var game = (Game)lvi.Tag;
+      var result = GameResult.White;
+      game.Result = result;
+      lvi.SubItems[2].Text = Result(result);
+    }
   }
 }

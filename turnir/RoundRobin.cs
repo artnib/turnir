@@ -1,38 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace turnir
 {
   class RoundRobin
   {
-    /// <summary>
-    /// Генерирует список партий
-    /// </summary>
-    /// <param name="players">Список участников</param>
-    /// <returns>Список партий</returns>
-    static internal List<Game> GenerateGames(List<Player> players)
-    { 
-      var playerCount = players.Count;
-      var gameCount = (playerCount * playerCount - playerCount) / 2;
-      var games = new List<Game>(gameCount);
-      Game game;
-      foreach (Player player in players)
-      { 
-
-      }
-      return games;
-    }
-
     internal RoundRobin(Turnir tur)
     {
       this.tur = tur;
       players = tur.Players;
-      games = tur.Games;
     }
 
-    internal List<Game> PendingGames(Player player)
+    /// <summary>
+    /// Возвращает список партий участника
+    /// </summary>
+    /// <param name="player">Участник</param>
+    /// <returns>Список партий</returns>
+    internal List<Game> PlayerGames(Player player)
     {
       var playerCount = (Byte)players.Count;
       var pendingGames = new List<Game>(playerCount - 1);
@@ -60,13 +44,16 @@ namespace turnir
 
         if (even && (max == playerCount)) //последний номер при четном количестве участников
         {
-          //последний играет с верхней половиной черными
-          game.White = min;
-          game.Black = max;
-
-          //последний играет с нижней половиной белыми
-          game.White = max;
-          game.Black = min;
+          if (min <= playerCount / 2) //с верхней половиной черными
+          {
+            game.White = min;
+            game.Black = max;
+          }
+          else //с нижней половиной белыми
+          {
+            game.White = max;
+            game.Black = min;
+          }
         }
         else
         {
@@ -83,7 +70,17 @@ namespace turnir
             game.Black = max;
           }
         }
-        pendingGames.Add(game);
+        if (tur.Games == null)
+          tur.Games = new List<Game>((playerCount * playerCount - playerCount) / 2);
+        var oldGame = tur.Games.Find(
+          g => g.White == game.White && g.Black == game.Black);
+        if (oldGame != null)
+          pendingGames.Add(oldGame);
+        else
+        {
+          tur.Games.Add(game);
+          pendingGames.Add(game);
+        }
       }
       return pendingGames;
     }
