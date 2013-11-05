@@ -46,7 +46,13 @@ namespace turnir
     private void save_Click(object sender, EventArgs e)
     {
       var place = location.Text;
-      player = new Player { Name = name.Text, Location = place };
+      if (player == null)
+        player = new Player { Name = name.Text, Location = place };
+      else
+      {
+        player.Name = name.Text;
+        player.Location = place;
+      }
       if (place.Length > 0)
       {
         var locations = location.AutoCompleteCustomSource;
