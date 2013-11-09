@@ -40,8 +40,33 @@ namespace turnir
       if(index == -1) return;
       if (rr == null)
         rr = new RoundRobin(tur);
-      var games = rr.PlayerGames((Player)cbPlayer.Items[index]);
+      var player = (Player)cbPlayer.Items[index];
+      var games = rr.PlayerGames(player);
       ShowGames(games);
+      lbScore.Text = String.Format("Очки: {0}", PlayerScore(player, games));
+    }
+
+    Double PlayerScore(Player player, List<Game> games)
+    {
+      var score = 0.0;
+      foreach (Game game in games)
+      {
+        switch (game.Result)
+        { 
+          case GameResult.Draw:
+            score += 0.5;
+            break;
+          case GameResult.White:
+            if (game.White == player.Number)
+              score += 1;
+            break;
+          case GameResult.Black:
+            if (game.Black == player.Number)
+              score += 1;
+            break;
+        }
+      }
+      return score;
     }
 
     void ShowGames(List<Game> games)
