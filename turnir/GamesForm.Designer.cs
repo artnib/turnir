@@ -42,9 +42,12 @@
       this.draw = new System.Windows.Forms.ToolStripMenuItem();
       this.pnGames = new System.Windows.Forms.Panel();
       this.pnPlayer = new System.Windows.Forms.Panel();
+      this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+      this.lbScore = new System.Windows.Forms.ToolStripStatusLabel();
       this.cmenu.SuspendLayout();
       this.pnGames.SuspendLayout();
       this.pnPlayer.SuspendLayout();
+      this.statusStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
       // cbPlayer
@@ -147,6 +150,7 @@
       // pnGames
       // 
       this.pnGames.AutoSize = true;
+      this.pnGames.Controls.Add(this.statusStrip1);
       this.pnGames.Controls.Add(this.lvGames);
       this.pnGames.Controls.Add(this.label2);
       this.pnGames.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -165,6 +169,22 @@
       this.pnPlayer.Size = new System.Drawing.Size(514, 61);
       this.pnPlayer.TabIndex = 5;
       // 
+      // statusStrip1
+      // 
+      this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lbScore});
+      this.statusStrip1.Location = new System.Drawing.Point(0, 380);
+      this.statusStrip1.Name = "statusStrip1";
+      this.statusStrip1.Size = new System.Drawing.Size(514, 22);
+      this.statusStrip1.TabIndex = 4;
+      this.statusStrip1.Text = "statusStrip1";
+      // 
+      // lbScore
+      // 
+      this.lbScore.Name = "lbScore";
+      this.lbScore.Size = new System.Drawing.Size(39, 17);
+      this.lbScore.Text = "Очки:";
+      // 
       // GamesForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -177,7 +197,10 @@
       this.Load += new System.EventHandler(this.GamesForm_Load);
       this.cmenu.ResumeLayout(false);
       this.pnGames.ResumeLayout(false);
+      this.pnGames.PerformLayout();
       this.pnPlayer.ResumeLayout(false);
+      this.statusStrip1.ResumeLayout(false);
+      this.statusStrip1.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -198,5 +221,7 @@
     private System.Windows.Forms.ToolStripMenuItem white;
     private System.Windows.Forms.ToolStripMenuItem black;
     private System.Windows.Forms.ToolStripMenuItem draw;
+    private System.Windows.Forms.StatusStrip statusStrip1;
+    private System.Windows.Forms.ToolStripStatusLabel lbScore;
   }
 }
