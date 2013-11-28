@@ -46,13 +46,13 @@
       this.lnkNew = new System.Windows.Forms.LinkLabel();
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
       this.турнирToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
+      this.mnuOpen = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuPlayers = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuAddPlaeyr = new System.Windows.Forms.ToolStripMenuItem();
-      this.mnuGames = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuDel = new System.Windows.Forms.ToolStripMenuItem();
-      this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
+      this.mnuGames = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
-      this.mnuOpen = new System.Windows.Forms.ToolStripMenuItem();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
       this.tabControl1.SuspendLayout();
       this.tabPlayers.SuspendLayout();
@@ -111,6 +111,7 @@
             this.columnHeader3});
       this.lvPlayers.Dock = System.Windows.Forms.DockStyle.Fill;
       this.lvPlayers.FullRowSelect = true;
+      this.lvPlayers.GridLines = true;
       this.lvPlayers.HideSelection = false;
       this.lvPlayers.Location = new System.Drawing.Point(3, 3);
       this.lvPlayers.MultiSelect = false;
@@ -234,6 +235,20 @@
       this.турнирToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
       this.турнирToolStripMenuItem.Text = "Турнир";
       // 
+      // mnuSave
+      // 
+      this.mnuSave.Name = "mnuSave";
+      this.mnuSave.Size = new System.Drawing.Size(141, 22);
+      this.mnuSave.Text = "Сохранить...";
+      this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
+      // 
+      // mnuOpen
+      // 
+      this.mnuOpen.Name = "mnuOpen";
+      this.mnuOpen.Size = new System.Drawing.Size(141, 22);
+      this.mnuOpen.Text = "Открыть...";
+      this.mnuOpen.Click += new System.EventHandler(this.mnuOpen_Click);
+      // 
       // mnuPlayers
       // 
       this.mnuPlayers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -247,9 +262,16 @@
       // 
       this.mnuAddPlaeyr.Name = "mnuAddPlaeyr";
       this.mnuAddPlaeyr.ShortcutKeys = System.Windows.Forms.Keys.Insert;
-      this.mnuAddPlaeyr.Size = new System.Drawing.Size(152, 22);
+      this.mnuAddPlaeyr.Size = new System.Drawing.Size(148, 22);
       this.mnuAddPlaeyr.Text = "Добавить";
       this.mnuAddPlaeyr.Click += new System.EventHandler(this.mnuAddPlaeyr_Click);
+      // 
+      // mnuDel
+      // 
+      this.mnuDel.Name = "mnuDel";
+      this.mnuDel.Size = new System.Drawing.Size(148, 22);
+      this.mnuDel.Text = "Удалить";
+      this.mnuDel.Click += new System.EventHandler(this.mnuDel_Click);
       // 
       // mnuGames
       // 
@@ -258,32 +280,11 @@
       this.mnuGames.Text = "Партии";
       this.mnuGames.Click += new System.EventHandler(this.mnuGames_Click);
       // 
-      // mnuDel
-      // 
-      this.mnuDel.Name = "mnuDel";
-      this.mnuDel.Size = new System.Drawing.Size(152, 22);
-      this.mnuDel.Text = "Удалить";
-      this.mnuDel.Click += new System.EventHandler(this.mnuDel_Click);
-      // 
-      // mnuSave
-      // 
-      this.mnuSave.Name = "mnuSave";
-      this.mnuSave.Size = new System.Drawing.Size(152, 22);
-      this.mnuSave.Text = "Сохранить...";
-      this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
-      // 
       // saveDlg
       // 
       this.saveDlg.DefaultExt = "tur";
       this.saveDlg.Filter = "Турниры|*.tur";
       this.saveDlg.Title = "Сохранение турнира";
-      // 
-      // mnuOpen
-      // 
-      this.mnuOpen.Name = "mnuOpen";
-      this.mnuOpen.Size = new System.Drawing.Size(152, 22);
-      this.mnuOpen.Text = "Открыть...";
-      this.mnuOpen.Click += new System.EventHandler(this.mnuOpen_Click);
       // 
       // openDlg
       // 

@@ -65,6 +65,13 @@ namespace turnir
       {
         AddPlayer(player);
       }
+      ColumnHeader header;
+      for (int i = 1; i <= players.Count; i++)
+      {
+        header = lvPlayers.Columns.Add(i.ToString());
+        header.Width = 30;
+      }
+      lvPlayers.Columns.Add("Очки");
     }
 
     void SaveTurnir2()
@@ -167,13 +174,7 @@ namespace turnir
       AppDir = Path.GetDirectoryName(Application.ExecutablePath);
       LastPath = Path.Combine(AppDir, "last.txt");
       var files = Directory.GetFiles(AppDir, "*.tur");
-      //foreach (string file in files)
-      //{
-      //  AllTurnirs.Add(TurnirInfo(file));
-      //}
-      //turPath = Path.Combine(AppDir, "turnir.bin");
       turPath = File.ReadAllText(LastPath);
-      //RestoreTurnir();
       RestoreTurnir(turPath);
     }
 
@@ -229,8 +230,55 @@ namespace turnir
 
     ListViewItem PlayerToItem(Player player)
     {
-      return new ListViewItem(new string[]{
-          player.Number.ToString(), player.Name, player.Location});
+      var lvi=new ListViewItem(new string[]{
+          player.Number.ToString(), player.Name, player.Location, player.Title});
+      double totalScore = 0.0;
+      double score = 0.0;
+      for (int i = 1; i <= CurTurnir.Players.Count; i++)
+      {
+        if (i == player.Number)
+          lvi.SubItems.Add("X");
+        else
+        {
+          var game = CurTurnir.Games.Find(g => (g.Black == player.Number && g.White == i)
+            || (g.Black==i && g.White==player.Number));
+          if (game != null)
+          {
+            if (game.Result == GameResult.None)
+              lvi.SubItems.Add(String.Empty);
+            else
+            {
+              score = GameScore(game, player);
+              lvi.SubItems.Add(score.ToString());
+              totalScore += score;
+            }
+          }
+          else
+            lvi.SubItems.Add(String.Empty);
+        }
+      }
+      lvi.SubItems.Add(totalScore.ToString());
+      return lvi;
+    }
+
+    double GameScore(Game game, Player player)
+    {
+      var score = 0.0;
+      switch (game.Result)
+      {
+        case GameResult.Draw:
+          score = 0.5;
+          break;
+        case GameResult.White:
+          if (game.White == player.Number)
+            score = 1.0;
+          break;
+        case GameResult.Black:
+          if (game.Black == player.Number)
+            score = 1.0;
+          break;
+      }
+      return score;
     }
 
     void AddPlayer(Player player)
@@ -298,7 +346,9 @@ namespace turnir
     {
 
     }
-    
+
+    #region Работа с файлами турниров
+
     BinaryFormatter bf;
     FileStream fs;
     string curFile;
@@ -326,6 +376,13 @@ namespace turnir
         CurTurnir = (Turnir)bf.Deserialize(fs);
         fs.Close();
       }
+    }
+
+    #endregion
+
+    void UpateTable()
+    { 
+
     }
   }
 }
