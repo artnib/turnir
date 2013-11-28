@@ -126,7 +126,6 @@
     <Compile Include="Title.cs" />
     <Compile Include="Titles.cs" />
     <Compile Include="Turnir.cs" />
-    <Compile Include="Turnirs.cs" />
     <Compile Include="TurnirsForm.cs">
       <SubType>Form</SubType>
     </Compile>
