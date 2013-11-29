@@ -123,6 +123,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="RoundRobin.cs" />
+    <Compile Include="Setting.cs" />
     <Compile Include="Title.cs" />
     <Compile Include="Titles.cs" />
     <Compile Include="Turnir.cs" />
@@ -157,6 +158,12 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AppSettings\AppSettings.csproj">
+      <Project>{e6feb498-f005-4ace-b0b2-ccb9273589f2}</Project>
+      <Name>AppSettings</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

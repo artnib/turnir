@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using AppSettings;
 
 namespace turnir
 {
@@ -161,6 +162,7 @@ namespace turnir
       //SaveTurnir();
       SaveTurnir2();
       WriteLastTurnir();
+      SaveSettings();
     }
 
     private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -173,9 +175,11 @@ namespace turnir
       bf = new BinaryFormatter();
       AppDir = Path.GetDirectoryName(Application.ExecutablePath);
       LastPath = Path.Combine(AppDir, "last.txt");
-      var files = Directory.GetFiles(AppDir, "*.tur");
       turPath = File.ReadAllText(LastPath);
       RestoreTurnir(turPath);
+      xs = new XmlSettings(Path.GetFileNameWithoutExtension(Application.ExecutablePath));
+      xs.LoadSettings(Path.Combine(AppDir, "settings.xml"));
+      SetPosAndSize();
     }
 
     #endregion
@@ -384,5 +388,41 @@ namespace turnir
     { 
 
     }
+
+    #region Настройки формы
+
+    XmlSettings xs;
+
+    private void SetPosAndSize()
+    {
+      if (xs.ReadSetting(Setting.Maximized, false))
+        WindowState = FormWindowState.Maximized;
+      else
+      {
+        Visible = false;
+        WindowState = FormWindowState.Normal;
+        Left = xs.ReadSetting(Setting.Left, 0);
+        Top = xs.ReadSetting(Setting.Top, 0);
+        Width = xs.ReadSetting(Setting.Width, Width);
+        Height = xs.ReadSetting(Setting.Height, Height);
+        Visible = true;
+      }
+    }
+
+    private void SaveSettings()
+    {
+      bool maximized = WindowState == FormWindowState.Maximized;
+      xs.WriteSetting(Setting.Maximized, maximized);
+      if (!maximized)
+      {
+        xs.WriteSetting(Setting.Left, Left);
+        xs.WriteSetting(Setting.Top, Top);
+        xs.WriteSetting(Setting.Width, Width);
+        xs.WriteSetting(Setting.Height, Height);
+      }
+      xs.Save();
+    }
+
+    #endregion
   }
 }
