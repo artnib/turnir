@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using AppSettings;
+using System.Text;
 
 namespace turnir
 {
@@ -62,6 +63,7 @@ namespace turnir
 
     void PlayersToListView(List<Player> players)
     {
+      lvPlayers.BeginUpdate();
       foreach (Player player in players)
       {
         AddPlayer(player);
@@ -73,6 +75,8 @@ namespace turnir
         header.Width = 30;
       }
       lvPlayers.Columns.Add("Очки");
+      SetColumnWidth();
+      lvPlayers.EndUpdate();
     }
 
     void SaveTurnir2()
@@ -176,10 +180,10 @@ namespace turnir
       AppDir = Path.GetDirectoryName(Application.ExecutablePath);
       LastPath = Path.Combine(AppDir, "last.txt");
       turPath = File.ReadAllText(LastPath);
-      RestoreTurnir(turPath);
       xs = new XmlSettings(Path.GetFileNameWithoutExtension(Application.ExecutablePath));
       xs.LoadSettings(Path.Combine(AppDir, "settings.xml"));
       SetPosAndSize();
+      RestoreTurnir(turPath);
     }
 
     #endregion
@@ -411,6 +415,13 @@ namespace turnir
 
     private void SaveSettings()
     {
+      SavePosAndSize();
+      SaveColumnWidth();
+      xs.Save();
+    }
+
+    private void SavePosAndSize()
+    {
       bool maximized = WindowState == FormWindowState.Maximized;
       xs.WriteSetting(Setting.Maximized, maximized);
       if (!maximized)
@@ -420,8 +431,36 @@ namespace turnir
         xs.WriteSetting(Setting.Width, Width);
         xs.WriteSetting(Setting.Height, Height);
       }
-      xs.Save();
     }
+
+    #region Ширина столбцов таблицы
+
+    const char delim = ';';
+    
+    void SetColumnWidth()
+    {
+      var widths = xs.ReadSetting(Setting.Columns, String.Empty).Split(new char[] { delim });
+      int width;
+
+      for (int i = 0; i < widths.Length; i++)
+      {
+        if (Int32.TryParse(widths[i], out width))
+          if (i < lvPlayers.Columns.Count)
+            lvPlayers.Columns[i].Width = width;
+      }
+    }
+    void SaveColumnWidth()
+    {
+       var sb = new StringBuilder();
+      for (int i = 0; i < lvPlayers.Columns.Count; i++)
+      {
+        if (i > 0) sb.Append(delim);
+        sb.Append(lvPlayers.Columns[i].Width);
+      }
+      xs.WriteSetting(Setting.Columns, sb.ToString());
+    }
+
+    #endregion
 
     #endregion
   }
