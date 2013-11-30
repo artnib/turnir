@@ -81,6 +81,21 @@ namespace AppSettings
         return defaultValue;
     }
 
+    /// <summary>
+    /// Возвращает значение настройки
+    /// </summary>
+    /// <param name="name">Имя настройки</param>
+    /// <param name="defaultValue">Значение по умолчанию</param>
+    /// <returns></returns>
+    public string ReadSetting(string name, string defaultValue)
+    {
+      var setting = settings.Element(name);
+      if (setting == null)
+        return defaultValue;
+      else
+        return setting.Value;
+    }
+
     public void WriteSetting(string name, object value)
     {
       var setting = settings.Element(name);
