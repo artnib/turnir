@@ -6,9 +6,13 @@
   static class Setting
   {
     /// <summary>
-    /// 
+    /// Расстояние от левого края экрана
     /// </summary>
     internal const string Left = "Left";
+    
+    /// <summary>
+    /// Расстояние от верхнего края экрана
+    /// </summary>
     internal const string Top = "Top";
     
     /// <summary>
@@ -22,5 +26,10 @@
     internal const string Width = "Width";
 
     internal const string Maximized = "Maximized";
+
+    /// <summary>
+    /// Ширина столбцов таблицы
+    /// </summary>
+    internal const string Columns = "Columns";
   }
 }
