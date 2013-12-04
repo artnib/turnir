@@ -11,27 +11,6 @@ namespace turnir
 {
   public partial class Form1 : Form
   {
-    /// <summary>
-    /// Сохраняет данные текущего турнира
-    /// </summary>
-    void SaveTurnir()
-    {
-      if (CurTurnir == null)
-      {
-        CurTurnir = new Turnir();
-      }
-      if(String.IsNullOrEmpty(CurTurnir.FileName))
-      {
-        FileName = Guid.NewGuid().ToString("N") + ".tur";
-      }
-      var TurnirPath = Path.Combine(AppDir, FileName);
-      var bw = new BinaryWriter(File.Create(TurnirPath));
-      bw.Write(dtDate.Value.ToBinary());
-      bw.Write(tbTurnir.Text);
-      bw.Close();
-      WriteLastTurnir();
-    }
-
     string turPath;
 
     Player PlayerFromItem(ListViewItem lvi)
@@ -43,6 +22,8 @@ namespace turnir
         Location = lvi.SubItems[2].Text
       };
     }
+    
+    #region Таблица участников
 
     List<Player> PlayersFromListView()
     {
@@ -79,23 +60,21 @@ namespace turnir
       lvPlayers.EndUpdate();
     }
 
-    void SaveTurnir2()
+    #endregion
+
+    void SaveTurnir(string turPath)
     {
-      var fs = new FileStream(curFile, FileMode.Create);
+      if (String.IsNullOrEmpty(turPath))
+        if (saveDlg.ShowDialog(this) == DialogResult.OK)
+          turPath = saveDlg.FileName;
+      var fs = new FileStream(turPath, FileMode.Create);
       var bf = new BinaryFormatter();
       CurTurnir.Date = dtDate.Value;
       CurTurnir.Name = tbTurnir.Text;
       CurTurnir.Referee = tbReferee.Text;
-      //CurTurnir.Players = PlayersFromListView();
       bf.Serialize(fs, CurTurnir);
       fs.Close();
-    }
-
-    void WriteLastTurnir()
-    {
-      var sw = new StreamWriter(LastPath);
-      sw.Write(curFile);
-      sw.Close();
+      curFile = turPath;
     }
 
     void RestoreTurnir(string turPath)
@@ -112,11 +91,10 @@ namespace turnir
           tbReferee.Text = CurTurnir.Referee;
           PlayersToListView(CurTurnir.Players);
         }
-        else
-          CurTurnir = new Turnir();
         fs.Close();
         curFile = turPath;
       }
+      if (CurTurnir == null) CurTurnir = new Turnir();
     }
 
     /// <summary>
@@ -124,32 +102,22 @@ namespace turnir
     /// </summary>
     void NewTurnir()
     {
+      SaveTurnir(curFile); //сохраняем текущий турнир
+      curFile = String.Empty;
+      CurTurnir = new Turnir();
       tbTurnir.Text = "Турнир";
       dtDate.Value = DateTime.Now;
-      AllPlayers = new List<Player>();
+      lvPlayers.Items.Clear();
+      //удаляем все столбцы между столбцами "Разряд" и "Очки"
+      while (lvPlayers.Columns.Count > 5)
+      {
+        lvPlayers.Columns.RemoveAt(4);
+      }    
     }
 
-    Turnir TurnirInfo(string FilePath)
-    {
-      var t = new Turnir();
-      t.FileName = Path.GetFileName(FilePath);
-      var br = new BinaryReader(File.Open(FilePath,FileMode.Open));
-      t.Date = DateTime.FromBinary(br.ReadInt64());
-      t.Name = br.ReadString();
-      br.Close();
-      return t;
-    }
-
-    /// <summary>
-    /// Список участников, отображаемый в текущий момент
-    /// </summary>
-    List<Player> AllPlayers;
-    List<Turnir> AllTurnirs = new List<Turnir>();
-    object LastTurnir;
     string AppDir;
     Turnir CurTurnir;
     string FileName;
-    string FilePath;
     string LastPath;
 
     PlayerForm playerForm;
@@ -163,26 +131,19 @@ namespace turnir
 
     private void Form1_FormClosed(object sender, FormClosedEventArgs e)
     {
-      //SaveTurnir();
-      SaveTurnir2();
-      WriteLastTurnir();
+      SaveTurnir(curFile);
       SaveSettings();
-    }
-
-    private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-    {
-
     }
 
     private void Form1_Load(object sender, System.EventArgs e)
     {
       bf = new BinaryFormatter();
       AppDir = Path.GetDirectoryName(Application.ExecutablePath);
-      LastPath = Path.Combine(AppDir, "last.txt");
-      turPath = File.ReadAllText(LastPath);
+      
       xs = new XmlSettings(Path.GetFileNameWithoutExtension(Application.ExecutablePath));
       xs.LoadSettings(Path.Combine(AppDir, "settings.xml"));
       SetPosAndSize();
+      turPath = xs.ReadSetting(Setting.LastFile, String.Empty);
       RestoreTurnir(turPath);
     }
 
@@ -233,12 +194,13 @@ namespace turnir
       if (player == null) return;
       var lvItems = lvPlayers.Items;
       player.Number = (Byte)(lvItems.Count + 1);
+      CurTurnir.Players.Add(player);
       AddPlayer(player);
     }
 
     ListViewItem PlayerToItem(Player player)
     {
-      var lvi=new ListViewItem(new string[]{
+      var lvi = new ListViewItem(new string[]{
           player.Number.ToString(), player.Name, player.Location, player.Title});
       double totalScore = 0.0;
       double score = 0.0;
@@ -348,6 +310,7 @@ namespace turnir
       if (selected.Count > 0)
         gamesForm.SetPlayer(selected[0]);
       gamesForm.ShowDialog(this);
+      UpateTable();
     }
 
     private void mnuDel_Click(object sender, EventArgs e)
@@ -380,17 +343,21 @@ namespace turnir
       if (openDlg.ShowDialog() == DialogResult.OK)
       {
         curFile = openDlg.FileName;
-        fs = File.OpenRead(curFile);
-        CurTurnir = (Turnir)bf.Deserialize(fs);
-        fs.Close();
+        RestoreTurnir(curFile);
       }
     }
 
     #endregion
 
     void UpateTable()
-    { 
-
+    {
+      lvPlayers.BeginUpdate();
+      lvPlayers.Items.Clear();
+      foreach (Player player in CurTurnir.Players)
+      {
+        AddPlayer(player);
+      }
+      lvPlayers.EndUpdate();
     }
 
     #region Настройки формы
@@ -417,6 +384,7 @@ namespace turnir
     {
       SavePosAndSize();
       SaveColumnWidth();
+      xs.WriteSetting(Setting.LastFile, curFile);
       xs.Save();
     }
 
@@ -461,6 +429,11 @@ namespace turnir
     }
 
     #endregion
+
+    private void mnuNewTurnir_Click(object sender, EventArgs e)
+    {
+      NewTurnir();
+    }
 
     #endregion
   }
