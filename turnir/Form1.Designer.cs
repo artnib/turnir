@@ -48,6 +48,7 @@
       this.турнирToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuOpen = new System.Windows.Forms.ToolStripMenuItem();
+      this.mnuNewTurnir = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuPlayers = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuAddPlaeyr = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuDel = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,7 +88,7 @@
       this.tabControl1.Location = new System.Drawing.Point(0, 24);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
-      this.tabControl1.Size = new System.Drawing.Size(734, 490);
+      this.tabControl1.Size = new System.Drawing.Size(734, 297);
       this.tabControl1.TabIndex = 4;
       this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
       // 
@@ -98,7 +99,7 @@
       this.tabPlayers.Location = new System.Drawing.Point(4, 22);
       this.tabPlayers.Name = "tabPlayers";
       this.tabPlayers.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPlayers.Size = new System.Drawing.Size(726, 464);
+      this.tabPlayers.Size = new System.Drawing.Size(726, 271);
       this.tabPlayers.TabIndex = 1;
       this.tabPlayers.Text = "Участники";
       // 
@@ -116,7 +117,7 @@
       this.lvPlayers.Location = new System.Drawing.Point(3, 3);
       this.lvPlayers.MultiSelect = false;
       this.lvPlayers.Name = "lvPlayers";
-      this.lvPlayers.Size = new System.Drawing.Size(720, 458);
+      this.lvPlayers.Size = new System.Drawing.Size(720, 265);
       this.lvPlayers.TabIndex = 5;
       this.lvPlayers.UseCompatibleStateImageBehavior = false;
       this.lvPlayers.View = System.Windows.Forms.View.Details;
@@ -156,7 +157,7 @@
       this.tabStart.Location = new System.Drawing.Point(4, 22);
       this.tabStart.Name = "tabStart";
       this.tabStart.Padding = new System.Windows.Forms.Padding(3);
-      this.tabStart.Size = new System.Drawing.Size(726, 464);
+      this.tabStart.Size = new System.Drawing.Size(726, 271);
       this.tabStart.TabIndex = 0;
       this.tabStart.Text = "Турнир";
       // 
@@ -230,7 +231,8 @@
       // 
       this.турнирToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuSave,
-            this.mnuOpen});
+            this.mnuOpen,
+            this.mnuNewTurnir});
       this.турнирToolStripMenuItem.Name = "турнирToolStripMenuItem";
       this.турнирToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
       this.турнирToolStripMenuItem.Text = "Турнир";
@@ -248,6 +250,13 @@
       this.mnuOpen.Size = new System.Drawing.Size(141, 22);
       this.mnuOpen.Text = "Открыть...";
       this.mnuOpen.Click += new System.EventHandler(this.mnuOpen_Click);
+      // 
+      // mnuNewTurnir
+      // 
+      this.mnuNewTurnir.Name = "mnuNewTurnir";
+      this.mnuNewTurnir.Size = new System.Drawing.Size(141, 22);
+      this.mnuNewTurnir.Text = "Создать...";
+      this.mnuNewTurnir.Click += new System.EventHandler(this.mnuNewTurnir_Click);
       // 
       // mnuPlayers
       // 
@@ -295,13 +304,12 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(734, 514);
+      this.ClientSize = new System.Drawing.Size(734, 321);
       this.Controls.Add(this.tabControl1);
       this.Controls.Add(this.menuStrip1);
       this.MainMenuStrip = this.menuStrip1;
       this.Name = "Form1";
       this.Text = "Турнир";
-      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
       this.Load += new System.EventHandler(this.Form1_Load);
       this.tabControl1.ResumeLayout(false);
@@ -351,6 +359,7 @@
     private System.Windows.Forms.SaveFileDialog saveDlg;
     private System.Windows.Forms.ToolStripMenuItem mnuOpen;
     private System.Windows.Forms.OpenFileDialog openDlg;
+    private System.Windows.Forms.ToolStripMenuItem mnuNewTurnir;
   }
 }
 

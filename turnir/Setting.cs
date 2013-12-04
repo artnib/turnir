@@ -31,5 +31,10 @@
     /// Ширина столбцов таблицы
     /// </summary>
     internal const string Columns = "Columns";
+
+    /// <summary>
+    /// Файл последнего турнира
+    /// </summary>
+    internal const string LastFile = "LastFile";
   }
 }

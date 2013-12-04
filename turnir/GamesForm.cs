@@ -18,6 +18,10 @@ namespace turnir
       players = tur.Players;
     }
 
+    /// <summary>
+    /// Выбирает заданного участника
+    /// </summary>
+    /// <param name="index">Индекс участника</param>
     internal void SetPlayer(int index)
     {
       playerIndex = index;
