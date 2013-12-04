@@ -27,5 +27,11 @@ namespace turnir
     /// Список партий
     /// </summary>
     internal List<Game> Games;
+
+    internal Turnir()
+    {
+      Players = new List<Player>();
+      Games = new List<Game>();
+    }
   }
 }
