@@ -55,6 +55,7 @@
       this.mnuGames = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
+      this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.tabControl1.SuspendLayout();
       this.tabPlayers.SuspendLayout();
       this.tabStart.SuspendLayout();
@@ -109,7 +110,8 @@
             this.colNumber,
             this.columnHeader1,
             this.columnHeader2,
-            this.columnHeader3});
+            this.columnHeader3,
+            this.columnHeader4});
       this.lvPlayers.Dock = System.Windows.Forms.DockStyle.Fill;
       this.lvPlayers.FullRowSelect = true;
       this.lvPlayers.GridLines = true;
@@ -300,6 +302,10 @@
       this.openDlg.Filter = "Турниры|*.tur";
       this.openDlg.Title = "Открытие турнира";
       // 
+      // columnHeader4
+      // 
+      this.columnHeader4.Text = "Очки";
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -360,6 +366,7 @@
     private System.Windows.Forms.ToolStripMenuItem mnuOpen;
     private System.Windows.Forms.OpenFileDialog openDlg;
     private System.Windows.Forms.ToolStripMenuItem mnuNewTurnir;
+    private System.Windows.Forms.ColumnHeader columnHeader4;
   }
 }
 

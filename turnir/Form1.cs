@@ -49,6 +49,8 @@ namespace turnir
 
     void PlayersToListView(List<Player> players)
     {
+      lvPlayers.Items.Clear();
+      RemoveTempColumns();
       lvPlayers.BeginUpdate();
       foreach (Player player in players)
       {
@@ -57,10 +59,8 @@ namespace turnir
       ColumnHeader header;
       for (int i = 1; i <= players.Count; i++)
       {
-        header = lvPlayers.Columns.Add(i.ToString());
-        header.Width = 30;
+        lvPlayers.Columns.Insert(lvPlayers.Columns.Count - 1, i.ToString(), 30);
       }
-      lvPlayers.Columns.Add("Очки");
       SetColumnWidth();
       lvPlayers.EndUpdate();
     }
@@ -113,11 +113,18 @@ namespace turnir
       tbTurnir.Text = "Турнир";
       dtDate.Value = DateTime.Now;
       lvPlayers.Items.Clear();
-      //удаляем все столбцы между столбцами "Разряд" и "Очки"
+      RemoveTempColumns();    
+    }
+
+    /// <summary>
+    /// Удаляет все столбцы между столбцами "Разряд" и "Очки"
+    /// </summary>
+    private void RemoveTempColumns()
+    {
       while (lvPlayers.Columns.Count > 5)
       {
         lvPlayers.Columns.RemoveAt(4);
-      }    
+      }
     }
 
     string AppDir;
