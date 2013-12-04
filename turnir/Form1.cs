@@ -98,6 +98,7 @@ namespace turnir
         }
         fs.Close();
         curFile = turPath;
+        UpdateCaption();
       }
       if (CurTurnir == null) CurTurnir = new Turnir();
     }
@@ -173,7 +174,7 @@ namespace turnir
  
     private void tbTurnir_TextChanged(object sender, System.EventArgs e)
     {
-      if (String.IsNullOrEmpty(tbTurnir.Text))
+      if (!String.IsNullOrEmpty(tbTurnir.Text))
       {
         tbTurnir.Text = "У турнира должно быть название";
         tbTurnir.ForeColor = Color.Red;
@@ -349,6 +350,7 @@ namespace turnir
         bf.Serialize(fs, CurTurnir);
         fs.Close();
         curFile = saveDlg.FileName;
+        UpdateCaption();
       }
     }
 
@@ -359,6 +361,11 @@ namespace turnir
         curFile = openDlg.FileName;
         RestoreTurnir(curFile);
       }
+    }
+
+    void UpdateCaption()
+    {
+      Text = Path.GetFileNameWithoutExtension(curFile);
     }
 
     #endregion

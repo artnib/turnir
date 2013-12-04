@@ -79,7 +79,6 @@
       this.tbTurnir.ScrollBars = System.Windows.Forms.ScrollBars.Both;
       this.tbTurnir.Size = new System.Drawing.Size(500, 39);
       this.tbTurnir.TabIndex = 1;
-      this.tbTurnir.TextChanged += new System.EventHandler(this.tbTurnir_TextChanged);
       // 
       // tabControl1
       // 
