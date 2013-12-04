@@ -14,13 +14,18 @@ namespace turnir
     string turPath;
 
     Player PlayerFromItem(ListViewItem lvi)
-    { 
-      return new Player
+    {
+      if (lvi.Tag == null)
       {
-        Number = Byte.Parse(lvi.SubItems[0].Text),
-        Name = lvi.SubItems[1].Text,
-        Location = lvi.SubItems[2].Text
-      };
+        return new Player
+        {
+          Number = Byte.Parse(lvi.SubItems[0].Text),
+          Name = lvi.SubItems[1].Text,
+          Location = lvi.SubItems[2].Text
+        };
+      }
+      else
+        return (Player)lvi.Tag;
     }
     
     #region Таблица участников
@@ -228,6 +233,7 @@ namespace turnir
         }
       }
       lvi.SubItems.Add(totalScore.ToString());
+      lvi.Tag = player;
       return lvi;
     }
 
@@ -266,6 +272,7 @@ namespace turnir
     {
       item.SubItems[1].Text = player.Name;
       item.SubItems[2].Text = player.Location;
+      item.Tag = player;
     }
 
     private void lvPlayers_DoubleClick(object sender, EventArgs e)
