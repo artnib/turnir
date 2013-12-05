@@ -103,6 +103,8 @@ namespace turnir
       if (CurTurnir == null) CurTurnir = new Turnir();
     }
 
+    const string defaultCaption = "Турнир";
+
     /// <summary>
     /// Подготовка к работе с новым турниром
     /// </summary>
@@ -112,6 +114,7 @@ namespace turnir
       curFile = String.Empty;
       CurTurnir = new Turnir();
       tbTurnir.Text = "Турнир";
+      Text = defaultCaption;
       dtDate.Value = DateTime.Now;
       lvPlayers.Items.Clear();
       RemoveTempColumns();    
