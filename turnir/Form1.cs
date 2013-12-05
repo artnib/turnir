@@ -56,11 +56,6 @@ namespace turnir
       {
         AddPlayer(player);
       }
-      ColumnHeader header;
-      for (int i = 1; i <= players.Count; i++)
-      {
-        lvPlayers.Columns.Insert(lvPlayers.Columns.Count - 1, i.ToString(), 30);
-      }
       SetColumnWidth();
       lvPlayers.EndUpdate();
     }
@@ -211,7 +206,7 @@ namespace turnir
       var lvItems = lvPlayers.Items;
       player.Number = (Byte)(lvItems.Count + 1);
       CurTurnir.Players.Add(player);
-      AddPlayer(player);
+      UpdatePlayerTable();
     }
 
     ListViewItem PlayerToItem(Player player)
@@ -243,8 +238,14 @@ namespace turnir
             lvi.SubItems.Add(String.Empty);
         }
       }
-      lvi.SubItems.Add(totalScore.ToString());
+      
       lvi.Tag = player;
+      if ((lvPlayers.Columns.Count - 5) < CurTurnir.Players.Count)
+      {
+        lvPlayers.Columns.Insert(lvPlayers.Columns.Count - 1,
+          player.Number.ToString(), 30);
+      }
+      lvi.SubItems.Add(totalScore.ToString());
       return lvi;
     }
 
@@ -328,7 +329,7 @@ namespace turnir
       if (selected.Count > 0)
         gamesForm.SetPlayer(selected[0]);
       gamesForm.ShowDialog(this);
-      UpateTable();
+      UpdatePlayerTable();
     }
 
     private void mnuDel_Click(object sender, EventArgs e)
@@ -373,7 +374,7 @@ namespace turnir
 
     #endregion
 
-    void UpateTable()
+    void UpdatePlayerTable()
     {
       lvPlayers.BeginUpdate();
       lvPlayers.Items.Clear();
