@@ -18,6 +18,12 @@ namespace turnir
       players = tur.Players;
     }
 
+    internal GamesForm(Turnir tur, TurnirForm mainForm)
+      : this(tur)
+    {
+      this.mainForm = mainForm;
+    }
+
     /// <summary>
     /// Выбирает заданного участника
     /// </summary>
@@ -29,6 +35,7 @@ namespace turnir
 
     int playerIndex = -1;
     Turnir tur;
+    TurnirForm mainForm;
 
     private void GamesForm_Load(object sender, EventArgs e)
     {
@@ -130,6 +137,8 @@ namespace turnir
       var game = (Game)lvi.Tag;
       game.Result = result;
       lvi.SubItems[2].Text = Result(result);
+      if (mainForm != null)
+        mainForm.UpdatePlayerTable();
     }
 
     private void black_Click(object sender, EventArgs e)

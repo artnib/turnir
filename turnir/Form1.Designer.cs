@@ -1,6 +1,6 @@
 ﻿namespace turnir
 {
-  partial class Form1
+  partial class TurnirForm
   {
     /// <summary>
     /// Required designer variable.
@@ -37,6 +37,7 @@
       this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.tabStart = new System.Windows.Forms.TabPage();
       this.tbReferee = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
@@ -55,7 +56,6 @@
       this.mnuGames = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
-      this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.tabControl1.SuspendLayout();
       this.tabPlayers.SuspendLayout();
       this.tabStart.SuspendLayout();
@@ -143,6 +143,10 @@
       // columnHeader3
       // 
       this.columnHeader3.Text = "Разряд";
+      // 
+      // columnHeader4
+      // 
+      this.columnHeader4.Text = "Очки";
       // 
       // tabStart
       // 
@@ -301,11 +305,7 @@
       this.openDlg.Filter = "Турниры|*.tur";
       this.openDlg.Title = "Открытие турнира";
       // 
-      // columnHeader4
-      // 
-      this.columnHeader4.Text = "Очки";
-      // 
-      // Form1
+      // TurnirForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -313,7 +313,7 @@
       this.Controls.Add(this.tabControl1);
       this.Controls.Add(this.menuStrip1);
       this.MainMenuStrip = this.menuStrip1;
-      this.Name = "Form1";
+      this.Name = "TurnirForm";
       this.Text = "Турнир";
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
       this.Load += new System.EventHandler(this.Form1_Load);

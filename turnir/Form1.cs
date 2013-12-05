@@ -9,7 +9,7 @@ using System.Text;
 
 namespace turnir
 {
-  public partial class Form1 : Form
+  public partial class TurnirForm : Form
   {
     string turPath;
 
@@ -133,7 +133,7 @@ namespace turnir
 
     PlayerForm playerForm;
 
-    public Form1()
+    public TurnirForm()
     {
       InitializeComponent();
     }
@@ -324,7 +324,7 @@ namespace turnir
     private void mnuGames_Click(object sender, EventArgs e)
     {
       if (gamesForm == null)
-        gamesForm = new GamesForm(CurTurnir);
+        gamesForm = new GamesForm(CurTurnir, this);
       var selected = lvPlayers.SelectedIndices;
       if (selected.Count > 0)
         gamesForm.SetPlayer(selected[0]);
@@ -374,7 +374,10 @@ namespace turnir
 
     #endregion
 
-    void UpdatePlayerTable()
+    /// <summary>
+    /// Обновляет турнирную таблицу
+    /// </summary>
+    internal void UpdatePlayerTable()
     {
       lvPlayers.BeginUpdate();
       lvPlayers.Items.Clear();
