@@ -37,11 +37,14 @@ namespace turnir
         {
           name.Text = value.Name;
           location.Text = value.Location;
+          cbTitle.Text = value.Title;
         }
       }
     }
 
     Player player;
+
+
 
     private void save_Click(object sender, EventArgs e)
     {
@@ -52,6 +55,7 @@ namespace turnir
       {
         player.Name = name.Text;
         player.Location = place;
+        player.Title = cbTitle.Text;
       }
       if (place.Length > 0)
       {
