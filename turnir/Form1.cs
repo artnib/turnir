@@ -325,7 +325,10 @@ namespace turnir
     private void mnuGames_Click(object sender, EventArgs e)
     {
       if (gamesForm == null)
+      {
         gamesForm = new GamesForm(CurTurnir, this);
+        SetGameBounds();
+      }
       var selected = lvPlayers.SelectedIndices;
       if (selected.Count > 0)
         gamesForm.SetPlayer(selected[0]);
@@ -413,6 +416,7 @@ namespace turnir
     {
       SavePosAndSize();
       SaveColumnWidth();
+      SaveGameBounds();
       xs.WriteSetting(Setting.LastFile, curFile);
       xs.Save();
     }
@@ -428,6 +432,31 @@ namespace turnir
         xs.WriteSetting(Setting.Width, Width);
         xs.WriteSetting(Setting.Height, Height);
       }
+    }
+
+    /// <summary>
+    /// Сохраняет размер и положение формы партий
+    /// </summary>
+    internal void SaveGameBounds()
+    {
+      if (gamesForm != null)
+      {
+        xs.WriteSetting(Setting.GameLeft, gamesForm.Left);
+        xs.WriteSetting(Setting.GameTop, gamesForm.Top);
+        xs.WriteSetting(Setting.GameWidth, gamesForm.Width);
+        xs.WriteSetting(Setting.GameHeight, gamesForm.Height);
+      }
+    }
+
+    /// <summary>
+    /// Задает размер и положение формы партий
+    /// </summary>
+    void SetGameBounds()
+    {
+      gamesForm.Left = xs.ReadSetting(Setting.GameLeft, gamesForm.Left);
+      gamesForm.Top = xs.ReadSetting(Setting.GameTop, gamesForm.Top);
+      gamesForm.Width = xs.ReadSetting(Setting.GameWidth, gamesForm.Width);
+      gamesForm.Height = xs.ReadSetting(Setting.GameHeight, gamesForm.Height);
     }
 
     #region Ширина столбцов таблицы
