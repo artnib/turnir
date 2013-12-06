@@ -32,7 +32,7 @@
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
       this.location = new System.Windows.Forms.TextBox();
-      this.comboBox1 = new System.Windows.Forms.ComboBox();
+      this.cbTitle = new System.Windows.Forms.ComboBox();
       this.label3 = new System.Windows.Forms.Label();
       this.save = new System.Windows.Forms.Button();
       this.cancel = new System.Windows.Forms.Button();
@@ -73,27 +73,27 @@
       this.location.Size = new System.Drawing.Size(200, 20);
       this.location.TabIndex = 3;
       // 
-      // comboBox1
+      // cbTitle
       // 
-      this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-      this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-      this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.comboBox1.FormattingEnabled = true;
-      this.comboBox1.Items.AddRange(new object[] {
-            "без разряда",
-            "3 юношеский разряд",
-            "2 юношеский разряд",
-            "1 юношеский разряд",
-            "4 разряд",
-            "3 разряд",
-            "2 разряд",
-            "1 разряд",
-            "кандидат в мастера спорта",
-            "мастер спорта"});
-      this.comboBox1.Location = new System.Drawing.Point(12, 129);
-      this.comboBox1.Name = "comboBox1";
-      this.comboBox1.Size = new System.Drawing.Size(200, 21);
-      this.comboBox1.TabIndex = 4;
+      this.cbTitle.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+      this.cbTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+      this.cbTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbTitle.FormattingEnabled = true;
+      this.cbTitle.Items.AddRange(new object[] {
+            "-",
+            "3 ю.",
+            "2 ю.",
+            "1 ю.",
+            "4",
+            "3",
+            "2",
+            "1",
+            "кмс",
+            "мс"});
+      this.cbTitle.Location = new System.Drawing.Point(12, 129);
+      this.cbTitle.Name = "cbTitle";
+      this.cbTitle.Size = new System.Drawing.Size(200, 21);
+      this.cbTitle.TabIndex = 4;
       // 
       // label3
       // 
@@ -137,7 +137,7 @@
       this.Controls.Add(this.cancel);
       this.Controls.Add(this.save);
       this.Controls.Add(this.label3);
-      this.Controls.Add(this.comboBox1);
+      this.Controls.Add(this.cbTitle);
       this.Controls.Add(this.location);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.label1);
@@ -160,7 +160,7 @@
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.TextBox location;
-    private System.Windows.Forms.ComboBox comboBox1;
+    private System.Windows.Forms.ComboBox cbTitle;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.Button save;
     private System.Windows.Forms.Button cancel;

@@ -284,6 +284,7 @@ namespace turnir
     {
       item.SubItems[1].Text = player.Name;
       item.SubItems[2].Text = player.Location;
+      item.SubItems[3].Text = player.Title;
       item.Tag = player;
     }
 
