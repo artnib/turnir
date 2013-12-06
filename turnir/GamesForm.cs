@@ -97,21 +97,6 @@ namespace turnir
       }
     }
 
-    string Result(GameResult result)
-    {
-      switch (result)
-      { 
-        case GameResult.Black:
-          return "0-1";
-        case GameResult.White:
-          return "1-0";
-        case GameResult.Draw:
-          return "=";
-        default:
-          return String.Empty;
-      }
-    }
-
     RoundRobin rr;
     List<Player> players;
 
@@ -126,9 +111,26 @@ namespace turnir
       cmenu.Enabled = selected.Count > 0;
     }
 
+    #region Результаты партий
+
     private void white_Click(object sender, EventArgs e)
     {
       SetResult(GameResult.White);
+    }
+
+    string Result(GameResult result)
+    {
+      switch (result)
+      {
+        case GameResult.Black:
+          return "0-1";
+        case GameResult.White:
+          return "1-0";
+        case GameResult.Draw:
+          return "=";
+        default:
+          return String.Empty;
+      }
     }
 
     void SetResult(GameResult result)
@@ -150,5 +152,8 @@ namespace turnir
     {
       SetResult(GameResult.Draw);
     }
+
+    #endregion
+
   }
 }

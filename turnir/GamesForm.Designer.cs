@@ -41,13 +41,13 @@
       this.black = new System.Windows.Forms.ToolStripMenuItem();
       this.draw = new System.Windows.Forms.ToolStripMenuItem();
       this.pnGames = new System.Windows.Forms.Panel();
-      this.pnPlayer = new System.Windows.Forms.Panel();
       this.statusStrip1 = new System.Windows.Forms.StatusStrip();
       this.lbScore = new System.Windows.Forms.ToolStripStatusLabel();
+      this.pnPlayer = new System.Windows.Forms.Panel();
       this.cmenu.SuspendLayout();
       this.pnGames.SuspendLayout();
-      this.pnPlayer.SuspendLayout();
       this.statusStrip1.SuspendLayout();
+      this.pnPlayer.SuspendLayout();
       this.SuspendLayout();
       // 
       // cbPlayer
@@ -159,16 +159,6 @@
       this.pnGames.Size = new System.Drawing.Size(514, 402);
       this.pnGames.TabIndex = 4;
       // 
-      // pnPlayer
-      // 
-      this.pnPlayer.Controls.Add(this.cbPlayer);
-      this.pnPlayer.Controls.Add(this.label1);
-      this.pnPlayer.Dock = System.Windows.Forms.DockStyle.Top;
-      this.pnPlayer.Location = new System.Drawing.Point(0, 0);
-      this.pnPlayer.Name = "pnPlayer";
-      this.pnPlayer.Size = new System.Drawing.Size(514, 61);
-      this.pnPlayer.TabIndex = 5;
-      // 
       // statusStrip1
       // 
       this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -185,6 +175,16 @@
       this.lbScore.Size = new System.Drawing.Size(39, 17);
       this.lbScore.Text = "Очки:";
       // 
+      // pnPlayer
+      // 
+      this.pnPlayer.Controls.Add(this.cbPlayer);
+      this.pnPlayer.Controls.Add(this.label1);
+      this.pnPlayer.Dock = System.Windows.Forms.DockStyle.Top;
+      this.pnPlayer.Location = new System.Drawing.Point(0, 0);
+      this.pnPlayer.Name = "pnPlayer";
+      this.pnPlayer.Size = new System.Drawing.Size(514, 61);
+      this.pnPlayer.TabIndex = 5;
+      // 
       // GamesForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -193,14 +193,15 @@
       this.Controls.Add(this.pnGames);
       this.Controls.Add(this.pnPlayer);
       this.Name = "GamesForm";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
       this.Text = "Партии";
       this.Load += new System.EventHandler(this.GamesForm_Load);
       this.cmenu.ResumeLayout(false);
       this.pnGames.ResumeLayout(false);
       this.pnGames.PerformLayout();
-      this.pnPlayer.ResumeLayout(false);
       this.statusStrip1.ResumeLayout(false);
       this.statusStrip1.PerformLayout();
+      this.pnPlayer.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
 
