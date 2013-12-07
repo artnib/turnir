@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("turnir")]
+[assembly: AssemblyTitle("Турнирный помощник")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("TOSHIBA")]
-[assembly: AssemblyProduct("turnir")]
-[assembly: AssemblyCopyright("Copyright © TOSHIBA 2012")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Турнирный помощник")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
