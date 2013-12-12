@@ -56,6 +56,7 @@ namespace turnir
       {
         AddPlayer(player);
       }
+      AddPlayerColumns();
       SetColumnWidth();
       lvPlayers.EndUpdate();
     }
@@ -126,10 +127,22 @@ namespace turnir
       }
     }
 
-    string AppDir;
+    /// <summary>
+    /// Начальная ширина столбца с очками за партию
+    /// </summary>
+    const int columnWidth = 30;
+
+    void AddPlayerColumns()
+    {
+      while ((lvPlayers.Columns.Count - 5) < CurTurnir.Players.Count)
+      {
+        lvPlayers.Columns.Insert(lvPlayers.Columns.Count - 1,
+          (lvPlayers.Columns.Count - 4).ToString(), columnWidth);
+      }
+    }
+
+    string  AppDir;
     Turnir CurTurnir;
-    string FileName;
-    string LastPath;
 
     PlayerForm playerForm;
 
@@ -194,6 +207,8 @@ namespace turnir
       e.Row.Cells[2].Value = String.Empty;
     }
 
+    #region Меню "Участники"
+
     private void mnuAddPlaeyr_Click(object sender, EventArgs e)
     {
       if (playerForm == null)
@@ -209,13 +224,21 @@ namespace turnir
       UpdatePlayerTable();
     }
 
+    private void mnuDel_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    #endregion
+
     ListViewItem PlayerToItem(Player player)
     {
       var lvi = new ListViewItem(new string[]{
           player.Number.ToString(), player.Name, player.Location, player.Title});
       double totalScore = 0.0;
       double score = 0.0;
-      for (int i = 1; i <= CurTurnir.Players.Count; i++)
+      var playerCount = CurTurnir.Players.Count;
+      for (int i = 1; i <= playerCount; i++)
       {
         if (i == player.Number)
           lvi.SubItems.Add("X");
@@ -240,11 +263,6 @@ namespace turnir
       }
       
       lvi.Tag = player;
-      if ((lvPlayers.Columns.Count - 5) < CurTurnir.Players.Count)
-      {
-        lvPlayers.Columns.Insert(lvPlayers.Columns.Count - 1,
-          player.Number.ToString(), 30);
-      }
       lvi.SubItems.Add(totalScore.ToString());
       return lvi;
     }
@@ -336,11 +354,6 @@ namespace turnir
       UpdatePlayerTable();
     }
 
-    private void mnuDel_Click(object sender, EventArgs e)
-    {
-
-    }
-
     #region Работа с файлами турниров
 
     BinaryFormatter bf;
@@ -389,6 +402,7 @@ namespace turnir
       {
         AddPlayer(player);
       }
+      AddPlayerColumns();
       lvPlayers.EndUpdate();
     }
 
