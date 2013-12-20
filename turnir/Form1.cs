@@ -229,6 +229,11 @@ namespace turnir
 
     }
 
+    private void mnuEditPlayer_Click(object sender, EventArgs e)
+    {
+      EditPlayer();
+    }
+
     #endregion
 
     ListViewItem PlayerToItem(Player player)
@@ -308,6 +313,11 @@ namespace turnir
 
     private void lvPlayers_DoubleClick(object sender, EventArgs e)
     {
+      EditPlayer();
+    }
+
+    private void EditPlayer()
+    {
       var selectedItems = lvPlayers.SelectedItems;
       if (selectedItems.Count > 0)
       {
@@ -318,14 +328,14 @@ namespace turnir
         else
           playerForm.Player = player;
         playerForm.ShowDialog(this);
-        if(playerForm.Player != null)
+        if (playerForm.Player != null)
           UpdateItem(item, playerForm.Player);
       }
     }
 
     private void lvPlayers_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+      mnuEditPlayer.Enabled = lvPlayers.SelectedItems.Count > 0;
     }
 
     private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -508,5 +518,6 @@ namespace turnir
     }
 
     #endregion
+
   }
 }

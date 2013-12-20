@@ -56,6 +56,7 @@
       this.mnuGames = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
+      this.mnuEditPlayer = new System.Windows.Forms.ToolStripMenuItem();
       this.tabControl1.SuspendLayout();
       this.tabPlayers.SuspendLayout();
       this.tabStart.SuspendLayout();
@@ -267,7 +268,8 @@
       // 
       this.mnuPlayers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuAddPlaeyr,
-            this.mnuDel});
+            this.mnuDel,
+            this.mnuEditPlayer});
       this.mnuPlayers.Name = "mnuPlayers";
       this.mnuPlayers.Size = new System.Drawing.Size(77, 20);
       this.mnuPlayers.Text = "Участники";
@@ -276,14 +278,14 @@
       // 
       this.mnuAddPlaeyr.Name = "mnuAddPlaeyr";
       this.mnuAddPlaeyr.ShortcutKeys = System.Windows.Forms.Keys.Insert;
-      this.mnuAddPlaeyr.Size = new System.Drawing.Size(148, 22);
+      this.mnuAddPlaeyr.Size = new System.Drawing.Size(154, 22);
       this.mnuAddPlaeyr.Text = "Добавить";
       this.mnuAddPlaeyr.Click += new System.EventHandler(this.mnuAddPlaeyr_Click);
       // 
       // mnuDel
       // 
       this.mnuDel.Name = "mnuDel";
-      this.mnuDel.Size = new System.Drawing.Size(148, 22);
+      this.mnuDel.Size = new System.Drawing.Size(154, 22);
       this.mnuDel.Text = "Удалить";
       this.mnuDel.Click += new System.EventHandler(this.mnuDel_Click);
       // 
@@ -304,6 +306,14 @@
       // 
       this.openDlg.Filter = "Турниры|*.tur";
       this.openDlg.Title = "Открытие турнира";
+      // 
+      // mnuEditPlayer
+      // 
+      this.mnuEditPlayer.Name = "mnuEditPlayer";
+      this.mnuEditPlayer.ShortcutKeys = System.Windows.Forms.Keys.F4;
+      this.mnuEditPlayer.Size = new System.Drawing.Size(173, 22);
+      this.mnuEditPlayer.Text = "Редактировать";
+      this.mnuEditPlayer.Click += new System.EventHandler(this.mnuEditPlayer_Click);
       // 
       // TurnirForm
       // 
@@ -366,6 +376,7 @@
     private System.Windows.Forms.OpenFileDialog openDlg;
     private System.Windows.Forms.ToolStripMenuItem mnuNewTurnir;
     private System.Windows.Forms.ColumnHeader columnHeader4;
+    private System.Windows.Forms.ToolStripMenuItem mnuEditPlayer;
   }
 }
 
