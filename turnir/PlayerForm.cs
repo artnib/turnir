@@ -50,7 +50,8 @@ namespace turnir
     {
       var place = location.Text;
       if (player == null)
-        player = new Player { Name = name.Text, Location = place };
+        player = new Player {
+          Name = name.Text, Location = place, Title=cbTitle.Text };
       else
       {
         player.Name = name.Text;
