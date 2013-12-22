@@ -124,26 +124,29 @@
             this.black,
             this.draw});
       this.cmenu.Name = "cmenu";
-      this.cmenu.Size = new System.Drawing.Size(174, 70);
+      this.cmenu.Size = new System.Drawing.Size(214, 70);
       // 
       // white
       // 
       this.white.Name = "white";
-      this.white.Size = new System.Drawing.Size(173, 22);
+      this.white.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
+      this.white.Size = new System.Drawing.Size(213, 22);
       this.white.Text = "Выигрыш белых";
       this.white.Click += new System.EventHandler(this.white_Click);
       // 
       // black
       // 
       this.black.Name = "black";
-      this.black.Size = new System.Drawing.Size(173, 22);
+      this.black.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D0)));
+      this.black.Size = new System.Drawing.Size(213, 22);
       this.black.Text = "Выигрыш чёрных";
       this.black.Click += new System.EventHandler(this.black_Click);
       // 
       // draw
       // 
       this.draw.Name = "draw";
-      this.draw.Size = new System.Drawing.Size(173, 22);
+      this.draw.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
+      this.draw.Size = new System.Drawing.Size(213, 22);
       this.draw.Text = "Ничья";
       this.draw.Click += new System.EventHandler(this.draw_Click);
       // 
