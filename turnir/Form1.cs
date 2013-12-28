@@ -73,6 +73,7 @@ namespace turnir
       CurTurnir.Date = dtDate.Value;
       CurTurnir.Name = tbTurnir.Text;
       CurTurnir.Referee = tbReferee.Text;
+      CurTurnir.Players.Sort(Turnir.CompareByNumber);
       bf.Serialize(fs, CurTurnir);
       fs.Close();
       curFile = turPath;
@@ -408,6 +409,7 @@ namespace turnir
     {
       lvPlayers.BeginUpdate();
       lvPlayers.Items.Clear();
+      CurTurnir.Players.Sort(Turnir.CompareByNumber);
       foreach (Player player in CurTurnir.Players)
       {
         AddPlayer(player);
@@ -518,6 +520,30 @@ namespace turnir
     }
 
     #endregion
+
+    void SetResults()
+    {
+      CurTurnir.Players.Sort(CurTurnir.CompareByScore);
+      var pcount = CurTurnir.Players.Count;
+      ListViewItem lvi;
+      Player player;
+      lvPlayers.BeginUpdate();
+      for (int i = 0; i < pcount; i++)
+      { 
+        lvi = lvPlayers.Items[i];
+        player = (Player)lvi.Tag;
+        lvi.SubItems.Add((CurTurnir.Players.IndexOf(player) + 1).ToString());
+        lvi.SubItems.Add(CurTurnir.Shmulyan(player).ToString());
+      }
+      lvPlayers.Columns.Add("Место");
+      lvPlayers.Columns.Add("Шмульян");
+      lvPlayers.EndUpdate();
+    }
+
+    private void mnuResults_Click(object sender, EventArgs e)
+    {
+      SetResults();
+    }
 
   }
 }
