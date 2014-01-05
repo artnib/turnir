@@ -122,7 +122,7 @@ namespace turnir
     /// </summary>
     private void RemoveTempColumns()
     {
-      while (lvPlayers.Columns.Count > 5)
+      while (lvPlayers.Columns.Count > 7)
       {
         lvPlayers.Columns.RemoveAt(4);
       }
@@ -135,10 +135,10 @@ namespace turnir
 
     void AddPlayerColumns()
     {
-      while ((lvPlayers.Columns.Count - 5) < CurTurnir.Players.Count)
+      while ((lvPlayers.Columns.Count - 7) < CurTurnir.Players.Count)
       {
-        lvPlayers.Columns.Insert(lvPlayers.Columns.Count - 1,
-          (lvPlayers.Columns.Count - 4).ToString(), columnWidth);
+        lvPlayers.Columns.Insert(lvPlayers.Columns.Count - 3,
+          (lvPlayers.Columns.Count - 6).ToString(), columnWidth);
       }
     }
 
@@ -270,6 +270,8 @@ namespace turnir
       
       lvi.Tag = player;
       lvi.SubItems.Add(totalScore.ToString());
+      var place = player.Place;
+      lvi.SubItems.Add(place > 0 ? player.Place.ToString() : String.Empty);
       return lvi;
     }
 
@@ -527,16 +529,27 @@ namespace turnir
       var pcount = CurTurnir.Players.Count;
       ListViewItem lvi;
       Player player;
+      Byte place;
+      double shmulyan;
       lvPlayers.BeginUpdate();
       for (int i = 0; i < pcount; i++)
       { 
         lvi = lvPlayers.Items[i];
         player = (Player)lvi.Tag;
-        lvi.SubItems.Add((CurTurnir.Players.IndexOf(player) + 1).ToString());
-        lvi.SubItems.Add(CurTurnir.Shmulyan(player).ToString());
+        place = (Byte)(CurTurnir.Players.IndexOf(player) + 1);
+        player.Place = place;
+        if (lvi.SubItems.Count < pcount + 6)
+          lvi.SubItems.Add(place.ToString());
+        else
+          lvi.SubItems[pcount + 5].Text = place.ToString();
+        shmulyan = CurTurnir.Shmulyan(player);
+        if (lvi.SubItems.Count < pcount + 7)
+          lvi.SubItems.Add(shmulyan.ToString());
+        else
+          lvi.SubItems[pcount + 6].Text = shmulyan.ToString();
       }
-      lvPlayers.Columns.Add("Место");
-      lvPlayers.Columns.Add("Шмульян");
+      //lvPlayers.Columns.Add("Место");
+      //lvPlayers.Columns.Add("Шмульян");
       lvPlayers.EndUpdate();
     }
 
