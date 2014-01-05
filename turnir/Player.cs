@@ -33,6 +33,11 @@ namespace turnir
     /// </summary>
     internal string Title;
 
+    /// <summary>
+    /// Место
+    /// </summary>
+    internal Byte Place;
+
     public override string ToString()
     {
       return Name;
