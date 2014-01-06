@@ -272,6 +272,8 @@ namespace turnir
       lvi.SubItems.Add(totalScore.ToString());
       var place = player.Place;
       lvi.SubItems.Add(place > 0 ? player.Place.ToString() : String.Empty);
+      var shmulyan = player.Shmulyan;
+      lvi.SubItems.Add(shmulyan != 0.0 ? shmulyan.ToString() : String.Empty);
       return lvi;
     }
 
@@ -543,13 +545,12 @@ namespace turnir
         else
           lvi.SubItems[pcount + 5].Text = place.ToString();
         shmulyan = CurTurnir.Shmulyan(player);
+        player.Shmulyan = shmulyan;
         if (lvi.SubItems.Count < pcount + 7)
           lvi.SubItems.Add(shmulyan.ToString());
         else
           lvi.SubItems[pcount + 6].Text = shmulyan.ToString();
       }
-      //lvPlayers.Columns.Add("Место");
-      //lvPlayers.Columns.Add("Шмульян");
       lvPlayers.EndUpdate();
     }
 

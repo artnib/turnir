@@ -38,6 +38,11 @@ namespace turnir
     /// </summary>
     internal Byte Place;
 
+    /// <summary>
+    /// Коэффициент Шмульяна
+    /// </summary>
+    internal double Shmulyan;
+
     public override string ToString()
     {
       return Name;
