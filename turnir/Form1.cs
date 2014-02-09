@@ -198,16 +198,6 @@ namespace turnir
       }
     }
 
-    private void dgvPlayers_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
-    {
-      
-    }
-
-    private void dgvPlayers_UserAddedRow(object sender, DataGridViewRowEventArgs e)
-    {
-      e.Row.Cells[2].Value = String.Empty;
-    }
-
     #region Меню "Участники"
 
     private void mnuAddPlaeyr_Click(object sender, EventArgs e)
