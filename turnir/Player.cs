@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace turnir
 {
@@ -52,6 +53,13 @@ namespace turnir
     public override string ToString()
     {
       return Name;
+    }
+
+    [OnDeserialized]
+    void InitBoard(StreamingContext context)
+    {
+      if (Board == 0) //предыдущая версия, где номер доски не использовался
+        Board = 1;
     }
   }
 }
