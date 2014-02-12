@@ -18,15 +18,16 @@ namespace turnir
     /// <returns>Список партий</returns>
     internal List<Game> PlayerGames(Player player)
     {
-      var playerCount = (Byte)players.Count;
-      var pendingGames = new List<Game>(playerCount - 1);
+      var opponents = players.FindAll(p => p.Board == player.Board);
+      var opCount = (Byte)opponents.Count;
+      var pendingGames = new List<Game>(opCount - 1);
       Game game;
-      bool even = playerCount % 2 == 0;
+      bool even = opCount % 2 == 0;
       bool even1, odd1;
       bool even2, odd2;
       Byte num1, num2;
       Byte min, max;
-      foreach (Player opponent in players)
+      foreach (Player opponent in opponents)
       {
         if (opponent == player) continue;
         
@@ -40,11 +41,11 @@ namespace turnir
         max = Math.Max(num1, num2);
         min = Math.Min(num1, num2);
 
-        game = new Game();
+        game = new Game() { Board = player.Board };
 
-        if (even && (max == playerCount)) //последний номер при четном количестве участников
+        if (even && (max == opCount)) //последний номер при четном количестве участников
         {
-          if (min <= playerCount / 2) //с верхней половиной черными
+          if (min <= opCount / 2) //с верхней половиной черными
           {
             game.White = min;
             game.Black = max;
@@ -70,10 +71,18 @@ namespace turnir
             game.Black = max;
           }
         }
+
+        if (Even(player.Board)) //на чётных досках цвет шашек меняется
+        {
+          var temp = game.White;
+          game.White = game.Black;
+          game.Black = temp;
+        }
+
         if (tur.Games == null)
-          tur.Games = new List<Game>((playerCount * playerCount - playerCount) / 2);
-        var oldGame = tur.Games.Find(
-          g => g.White == game.White && g.Black == game.Black);
+          tur.Games = new List<Game>((opCount * opCount - opCount) / 2);
+        var oldGame = tur.Games.Find(g => g.Board==game.Board &&
+          g.White == game.White && g.Black == game.Black);
         if (oldGame != null)
           pendingGames.Add(oldGame);
         else
@@ -85,6 +94,11 @@ namespace turnir
       return pendingGames;
     }
 
+    /// <summary>
+    /// Определяет, является ли число чётным
+    /// </summary>
+    /// <param name="number">Число</param>
+    /// <returns></returns>
     bool Even(Byte number)
     {
       return number % 2 == 0;

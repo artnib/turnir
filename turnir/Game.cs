@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace turnir
 {
@@ -27,5 +28,17 @@ namespace turnir
     /// Результат партии
     /// </summary>
     internal GameResult Result;
+
+    /// <summary>
+    /// Номер доски
+    /// </summary>
+    internal Byte Board;
+
+    [OnDeserialized]
+    void InitBoard(StreamingContext context)
+    {
+      if (Board == 0) //предыдущая версия, где номер доски не использовался
+        Board = 1;
+    }
   }
 }
