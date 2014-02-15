@@ -38,6 +38,8 @@
       this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.tabStart = new System.Windows.Forms.TabPage();
       this.tbReferee = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
@@ -58,12 +60,19 @@
       this.mnuResults = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
-      this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-      this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.radioButton1 = new System.Windows.Forms.RadioButton();
+      this.radioButton2 = new System.Windows.Forms.RadioButton();
+      this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+      this.label2 = new System.Windows.Forms.Label();
+      this.tbSecretary = new System.Windows.Forms.TextBox();
+      this.label3 = new System.Windows.Forms.Label();
       this.tabControl1.SuspendLayout();
       this.tabPlayers.SuspendLayout();
       this.tabStart.SuspendLayout();
       this.menuStrip1.SuspendLayout();
+      this.groupBox1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
       this.SuspendLayout();
       // 
       // lbTurnir
@@ -154,9 +163,20 @@
       // 
       this.columnHeader4.Text = "Очки";
       // 
+      // columnHeader5
+      // 
+      this.columnHeader5.Text = "Место";
+      // 
+      // columnHeader6
+      // 
+      this.columnHeader6.Text = "Шмульян";
+      // 
       // tabStart
       // 
       this.tabStart.BackColor = System.Drawing.SystemColors.Control;
+      this.tabStart.Controls.Add(this.tbSecretary);
+      this.tabStart.Controls.Add(this.label3);
+      this.tabStart.Controls.Add(this.groupBox1);
       this.tabStart.Controls.Add(this.tbReferee);
       this.tabStart.Controls.Add(this.label1);
       this.tabStart.Controls.Add(this.lbDate);
@@ -328,13 +348,87 @@
       this.openDlg.Filter = "Турниры|*.tur";
       this.openDlg.Title = "Открытие турнира";
       // 
-      // columnHeader5
+      // radioButton1
       // 
-      this.columnHeader5.Text = "Место";
+      this.radioButton1.AutoSize = true;
+      this.radioButton1.Location = new System.Drawing.Point(6, 20);
+      this.radioButton1.Name = "radioButton1";
+      this.radioButton1.Size = new System.Drawing.Size(62, 17);
+      this.radioButton1.TabIndex = 10;
+      this.radioButton1.TabStop = true;
+      this.radioButton1.Text = "личный";
+      this.radioButton1.UseVisualStyleBackColor = true;
       // 
-      // columnHeader6
+      // radioButton2
       // 
-      this.columnHeader6.Text = "Шмульян";
+      this.radioButton2.AutoSize = true;
+      this.radioButton2.Location = new System.Drawing.Point(6, 41);
+      this.radioButton2.Name = "radioButton2";
+      this.radioButton2.Size = new System.Drawing.Size(98, 17);
+      this.radioButton2.TabIndex = 11;
+      this.radioButton2.TabStop = true;
+      this.radioButton2.Text = "командный на";
+      this.radioButton2.UseVisualStyleBackColor = true;
+      // 
+      // groupBox1
+      // 
+      this.groupBox1.Controls.Add(this.label2);
+      this.groupBox1.Controls.Add(this.numericUpDown1);
+      this.groupBox1.Controls.Add(this.radioButton2);
+      this.groupBox1.Controls.Add(this.radioButton1);
+      this.groupBox1.Location = new System.Drawing.Point(6, 140);
+      this.groupBox1.Name = "groupBox1";
+      this.groupBox1.Size = new System.Drawing.Size(192, 70);
+      this.groupBox1.TabIndex = 12;
+      this.groupBox1.TabStop = false;
+      this.groupBox1.Text = "Тип турнира";
+      // 
+      // numericUpDown1
+      // 
+      this.numericUpDown1.Location = new System.Drawing.Point(107, 39);
+      this.numericUpDown1.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+      this.numericUpDown1.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+      this.numericUpDown1.Name = "numericUpDown1";
+      this.numericUpDown1.Size = new System.Drawing.Size(33, 20);
+      this.numericUpDown1.TabIndex = 13;
+      this.numericUpDown1.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Location = new System.Drawing.Point(146, 43);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(42, 13);
+      this.label2.TabIndex = 14;
+      this.label2.Text = "досках";
+      // 
+      // tbSecretary
+      // 
+      this.tbSecretary.Location = new System.Drawing.Point(288, 102);
+      this.tbSecretary.Name = "tbSecretary";
+      this.tbSecretary.Size = new System.Drawing.Size(107, 20);
+      this.tbSecretary.TabIndex = 14;
+      // 
+      // label3
+      // 
+      this.label3.AutoSize = true;
+      this.label3.Location = new System.Drawing.Point(288, 86);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(107, 13);
+      this.label3.TabIndex = 13;
+      this.label3.Text = "Главный секретарь";
       // 
       // TurnirForm
       // 
@@ -354,6 +448,9 @@
       this.tabStart.PerformLayout();
       this.menuStrip1.ResumeLayout(false);
       this.menuStrip1.PerformLayout();
+      this.groupBox1.ResumeLayout(false);
+      this.groupBox1.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -401,6 +498,13 @@
     private System.Windows.Forms.ToolStripMenuItem mnuResults;
     private System.Windows.Forms.ColumnHeader columnHeader5;
     private System.Windows.Forms.ColumnHeader columnHeader6;
+    private System.Windows.Forms.TextBox tbSecretary;
+    private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.GroupBox groupBox1;
+    private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.NumericUpDown numericUpDown1;
+    private System.Windows.Forms.RadioButton radioButton2;
+    private System.Windows.Forms.RadioButton radioButton1;
   }
 }
 
