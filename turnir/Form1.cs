@@ -73,6 +73,7 @@ namespace turnir
       CurTurnir.Date = dtDate.Value;
       CurTurnir.Name = tbTurnir.Text;
       CurTurnir.Referee = tbReferee.Text;
+      CurTurnir.Secretary = tbSecretary.Text;
       CurTurnir.Players.Sort(Turnir.CompareByNumber);
       bf.Serialize(fs, CurTurnir);
       fs.Close();
@@ -91,6 +92,7 @@ namespace turnir
           dtDate.Value = CurTurnir.Date;
           tbTurnir.Text = CurTurnir.Name;
           tbReferee.Text = CurTurnir.Referee;
+          tbSecretary.Text = CurTurnir.Secretary;
           PlayersToListView(CurTurnir.Players);
         }
         fs.Close();

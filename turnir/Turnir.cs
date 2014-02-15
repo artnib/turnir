@@ -19,6 +19,11 @@ namespace turnir
     internal string Referee;
 
     /// <summary>
+    /// Главный секретарь
+    /// </summary>
+    internal string Secretary;
+
+    /// <summary>
     /// Список участников
     /// </summary>
     internal List<Player> Players;
@@ -101,6 +106,49 @@ namespace turnir
       playerScore.Add(player, score);
       return score;
     }
+    
+    #region Команды
+
+    /// <summary>
+    /// Возвращает список партий команды
+    /// </summary>
+    /// <param name="team">Команда</param>
+    /// <returns>Список партий</returns>
+    List<Game> TeamGames(Team team)
+    {
+      var number = team.Number;
+      return Games.FindAll(g => g.White == number || g.Black == number);
+    }
+
+    /// <summary>
+    /// Возвращает список партий команды с указанным противником
+    /// </summary>
+    /// <param name="team">Команда</param>
+    /// <param name="opponent">Противник</param>
+    /// <returns>Список партий</returns>
+    List<Game> TeamGames(Team team, Team opponent)
+    {
+      return Games.FindAll(g =>
+        (g.White == team.Number && g.Black == opponent.Number) ||
+        (g.White == opponent.Number && g.Black == team.Number));
+    }
+
+    /// <summary>
+    /// Возвращает список партий команды с указанным противником
+    /// на заданной доске
+    /// </summary>
+    /// <param name="team">Команда</param>
+    /// <param name="opponent">Противник</param>
+    /// <param name="Board">Номер доски</param>
+    /// <returns>Список партий</returns>
+    List<Game> TeamGames(Team team, Team opponent, Byte Board)
+    {
+      return Games.FindAll(g => g.Board==Board &&
+        ((g.White == team.Number && g.Black == opponent.Number) ||
+        (g.White == opponent.Number && g.Black == team.Number)));
+    }
+    
+    #endregion
 
     /// <summary>
     /// Возвращает коэффициент Шмульяна
