@@ -14,6 +14,29 @@ namespace turnir
     public string FileName;
 
     /// <summary>
+    /// Количество досок в командном турнире
+    /// </summary>
+    internal Byte BoardNumber = 1;
+
+    /// <summary>
+    /// Определяет, является ли турнир командным
+    /// </summary>
+    /// <returns></returns>
+    internal bool IsTeam()
+    {
+      return BoardNumber > 1;
+    }
+
+    /// <summary>
+    /// Определяет, является ли турнир личным
+    /// </summary>
+    /// <returns></returns>
+    internal bool IsPersonal()
+    {
+      return BoardNumber < 2;
+    }
+
+    /// <summary>
     /// Главный судья
     /// </summary>
     internal string Referee;
@@ -33,10 +56,13 @@ namespace turnir
     /// </summary>
     internal List<Game> Games;
 
+    internal List<Team> Teams;
+
     internal Turnir()
     {
       Players = new List<Player>();
       Games = new List<Game>();
+      Teams = new List<Team>();
     }
 
     internal static int CompareByNumber(Player x, Player y)
@@ -148,6 +174,26 @@ namespace turnir
         (g.White == opponent.Number && g.Black == team.Number)));
     }
     
+    /// <summary>
+    /// Удаляет указанную команду и её участников
+    /// </summary>
+    /// <param name="team">Команда</param>
+    internal void RemoveTeam(Team team)
+    {
+      //удаляем команду и её участников
+      var number = team.Number;
+      Teams.Remove(team);
+      Players.RemoveAll(p => p.Number == number);
+      
+      //"поднмаем вверх" команды, находящиеся в списке ниже удаляемой команды
+      var nextTeams = Teams.FindAll(t => t.Number > number);
+      foreach (Team nextTeam in nextTeams)
+        nextTeam.Number--;
+      var nextPlayers = Players.FindAll(p => p.Number > number);
+      foreach (Player nextPlayer in nextPlayers)
+        nextPlayer.Number--;
+    }
+
     #endregion
 
     /// <summary>

@@ -30,35 +30,18 @@ namespace turnir
     
     #region Таблица участников
 
-    List<Player> PlayersFromListView()
-    {
-      var players = new List<Player>(lvPlayers.Items.Count);
-      Player player;
-      foreach (ListViewItem lvi in lvPlayers.Items)
-      {
-        player = new Player
-        {
-          Number = Byte.Parse(lvi.SubItems[0].Text),
-          Name = lvi.SubItems[1].Text,
-          Location = lvi.SubItems[2].Text
-        };
-        players.Add(player);
-      }
-      return players;
-    }
-
     void PlayersToListView(List<Player> players)
     {
-      lvPlayers.Items.Clear();
+      lvTable.Items.Clear();
       RemoveTempColumns();
-      lvPlayers.BeginUpdate();
+      lvTable.BeginUpdate();
       foreach (Player player in players)
       {
         AddPlayer(player);
       }
       AddPlayerColumns();
       SetColumnWidth();
-      lvPlayers.EndUpdate();
+      lvTable.EndUpdate();
     }
 
     #endregion
@@ -93,7 +76,18 @@ namespace turnir
           tbTurnir.Text = CurTurnir.Name;
           tbReferee.Text = CurTurnir.Referee;
           tbSecretary.Text = CurTurnir.Secretary;
+          bool teamTur = CurTurnir.BoardNumber > 1;
+          if (teamTur)
+          {
+            rbTeam.Checked = true;
+            numBoard.Value = CurTurnir.BoardNumber;
+          }
+          else
+          {
+            rbPersonal.Checked = true;
+          }
           PlayersToListView(CurTurnir.Players);
+          RestoreCompetitorList();
         }
         fs.Close();
         curFile = turPath;
@@ -115,7 +109,8 @@ namespace turnir
       tbTurnir.Text = "Турнир";
       Text = defaultCaption;
       dtDate.Value = DateTime.Now;
-      lvPlayers.Items.Clear();
+      lvTable.Items.Clear();
+      lvCompetitors.Items.Clear();
       RemoveTempColumns();    
     }
 
@@ -124,9 +119,9 @@ namespace turnir
     /// </summary>
     private void RemoveTempColumns()
     {
-      while (lvPlayers.Columns.Count > 7)
+      while (lvTable.Columns.Count > 7)
       {
-        lvPlayers.Columns.RemoveAt(4);
+        lvTable.Columns.RemoveAt(4);
       }
     }
 
@@ -137,10 +132,10 @@ namespace turnir
 
     void AddPlayerColumns()
     {
-      while ((lvPlayers.Columns.Count - 7) < CurTurnir.Players.Count)
+      while ((lvTable.Columns.Count - 7) < CurTurnir.Players.Count)
       {
-        lvPlayers.Columns.Insert(lvPlayers.Columns.Count - 3,
-          (lvPlayers.Columns.Count - 6).ToString(), columnWidth);
+        lvTable.Columns.Insert(lvTable.Columns.Count - 3,
+          (lvTable.Columns.Count - 6).ToString(), columnWidth);
       }
     }
 
@@ -204,27 +199,81 @@ namespace turnir
 
     private void mnuAddPlaeyr_Click(object sender, EventArgs e)
     {
+      ListViewItem competitor;
+      if (CurTurnir.IsPersonal())
+      {
+        var player = GetNewPlayer();
+        if (player == null) return;
+        var lvItems = lvTable.Items;
+        player.Number = (Byte)(lvItems.Count + 1);
+        CurTurnir.Players.Add(player);
+      }
+      else
+      {
+        var team = GetNewTeam();
+        if (team == null) return;
+        competitor = new ListViewItem(new string[] {
+          team.Number.ToString(), team.Name });
+        competitor.Tag = team;
+        lvCompetitors.Items.Add(competitor);
+        CurTurnir.Teams.Add(team);
+      }
+      UpdatePlayerTable();
+    }
+
+    /// <summary>
+    /// Показывает форму участника и возвращает сведения об участнике
+    /// </summary>
+    /// <returns>Сведения об участнике или null</returns>
+    private Player GetNewPlayer()
+    {
       if (playerForm == null)
         playerForm = new PlayerForm();
       else
         playerForm.Player = null;
       playerForm.ShowDialog(this);
       var player = playerForm.Player;
-      if (player == null) return;
-      var lvItems = lvPlayers.Items;
-      player.Number = (Byte)(lvItems.Count + 1);
-      CurTurnir.Players.Add(player);
-      UpdatePlayerTable();
+      return player;
+    }
+
+    /// <summary>
+    /// Показывает форму команды и возвращает сведения о команде
+    /// </summary>
+    /// <returns>Сведения о команде или null</returns>
+    Team GetNewTeam()
+    {
+      if (teamForm == null)
+        teamForm = new TeamForm(CurTurnir);
+      teamForm.Team = new Team {
+        Number = (Byte)(lvCompetitors.Items.Count + 1) };
+      teamForm.ShowDialog(this);
+      return teamForm.Team;
     }
 
     private void mnuDel_Click(object sender, EventArgs e)
     {
-
+      var competitor = lvCompetitors.SelectedItems[0].Tag;
+      if(competitor is Team)
+        CurTurnir.RemoveTeam((Team)competitor);
+      RestoreCompetitorList();
     }
 
     private void mnuEditPlayer_Click(object sender, EventArgs e)
     {
-      EditPlayer();
+      if (CurTurnir.IsPersonal())
+        EditPlayer();
+      else
+      {
+        ListViewItem lvi;
+        lvi = lvCompetitors.SelectedItems[0];
+        Team team = (Team)lvi.Tag;
+        if (teamForm != null)
+          teamForm.Team = team;
+        else
+          teamForm = new TeamForm(team, CurTurnir);
+        teamForm.ShowDialog(this);
+        lvi.SubItems[1].Text = team.Name;
+      }
     }
 
     #endregion
@@ -291,13 +340,13 @@ namespace turnir
 
     void AddPlayer(Player player)
     {
-      var lvi = lvPlayers.Items.Add(PlayerToItem(player));
+      var lvi = lvTable.Items.Add(PlayerToItem(player));
       lvi.Selected = true;
     }
 
     private void mnuPlayers_Click(object sender, EventArgs e)
     {
-      tabControl1.SelectedTab = tabPlayers;
+      tabControl1.SelectedTab = tabTable;
     }
 
     void UpdateItem(ListViewItem item, Player player)
@@ -308,14 +357,14 @@ namespace turnir
       item.Tag = player;
     }
 
-    private void lvPlayers_DoubleClick(object sender, EventArgs e)
+    private void lvTable_DoubleClick(object sender, EventArgs e)
     {
       EditPlayer();
     }
 
     private void EditPlayer()
     {
-      var selectedItems = lvPlayers.SelectedItems;
+      var selectedItems = lvTable.SelectedItems;
       if (selectedItems.Count > 0)
       {
         var item = selectedItems[0];
@@ -330,14 +379,15 @@ namespace turnir
       }
     }
 
-    private void lvPlayers_SelectedIndexChanged(object sender, EventArgs e)
+    private void lvTable_SelectedIndexChanged(object sender, EventArgs e)
     {
-      mnuEditPlayer.Enabled = lvPlayers.SelectedItems.Count > 0;
+      mnuEditPlayer.Enabled = lvTable.SelectedItems.Count > 0;
     }
 
     private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
     {
-      mnuPlayers.Enabled = tabControl1.SelectedTab == tabPlayers;
+      mnuPlayers.Enabled = tabControl1.SelectedTab == tabReg;
+      
     }
 
     private void tbReferee_TextChanged(object sender, EventArgs e)
@@ -346,6 +396,7 @@ namespace turnir
     }
 
     GamesForm gamesForm;
+    TeamForm teamForm;
 
     private void mnuGames_Click(object sender, EventArgs e)
     {
@@ -354,7 +405,7 @@ namespace turnir
         gamesForm = new GamesForm(CurTurnir, this);
         SetGameBounds();
       }
-      var selected = lvPlayers.SelectedIndices;
+      var selected = lvTable.SelectedIndices;
       if (selected.Count > 0)
         gamesForm.SetPlayer(selected[0]);
       gamesForm.ShowDialog(this);
@@ -403,15 +454,15 @@ namespace turnir
     /// </summary>
     internal void UpdatePlayerTable()
     {
-      lvPlayers.BeginUpdate();
-      lvPlayers.Items.Clear();
+      lvTable.BeginUpdate();
+      lvTable.Items.Clear();
       CurTurnir.Players.Sort(Turnir.CompareByNumber);
       foreach (Player player in CurTurnir.Players)
       {
         AddPlayer(player);
       }
       AddPlayerColumns();
-      lvPlayers.EndUpdate();
+      lvTable.EndUpdate();
     }
 
     #region Настройки формы
@@ -493,17 +544,17 @@ namespace turnir
       for (int i = 0; i < widths.Length; i++)
       {
         if (Int32.TryParse(widths[i], out width))
-          if (i < lvPlayers.Columns.Count)
-            lvPlayers.Columns[i].Width = width;
+          if (i < lvTable.Columns.Count)
+            lvTable.Columns[i].Width = width;
       }
     }
     void SaveColumnWidth()
     {
        var sb = new StringBuilder();
-      for (int i = 0; i < lvPlayers.Columns.Count; i++)
+      for (int i = 0; i < lvTable.Columns.Count; i++)
       {
         if (i > 0) sb.Append(delim);
-        sb.Append(lvPlayers.Columns[i].Width);
+        sb.Append(lvTable.Columns[i].Width);
       }
       xs.WriteSetting(Setting.Columns, sb.ToString());
     }
@@ -525,10 +576,10 @@ namespace turnir
       Player player;
       Byte place;
       double shmulyan;
-      lvPlayers.BeginUpdate();
+      lvTable.BeginUpdate();
       for (int i = 0; i < pcount; i++)
       { 
-        lvi = lvPlayers.Items[i];
+        lvi = lvTable.Items[i];
         player = (Player)lvi.Tag;
         place = (Byte)(CurTurnir.Players.IndexOf(player) + 1);
         player.Place = place;
@@ -543,12 +594,71 @@ namespace turnir
         else
           lvi.SubItems[pcount + 6].Text = shmulyan.ToString();
       }
-      lvPlayers.EndUpdate();
+      lvTable.EndUpdate();
     }
 
     private void mnuResults_Click(object sender, EventArgs e)
     {
       SetResults();
+    }
+
+    private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+    {
+      CurTurnir.BoardNumber = (Byte)numBoard.Value;
+    }
+
+    private void rbPersonal_CheckedChanged(object sender, EventArgs e)
+    {
+      numBoard.Enabled = !rbPersonal.Checked;
+      if (rbPersonal.Checked) colCompetitor.Text = "Фамилия, имя";
+    }
+
+    private void rbTeam_CheckedChanged(object sender, EventArgs e)
+    {
+      numBoard.Enabled = rbTeam.Checked;
+      if (rbTeam.Checked) colCompetitor.Text = "Команда";
+    }
+
+    /// <summary>
+    /// Восстанавливает список участников/команд на вкладке "Участники"
+    /// </summary>
+    void RestoreCompetitorList()
+    {
+      lvCompetitors.BeginUpdate();
+      lvCompetitors.Items.Clear();
+      ListViewItem lvi;
+      if (CurTurnir.IsPersonal()) //личный турнир
+        foreach (Player player in CurTurnir.Players)
+        {
+          lvi = new ListViewItem(new string[] {
+            player.Number.ToString(), player.Name });
+          lvi.Tag = player;
+          lvCompetitors.Items.Add(lvi);
+        }
+      else //командный турнир
+        foreach (Team team in CurTurnir.Teams)
+        {
+          lvi = new ListViewItem(new string[]{
+            team.Number.ToString(),team.Name});
+          lvi.Tag = team;
+          lvCompetitors.Items.Add(lvi);
+        }
+      lvCompetitors.EndUpdate();
+    }
+
+    void AddCompetitor()
+    {
+      if (CurTurnir.IsPersonal())
+        playerForm.ShowDialog();
+      else
+        teamForm.ShowDialog();
+    }
+
+    private void lvCompetitors_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      bool selected = lvCompetitors.SelectedItems.Count > 0;
+      mnuDel.Enabled = selected;
+      mnuEditPlayer.Enabled = selected;
     }
 
   }
