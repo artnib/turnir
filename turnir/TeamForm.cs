@@ -26,6 +26,7 @@ namespace turnir
       set
       {
         team = value;
+        name.Text = team.Name;
         var players = tur.Players.FindAll(p => p.Number == team.Number);
         gridPlayers.RowCount = players.Count;
         Byte board;
@@ -36,7 +37,6 @@ namespace turnir
           board = player.Board;
           index = board - 1;
           row = gridPlayers.Rows[index];
-          row.Cells[0].Value = board;
           row.Cells[1].Value = player.Name;
           row.Cells[2].Value = player.Title;
         }
@@ -76,7 +76,8 @@ namespace turnir
         oldPlayer = tur.Players.Find(p =>
           p.Number == team.Number && p.Board == board);
         if (oldPlayer == null)
-          tur.Players.Add(new Player { Number = team.Number, Name = pName });
+          tur.Players.Add(new Player {
+            Number = team.Number, Name = pName, Board=board });
         else
           oldPlayer.Name = pName;
       }
