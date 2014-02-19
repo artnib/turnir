@@ -105,6 +105,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="TeamForm.resx">
+      <DependentUpon>TeamForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TurnirsForm.resx">
       <DependentUpon>TurnirsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -124,6 +127,14 @@
     </Compile>
     <Compile Include="RoundRobin.cs" />
     <Compile Include="Setting.cs" />
+    <Compile Include="Team.cs" />
+    <Compile Include="TeamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeamForm.Designer.cs">
+      <DependentUpon>TeamForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TeamGame.cs" />
     <Compile Include="Title.cs" />
     <Compile Include="Titles.cs" />
     <Compile Include="Turnir.cs" />
