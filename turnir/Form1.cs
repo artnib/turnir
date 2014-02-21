@@ -50,7 +50,11 @@ namespace turnir
     {
       if (String.IsNullOrEmpty(turPath))
         if (saveDlg.ShowDialog(this) == DialogResult.OK)
+        {
           turPath = saveDlg.FileName;
+        }
+        else
+          return;
       var fs = new FileStream(turPath, FileMode.Create);
       var bf = new BinaryFormatter();
       CurTurnir.Date = dtDate.Value;
@@ -218,7 +222,7 @@ namespace turnir
         lvCompetitors.Items.Add(competitor);
         CurTurnir.Teams.Add(team);
       }
-      UpdatePlayerTable();
+      //UpdatePlayerTable();
     }
 
     /// <summary>
