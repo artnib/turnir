@@ -81,16 +81,7 @@ namespace turnir
           tbTurnir.Text = CurTurnir.Name;
           tbReferee.Text = CurTurnir.Referee;
           tbSecretary.Text = CurTurnir.Secretary;
-          bool teamTur = CurTurnir.BoardNumber > 1;
-          if (teamTur)
-          {
-            rbTeam.Checked = true;
-            numBoard.Value = CurTurnir.BoardNumber;
-          }
-          else
-          {
-            rbPersonal.Checked = true;
-          }
+          CheckTurnirType(CurTurnir);
           PlayersToListView(CurTurnir.Players);
           RestoreCompetitorList();
         }
@@ -98,7 +89,21 @@ namespace turnir
         curFile = turPath;
         UpdateCaption();
       }
-      if (CurTurnir == null) CurTurnir = new Turnir();
+      if (CurTurnir == null) NewTurnir();
+    }
+
+    void CheckTurnirType(Turnir tur)
+    {
+      bool teamTur = tur.IsTeam();
+      if (teamTur)
+      {
+        rbTeam.Checked = true;
+        numBoard.Value = CurTurnir.BoardNumber;
+      }
+      else
+      {
+        rbPersonal.Checked = true;
+      }
     }
 
     const string defaultCaption = "Турнир";
@@ -108,12 +113,12 @@ namespace turnir
     /// </summary>
     void NewTurnir()
     {
-      SaveTurnir(curFile); //сохраняем текущий турнир
       curFile = String.Empty;
       CurTurnir = new Turnir();
       tbTurnir.Text = "Турнир";
       Text = defaultCaption;
       dtDate.Value = DateTime.Now;
+      CheckTurnirType(CurTurnir);
       lvTable.Items.Clear();
       lvCompetitors.Items.Clear();
       RemoveTempColumns();    
@@ -183,6 +188,7 @@ namespace turnir
 
     private void lnkNew_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
+      SaveTurnir(curFile);
       NewTurnir();
     }
  
