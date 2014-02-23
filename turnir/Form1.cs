@@ -48,12 +48,12 @@ namespace turnir
 
     void SaveTurnir(string turPath)
     {
-      if (String.IsNullOrEmpty(turPath))
+      if (String.IsNullOrEmpty(turPath)) //несохранённый турнир
         if (saveDlg.ShowDialog(this) == DialogResult.OK)
         {
           turPath = saveDlg.FileName;
         }
-        else
+        else //отмена сохранения
           return;
       var fs = new FileStream(turPath, FileMode.Create);
       var bf = new BinaryFormatter();
@@ -69,6 +69,7 @@ namespace turnir
 
     void RestoreTurnir(string turPath)
     {
+      curFile = String.Empty;
       if (File.Exists(turPath))
       {
         var bf = new BinaryFormatter();
