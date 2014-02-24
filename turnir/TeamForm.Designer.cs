@@ -75,7 +75,7 @@
       this.gridPlayers.Location = new System.Drawing.Point(12, 73);
       this.gridPlayers.Name = "gridPlayers";
       this.gridPlayers.Size = new System.Drawing.Size(401, 150);
-      this.gridPlayers.TabIndex = 10;
+      this.gridPlayers.TabIndex = 1;
       this.gridPlayers.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.gridPlayers_CellValidating);
       this.gridPlayers.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridPlayers_RowValidated);
       // 
@@ -102,7 +102,7 @@
       this.name.Location = new System.Drawing.Point(12, 25);
       this.name.Name = "name";
       this.name.Size = new System.Drawing.Size(401, 20);
-      this.name.TabIndex = 11;
+      this.name.TabIndex = 0;
       this.name.TextChanged += new System.EventHandler(this.name_TextChanged);
       // 
       // label1
@@ -125,8 +125,10 @@
       // 
       // TeamForm
       // 
+      this.AcceptButton = this.save;
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.CancelButton = this.cancel;
       this.ClientSize = new System.Drawing.Size(430, 276);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.label1);
@@ -136,6 +138,7 @@
       this.Controls.Add(this.save);
       this.Name = "TeamForm";
       this.Text = "Команда";
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TeamForm_FormClosing);
       this.Load += new System.EventHandler(this.TeamForm_Load);
       ((System.ComponentModel.ISupportInitialize)(this.gridPlayers)).EndInit();
       this.ResumeLayout(false);

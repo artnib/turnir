@@ -123,5 +123,11 @@ namespace turnir
         cell.ErrorText = "Укажите фамилию, имя";
       }
     }
+
+    private void TeamForm_FormClosing(object sender, FormClosingEventArgs e)
+    {
+      //e.Cancel = true;
+      //Hide();
+    }
   }
 }
