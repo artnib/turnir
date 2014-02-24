@@ -257,8 +257,10 @@ namespace turnir
         teamForm = new TeamForm(CurTurnir);
       teamForm.Team = new Team {
         Number = (Byte)(lvCompetitors.Items.Count + 1) };
-      teamForm.ShowDialog(this);
-      return teamForm.Team;
+      if (teamForm.ShowDialog(this) == DialogResult.OK)
+        return teamForm.Team;
+      else
+        return null;
     }
 
     private void mnuDel_Click(object sender, EventArgs e)
