@@ -39,6 +39,11 @@
     /// </summary>
     internal const string LastFile = "LastFile";
 
+    /// <summary>
+    /// Индекс выбранной вкладки
+    /// </summary>
+    internal const string LastTab = "TabIndex";
+
     #endregion
 
     #region Форма партий
