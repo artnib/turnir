@@ -175,6 +175,7 @@ namespace turnir
       xs = new XmlSettings(Path.GetFileNameWithoutExtension(Application.ExecutablePath));
       xs.LoadSettings(Path.Combine(AppDir, "settings.xml"));
       SetPosAndSize();
+      tabControl1.SelectedIndex = xs.ReadSetting(Setting.LastTab, 0);
       turPath = xs.ReadSetting(Setting.LastFile, String.Empty);
       RestoreTurnir(turPath);
     }
@@ -504,6 +505,7 @@ namespace turnir
       SaveColumnWidth();
       SaveGameBounds();
       xs.WriteSetting(Setting.LastFile, curFile);
+      xs.WriteSetting(Setting.LastTab, tabControl1.SelectedIndex);
       xs.Save();
     }
 
@@ -574,12 +576,14 @@ namespace turnir
 
     #endregion
 
+
+
+    #endregion
+
     private void mnuNewTurnir_Click(object sender, EventArgs e)
     {
       NewTurnir();
     }
-
-    #endregion
 
     void SetResults()
     {
