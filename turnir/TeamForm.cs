@@ -76,10 +76,18 @@ namespace turnir
         oldPlayer = tur.Players.Find(p =>
           p.Number == team.Number && p.Board == board);
         if (oldPlayer == null)
-          tur.Players.Add(new Player {
-            Number = team.Number, Name = pName, Board=board });
+          tur.Players.Add(new Player
+          {
+            Number = team.Number,
+            Name = pName,
+            Board = board,
+            Location = team.Name
+          });
         else
+        {
           oldPlayer.Name = pName;
+          oldPlayer.Location = team.Name;
+        }
       }
     }
 
