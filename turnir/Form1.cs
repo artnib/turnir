@@ -28,7 +28,7 @@ namespace turnir
         return (Player)lvi.Tag;
     }
     
-    #region Таблица участников
+    #region Турнирная таблица
 
     void PlayersToListView(List<Player> players)
     {
@@ -42,6 +42,47 @@ namespace turnir
       AddPlayerColumns();
       SetColumnWidth();
       lvTable.EndUpdate();
+    }
+
+    /// <summary>
+    /// Формирует структуру турнирной таблицы
+    /// </summary>
+    /// <param name="personal">Признак личного турнира</param>
+    void PrepareTable(bool personal)
+    {
+      //lvTable.BeginUpdate();
+      lvTable.Clear();
+      lvTable.Columns.Add("№", columnWidth);
+      lvTable.Columns.Add(personal ? "Фамилия, имя" : "Команда", 200);
+      lvTable.Columns.Add(personal && CurTurnir.IsTeam() ? "Команда" : "Откуда", 100);
+      if (personal)
+        lvTable.Columns.Add("Разряд", 50);
+      int tempColCount;
+      if (personal)
+        tempColCount= CurTurnir.Players.FindAll(p => p.Board == 1).Count;
+      else
+        tempColCount = CurTurnir.Teams.Count;
+      for (int i = 1; i <= tempColCount; i++)
+        lvTable.Columns.Add(i.ToString(), columnWidth);
+      lvTable.Columns.Add("Очки", 50);
+      lvTable.Columns.Add("Место", 50);
+      if (personal)
+        lvTable.Columns.Add("Шмульян", 60);
+      //lvTable.EndUpdate();
+    }
+
+    void FillTableCombo()
+    {
+      cbTable.Items.Clear();
+      if (CurTurnir.IsTeam())
+      {
+        cbTable.Items.Add("Команды");
+        for (int i = 1; i <= CurTurnir.BoardNumber; i++)
+          cbTable.Items.Add(String.Format("{0} доска", i));
+      }
+      else
+        cbTable.Items.Add("Все участники");
+      cbTable.SelectedIndex = 0;
     }
 
     #endregion
@@ -82,8 +123,10 @@ namespace turnir
           tbReferee.Text = CurTurnir.Referee;
           tbSecretary.Text = CurTurnir.Secretary;
           CheckTurnirType(CurTurnir);
-          PlayersToListView(CurTurnir.Players);
+          //PlayersToListView(CurTurnir.Players);
+          FillTableCombo();
           RestoreCompetitorList();
+          mnuResults.Enabled = CurTurnir.Games.Count > 0;
         }
         fs.Close();
         curFile = turPath;
@@ -143,6 +186,15 @@ namespace turnir
     void AddPlayerColumns()
     {
       while ((lvTable.Columns.Count - 7) < CurTurnir.Players.Count)
+      {
+        lvTable.Columns.Insert(lvTable.Columns.Count - 3,
+          (lvTable.Columns.Count - 6).ToString(), columnWidth);
+      }
+    }
+
+    void AddTeamColumns()
+    {
+      while ((lvTable.Columns.Count - 6) < CurTurnir.Teams.Count)
       {
         lvTable.Columns.Insert(lvTable.Columns.Count - 3,
           (lvTable.Columns.Count - 6).ToString(), columnWidth);
@@ -292,33 +344,53 @@ namespace turnir
 
     #endregion
 
+    ListViewItem TeamToItem(Team team)
+    {
+      var lvi = new ListViewItem(new string[]{
+        team.Number.ToString(), team.Name, String.Empty });
+      var teamCount = CurTurnir.Teams.Count;
+      for (int i = 1; i <= teamCount; i++)
+        if (i == team.Number)
+          lvi.SubItems.Add("X");
+        else
+          lvi.SubItems.Add(String.Empty);
+      return lvi;
+    }
+
+    /// <summary>
+    /// Возвращает строку турнирной таблицы для участника
+    /// </summary>
+    /// <param name="player">Участник</param>
+    /// <returns></returns>
     ListViewItem PlayerToItem(Player player)
     {
       var lvi = new ListViewItem(new string[]{
           player.Number.ToString(), player.Name, player.Location, player.Title});
       double totalScore = 0.0;
       double score = 0.0;
-      var playerCount = CurTurnir.Players.Count;
+      var board = player.Board;
+      var playerCount = CurTurnir.Players.FindAll(p => p.Board == board).Count;
       for (int i = 1; i <= playerCount; i++)
       {
         if (i == player.Number)
           lvi.SubItems.Add("X");
         else
         {
-          var game = CurTurnir.Games.Find(g => (g.Black == player.Number && g.White == i)
-            || (g.Black==i && g.White==player.Number));
-          if (game != null)
+          var game = CurTurnir.Games.Find(g => g.Board == board &&
+            ((g.Black == player.Number && g.White == i)
+            || (g.Black==i && g.White==player.Number)));
+          if (game != null) //партия найдена
           {
             if (game.Result == GameResult.None)
               lvi.SubItems.Add(String.Empty);
-            else
+            else //партия сыграна
             {
               score = GameScore(game, player);
               lvi.SubItems.Add(score.ToString());
               totalScore += score;
             }
           }
-          else
+          else //партия не найдена
             lvi.SubItems.Add(String.Empty);
         }
       }
@@ -401,7 +473,8 @@ namespace turnir
     private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
     {
       mnuPlayers.Enabled = tabControl1.SelectedTab == tabReg;
-      
+      if (tabControl1.SelectedTab == tabTable)
+        UpdatePlayerTable(0);
     }
 
     private void tbReferee_TextChanged(object sender, EventArgs e)
@@ -463,20 +536,35 @@ namespace turnir
 
     #endregion
 
+    internal void UpdatePlayerTable()
+    { 
+    }
+
     /// <summary>
     /// Обновляет турнирную таблицу
     /// </summary>
-    internal void UpdatePlayerTable()
+    /// <param name="board">Номер доски</param>
+    void UpdatePlayerTable(Byte board)
     {
-      lvTable.BeginUpdate();
+      //lvTable.BeginUpdate();
       lvTable.Items.Clear();
-      CurTurnir.Players.Sort(Turnir.CompareByNumber);
-      foreach (Player player in CurTurnir.Players)
+      if (board > 0) //личная таблица или таблица по доскам
       {
-        AddPlayer(player);
+        var players = CurTurnir.Players.FindAll(p => p.Board == board);
+        players.Sort(Turnir.CompareByNumber);
+        foreach (Player player in players)
+        {
+          AddPlayer(player);
+        }
       }
-      AddPlayerColumns();
-      lvTable.EndUpdate();
+      else //командная таблица
+      {
+        PrepareTable(false);
+        foreach (Team team in CurTurnir.Teams)
+          lvTable.Items.Add(TeamToItem(team));
+      }
+      //AddPlayerColumns();
+      //lvTable.EndUpdate();
     }
 
     #region Настройки формы
@@ -676,6 +764,15 @@ namespace turnir
       bool selected = lvCompetitors.SelectedItems.Count > 0;
       mnuDel.Enabled = selected;
       mnuEditPlayer.Enabled = selected;
+    }
+
+    private void cbTable_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      var board = CurTurnir.IsTeam() ? cbTable.SelectedIndex : 1;
+      lvTable.BeginUpdate();
+      PrepareTable(board > 0);
+      UpdatePlayerTable((Byte)board);
+      lvTable.EndUpdate();
     }
 
   }
