@@ -66,8 +66,10 @@ namespace turnir
       foreach (Game game in games)
       {
         lvi = new ListViewItem(new string[] {
-            players.Find(p => p.Number == game.White).ToString(),
-            players.Find(p => p.Number == game.Black).ToString(),
+            players.Find(p =>
+              p.Board== game.Board && p.Number == game.White).ToString(),
+            players.Find(p =>
+              p.Board== game.Board && p.Number == game.Black).ToString(),
             Result(game.Result)
           }
         );
@@ -133,6 +135,11 @@ namespace turnir
     }
 
     #endregion
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+      tur.Games.Clear();
+    }
 
   }
 }
