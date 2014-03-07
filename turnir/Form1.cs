@@ -349,11 +349,25 @@ namespace turnir
       var lvi = new ListViewItem(new string[]{
         team.Number.ToString(), team.Name, String.Empty });
       var teamCount = CurTurnir.Teams.Count;
+      Double score;
+      Double totalScore = 0.0;
       for (int i = 1; i <= teamCount; i++)
-        if (i == team.Number)
+        if (i == team.Number) //свой столбец
           lvi.SubItems.Add("X");
-        else
-          lvi.SubItems.Add(String.Empty);
+        else //столбцы противников
+        {
+          score = CurTurnir.TeamScore(team,
+            CurTurnir.Teams.Find(t => t.Number == i));
+          if (Double.IsNaN(score))
+            lvi.SubItems.Add(String.Empty);
+          else //партии сыграны
+          {
+            lvi.SubItems.Add(score.ToString());
+            totalScore += score;
+          }
+         }
+      lvi.SubItems.Add(totalScore.ToString());
+      lvi.Tag = team;
       return lvi;
     }
 
@@ -494,7 +508,8 @@ namespace turnir
       }
       var selected = lvTable.SelectedIndices;
       if (selected.Count > 0)
-        gamesForm.SetPlayer(selected[0]);
+        //gamesForm.SetPlayer(selected[0]);
+        gamesForm.Filter = lvTable.SelectedItems[0].Tag;
       gamesForm.ShowDialog(this);
       UpdatePlayerTable();
     }
@@ -537,14 +552,15 @@ namespace turnir
     #endregion
 
     internal void UpdatePlayerTable()
-    { 
+    {
+      UpdatePlayerTable(cbTable.SelectedIndex);
     }
 
     /// <summary>
     /// Обновляет турнирную таблицу
     /// </summary>
     /// <param name="board">Номер доски</param>
-    void UpdatePlayerTable(Byte board)
+    void UpdatePlayerTable(Int32 board)
     {
       //lvTable.BeginUpdate();
       lvTable.Items.Clear();

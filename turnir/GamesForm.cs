@@ -33,6 +33,22 @@ namespace turnir
       playerIndex = index;
     }
 
+    internal object Filter
+    {
+      set { filter = value; }
+    }
+
+    object filter;
+
+    void SetFilter(object filter)
+    {
+      if (filter == null) return;
+      if (filter is Player)
+        cbPlayer.SelectedItem = filter;
+      if (filter is Team)
+        cbTeam.SelectedItem = filter;
+    }
+
     int playerIndex = -1;
     Turnir tur;
     TurnirForm mainForm;
@@ -41,24 +57,23 @@ namespace turnir
     {
       if(cbPlayer.Items.Count == 0)
         cbPlayer.Items.AddRange(players.ToArray());
-      if (playerIndex >= 0)
-        cbPlayer.SelectedIndex = playerIndex;
+      if (cbTeam.Items.Count == 0)
+        cbTeam.Items.AddRange(tur.Teams.ToArray());
+      SetFilter(filter);
     }
 
     private void cbPlayer_SelectedIndexChanged(object sender, EventArgs e)
     {
       var index = cbPlayer.SelectedIndex;
       if(index == -1) return;
+      cbTeam.SelectedIndex = -1;
       if (rr == null)
         rr = new RoundRobin(tur);
       var player = (Player)cbPlayer.Items[index];
       var games = rr.PlayerGames(player);
       ShowGames(games);
-      //lbScore.Text = String.Format("Очки: {0}", PlayerScore(player, games));
     }
-
     
-
     void ShowGames(List<Game> games)
     {
       lvGames.Items.Clear();
@@ -66,16 +81,35 @@ namespace turnir
       foreach (Game game in games)
       {
         lvi = new ListViewItem(new string[] {
-            players.Find(p =>
-              p.Board== game.Board && p.Number == game.White).ToString(),
-            players.Find(p =>
-              p.Board== game.Board && p.Number == game.Black).ToString(),
-            Result(game.Result)
+            WhiteName(game), BlackName(game), Result(game.Result),
+            game.Board.ToString()
           }
         );
         lvi.Tag = game;
         lvGames.Items.Add(lvi);
       }
+    }
+
+    const string fmtName = "{1} ({0})";
+
+    string WhiteName(Game game)
+    {
+      var pname = players.Find(p =>
+        p.Board == game.Board && p.Number == game.White).Name;
+      var tname = String.Empty;
+      if (tur.IsTeam())
+        tname = tur.Teams.Find(t => t.Number == game.White).Name;
+      return String.Format(fmtName, tname, pname);
+    }
+
+    string BlackName(Game game)
+    {
+      var pname = players.Find(p =>
+        p.Board == game.Board && p.Number == game.Black).Name;
+      var tname = String.Empty;
+      if (tur.IsTeam())
+        tname = tur.Teams.Find(t => t.Number == game.Black).Name;
+      return String.Format(fmtName, tname, pname);
     }
 
     RoundRobin rr;
@@ -139,6 +173,15 @@ namespace turnir
     private void button1_Click(object sender, EventArgs e)
     {
       tur.Games.Clear();
+    }
+
+    private void cbTeam_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      if (cbTeam.SelectedIndex == -1) return;
+      cbPlayer.SelectedIndex = -1;
+      var team = (Team)cbTeam.SelectedItem;
+      var games = tur.TeamGames(team);
+      ShowGames(games);
     }
 
   }
