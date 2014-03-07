@@ -44,6 +44,10 @@
       this.statusStrip1 = new System.Windows.Forms.StatusStrip();
       this.lbScore = new System.Windows.Forms.ToolStripStatusLabel();
       this.pnPlayer = new System.Windows.Forms.Panel();
+      this.label3 = new System.Windows.Forms.Label();
+      this.cbTeam = new System.Windows.Forms.ComboBox();
+      this.button1 = new System.Windows.Forms.Button();
+      this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.cmenu.SuspendLayout();
       this.pnGames.SuspendLayout();
       this.statusStrip1.SuspendLayout();
@@ -54,11 +58,10 @@
       // 
       this.cbPlayer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
       this.cbPlayer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-      this.cbPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
       this.cbPlayer.FormattingEnabled = true;
       this.cbPlayer.Location = new System.Drawing.Point(0, 28);
       this.cbPlayer.Name = "cbPlayer";
-      this.cbPlayer.Size = new System.Drawing.Size(514, 21);
+      this.cbPlayer.Size = new System.Drawing.Size(130, 21);
       this.cbPlayer.TabIndex = 0;
       this.cbPlayer.SelectedIndexChanged += new System.EventHandler(this.cbPlayer_SelectedIndexChanged);
       // 
@@ -87,7 +90,8 @@
       this.lvGames.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
-            this.columnHeader3});
+            this.columnHeader3,
+            this.columnHeader4});
       this.lvGames.ContextMenuStrip = this.cmenu;
       this.lvGames.Dock = System.Windows.Forms.DockStyle.Fill;
       this.lvGames.FullRowSelect = true;
@@ -180,6 +184,9 @@
       // 
       // pnPlayer
       // 
+      this.pnPlayer.Controls.Add(this.label3);
+      this.pnPlayer.Controls.Add(this.cbTeam);
+      this.pnPlayer.Controls.Add(this.button1);
       this.pnPlayer.Controls.Add(this.cbPlayer);
       this.pnPlayer.Controls.Add(this.label1);
       this.pnPlayer.Dock = System.Windows.Forms.DockStyle.Top;
@@ -187,6 +194,39 @@
       this.pnPlayer.Name = "pnPlayer";
       this.pnPlayer.Size = new System.Drawing.Size(514, 61);
       this.pnPlayer.TabIndex = 5;
+      // 
+      // label3
+      // 
+      this.label3.AutoSize = true;
+      this.label3.Location = new System.Drawing.Point(140, 9);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(52, 13);
+      this.label3.TabIndex = 4;
+      this.label3.Text = "Команда";
+      // 
+      // cbTeam
+      // 
+      this.cbTeam.FormattingEnabled = true;
+      this.cbTeam.Location = new System.Drawing.Point(143, 28);
+      this.cbTeam.Name = "cbTeam";
+      this.cbTeam.Size = new System.Drawing.Size(130, 21);
+      this.cbTeam.TabIndex = 3;
+      this.cbTeam.SelectedIndexChanged += new System.EventHandler(this.cbTeam_SelectedIndexChanged);
+      // 
+      // button1
+      // 
+      this.button1.Location = new System.Drawing.Point(427, 28);
+      this.button1.Name = "button1";
+      this.button1.Size = new System.Drawing.Size(75, 23);
+      this.button1.TabIndex = 2;
+      this.button1.Text = "button1";
+      this.button1.UseVisualStyleBackColor = true;
+      this.button1.Click += new System.EventHandler(this.button1_Click);
+      // 
+      // columnHeader4
+      // 
+      this.columnHeader4.Text = "Доска";
+      this.columnHeader4.Width = 50;
       // 
       // GamesForm
       // 
@@ -205,6 +245,7 @@
       this.statusStrip1.ResumeLayout(false);
       this.statusStrip1.PerformLayout();
       this.pnPlayer.ResumeLayout(false);
+      this.pnPlayer.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -227,5 +268,9 @@
     private System.Windows.Forms.ToolStripMenuItem draw;
     private System.Windows.Forms.StatusStrip statusStrip1;
     private System.Windows.Forms.ToolStripStatusLabel lbScore;
+    private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.ComboBox cbTeam;
+    private System.Windows.Forms.ColumnHeader columnHeader4;
   }
 }

@@ -17,5 +17,10 @@ namespace turnir
    /// Номер
    /// </summary>
     internal Byte Number;
+
+    public override string ToString()
+    {
+      return Name;
+    }
   }
 }

@@ -178,7 +178,7 @@ namespace turnir
     /// </summary>
     /// <param name="team">Команда</param>
     /// <returns>Список партий</returns>
-    List<Game> TeamGames(Team team)
+    internal List<Game> TeamGames(Team team)
     {
       var number = team.Number;
       return Games.FindAll(g => g.White == number || g.Black == number);
@@ -195,6 +195,45 @@ namespace turnir
       return Games.FindAll(g =>
         (g.White == team.Number && g.Black == opponent.Number) ||
         (g.White == opponent.Number && g.Black == team.Number));
+    }
+
+    /// <summary>
+    /// Возвращает количество очков за командную партию
+    /// </summary>
+    /// <param name="team">Команда</param>
+    /// <param name="opponent">Команда-противник</param>
+    /// <returns></returns>
+    internal Double TeamScore(Team team, Team opponent)
+    {
+      double score = Double.NaN;
+      var games = TeamGames(team, opponent);
+      if (games.Count > 0)
+        score = 0.0;
+      foreach (Game game in games)
+      {
+        score += GameScore(game, team);
+      }
+      return score;
+    }
+
+    Double GameScore(Game game, Team team)
+    {
+      var score = 0.0;
+      switch (game.Result)
+      {
+        case GameResult.Draw:
+          score = 0.5;
+          break;
+        case GameResult.White:
+          if (game.White == team.Number)
+            score = 1.0;
+          break;
+        case GameResult.Black:
+          if (game.Black == team.Number)
+            score = 1.0;
+          break;
+      }
+      return score;
     }
 
     /// <summary>
