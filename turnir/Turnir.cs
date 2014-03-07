@@ -83,6 +83,44 @@ namespace turnir
     }
 
     /// <summary>
+    /// Очищает итоги турнира
+    /// </summary>
+    internal void ClearResults()
+    {
+      if (playerScore == null)
+        playerScore = new Dictionary<Player, double>();
+      else
+        playerScore.Clear();
+      if (playerShmulyan == null)
+        playerShmulyan = new Dictionary<Player, double>();
+      else
+        playerShmulyan.Clear();
+    }
+
+    /// <summary>
+    /// Обновляет итоги турнира
+    /// </summary>
+    internal void UpdateResults()
+    {
+      ClearResults();
+      List<Player> boardPlayers;
+      int pcount;
+      Player player;
+      for (Byte i = 1; i <= BoardNumber; i++)
+      {
+        boardPlayers = Players.FindAll(p => p.Board == i);
+        boardPlayers.Sort(CompareByScore);
+        pcount = boardPlayers.Count;
+        for (int j = 0; j < pcount; j++)
+        {
+          player = boardPlayers[j];
+          player.Place = (Byte)(j + 1);
+          player.Shmulyan = Shmulyan(player);
+        }
+      }
+    }
+
+    /// <summary>
     /// Возвращает список партий участника
     /// </summary>
     /// <param name="player">Участник</param>
@@ -93,8 +131,8 @@ namespace turnir
         playerGame = new Dictionary<Player, List<Game>>();
       if (playerGame.ContainsKey(player))
         return playerGame[player];
-      var games = Games.FindAll(
-        g => g.White == player.Number || g.Black == player.Number);
+      var games = Games.FindAll(g => (g.Board==player.Board) &&
+        (g.White == player.Number || g.Black == player.Number));
       playerGame.Add(player, games);
       return games;
     }
@@ -215,6 +253,8 @@ namespace turnir
       bool rivalBlack;
       foreach (Game game in games)
       {
+        if (game.Board != player.Board)
+          continue;
         if (game.White == player.Number) //участник играл белыми
         {
           rivalNumber = game.Black;
@@ -225,7 +265,8 @@ namespace turnir
           rivalNumber = game.White;
           rivalBlack = false;
         }
-        rival = Players.Find(p => p.Number == rivalNumber);
+        rival = Players.Find(p =>
+          p.Board == game.Board  && p.Number == rivalNumber);
         rivalScore = PlayerScore(rival);
         switch (game.Result)
         { 

@@ -675,33 +675,41 @@ namespace turnir
 
     void SetResults()
     {
-      CurTurnir.Players.Sort(CurTurnir.CompareByScore);
-      var pcount = CurTurnir.Players.Count;
-      ListViewItem lvi;
-      Player player;
-      Byte place;
-      double shmulyan;
-      lvTable.BeginUpdate();
-      for (int i = 0; i < pcount; i++)
-      { 
-        lvi = lvTable.Items[i];
-        player = (Player)lvi.Tag;
-        place = (Byte)(CurTurnir.Players.IndexOf(player) + 1);
-        player.Place = place;
-        if (lvi.SubItems.Count < pcount + 6)
-          lvi.SubItems.Add(place.ToString());
-        else
-          lvi.SubItems[pcount + 5].Text = place.ToString();
-        shmulyan = CurTurnir.Shmulyan(player);
-        player.Shmulyan = shmulyan;
-        if (lvi.SubItems.Count < pcount + 7)
-          lvi.SubItems.Add(shmulyan.ToString());
-        else
-          lvi.SubItems[pcount + 6].Text = shmulyan.ToString();
-      }
-      lvTable.EndUpdate();
-    }
+      CurTurnir.UpdateResults();
+      var board = CurTurnir.IsTeam() ? cbTable.SelectedIndex : 1;
+      //if (board > 0)
+      //{
+      //  var players = CurTurnir.Players.FindAll(p => p.Board == board);
+      //  players.Sort(CurTurnir.CompareByScore);
 
+        //CurTurnir.Players.Sort(CurTurnir.CompareByScore);
+        //var pcount = players.Count;
+        //ListViewItem lvi;
+        //Player player;
+        //Byte place;
+        //double shmulyan;
+        lvTable.BeginUpdate();
+        UpdatePlayerTable((Byte)board);
+        //for (int i = 0; i < pcount; i++)
+        //{
+        //  lvi = lvTable.Items[i];
+        //  player = (Player)lvi.Tag;
+        //  place = (Byte)(players.IndexOf(player) + 1);
+        //  player.Place = place;
+        //  if (lvi.SubItems.Count < pcount + 6)
+        //    lvi.SubItems.Add(place.ToString());
+        //  else
+        //    lvi.SubItems[pcount + 5].Text = place.ToString();
+        //  shmulyan = CurTurnir.Shmulyan(player);
+        //  player.Shmulyan = shmulyan;
+        //  if (lvi.SubItems.Count < pcount + 7)
+        //    lvi.SubItems.Add(shmulyan.ToString());
+        //  else
+        //    lvi.SubItems[pcount + 6].Text = shmulyan.ToString();
+        //}
+        lvTable.EndUpdate();
+      //}
+    }
     private void mnuResults_Click(object sender, EventArgs e)
     {
       SetResults();
