@@ -70,6 +70,11 @@ namespace turnir
       return x.Number - y.Number;
     }
 
+    internal int CompareByNumber(Team x, Team y)
+    {
+      return x.Number - y.Number;
+    }
+
     internal int CompareByScore(Player x, Player y)
     {
       Double xscore = PlayerScore(x);
@@ -79,6 +84,20 @@ namespace turnir
         return diff;
       diff = Math.Sign(Shmulyan(y) - Shmulyan(x));
       //if (diff != 0)
+      return diff;
+    }
+
+    /// <summary>
+    /// Сравнивает команды по количеству очков
+    /// </summary>
+    /// <param name="x">Команда 1</param>
+    /// <param name="y">Команда 2</param>
+    /// <returns></returns>
+    internal int CompareByScore(Team x, Team y)
+    {
+      Double xscore = TeamScore(x);
+      Double yscore = TeamScore(y);
+      int diff = Math.Sign(yscore - xscore);
       return diff;
     }
 
@@ -117,6 +136,13 @@ namespace turnir
           player.Place = (Byte)(j + 1);
           player.Shmulyan = Shmulyan(player);
         }
+      }
+      if (IsTeam())
+      {
+        Teams.Sort(CompareByScore);
+        for (int i = 0; i < Teams.Count; i++)
+          Teams[i].Place = (Byte)(i + 1);
+        Teams.Sort(CompareByNumber);
       }
     }
 
@@ -195,6 +221,29 @@ namespace turnir
       return Games.FindAll(g =>
         (g.White == team.Number && g.Black == opponent.Number) ||
         (g.White == opponent.Number && g.Black == team.Number));
+    }
+
+    [NonSerialized]
+    Dictionary<Team,Double> teamScore;
+
+    /// <summary>
+    /// Возвращает суммарные очки команды
+    /// </summary>
+    /// <param name="team">Команда</param>
+    /// <returns>Очки команды</returns>
+    internal Double TeamScore(Team team)
+    {
+      if(teamScore == null)
+      {
+        teamScore = new Dictionary<Team,double>(Teams.Count);
+      }
+      if(teamScore.ContainsKey(team))
+        return teamScore[team];
+      var teamGames = TeamGames(team);
+      var score = 0.0;
+      foreach(Game game in teamGames)
+        score += GameScore(game, team);
+      return score;
     }
 
     /// <summary>
