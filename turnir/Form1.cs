@@ -367,6 +367,8 @@ namespace turnir
           }
          }
       lvi.SubItems.Add(totalScore.ToString());
+      var place = team.Place;
+      lvi.SubItems.Add(place > 0 ? team.Place.ToString() : String.Empty);
       lvi.Tag = team;
       return lvi;
     }
