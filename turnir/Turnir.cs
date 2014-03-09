@@ -95,9 +95,19 @@ namespace turnir
     /// <returns></returns>
     internal int CompareByScore(Team x, Team y)
     {
+      if (x == y) return 0;
+
+      //сравнение по очкам
       Double xscore = TeamScore(x);
       Double yscore = TeamScore(y);
-      int diff = Math.Sign(yscore - xscore);
+      int diff = Math.Sign(yscore - xscore); 
+      if (diff != 0)
+        return diff;
+      
+      //сравнение по результату личной встречи
+      xscore = TeamScore(x, y);
+      yscore = TeamScore(y, x);
+      diff = Math.Sign(yscore - xscore);
       return diff;
     }
 
