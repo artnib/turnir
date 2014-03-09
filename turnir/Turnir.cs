@@ -108,7 +108,12 @@ namespace turnir
       xscore = TeamScore(x, y);
       yscore = TeamScore(y, x);
       diff = Math.Sign(yscore - xscore);
-      return diff;
+      if (diff != 0) return diff;
+
+      //сравнение по количеству побед
+      Byte xcount = WinCount(x);
+      Byte ycount = WinCount(y);
+      return Math.Sign(ycount - xcount);
     }
 
     /// <summary>
@@ -208,6 +213,20 @@ namespace turnir
     }
     
     #region Команды
+
+    Byte WinCount(Team team)
+    {
+      var games = TeamGames(team);
+      Byte winCount = 0;
+
+      foreach (Team opponent in Teams)
+      {
+        if (opponent == team) continue;
+        if (TeamScore(team, opponent) > (BoardNumber / 2))
+          winCount++;
+      }
+      return winCount;
+    }
 
     /// <summary>
     /// Возвращает список партий команды
