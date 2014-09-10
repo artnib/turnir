@@ -42,6 +42,7 @@
       // 
       // cancel
       // 
+      this.cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
       this.cancel.Location = new System.Drawing.Point(105, 241);
       this.cancel.Name = "cancel";
@@ -53,6 +54,7 @@
       // 
       // save
       // 
+      this.save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.save.DialogResult = System.Windows.Forms.DialogResult.OK;
       this.save.Enabled = false;
       this.save.Location = new System.Drawing.Point(12, 241);
@@ -67,6 +69,9 @@
       // 
       this.gridPlayers.AllowUserToAddRows = false;
       this.gridPlayers.AllowUserToDeleteRows = false;
+      this.gridPlayers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.gridPlayers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
       this.gridPlayers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColBoard,
