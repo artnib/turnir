@@ -227,9 +227,10 @@ namespace turnir
       xs = new XmlSettings(Path.GetFileNameWithoutExtension(Application.ExecutablePath));
       xs.LoadSettings(Path.Combine(AppDir, "settings.xml"));
       SetPosAndSize();
-      tabControl1.SelectedIndex = xs.ReadSetting(Setting.LastTab, 0);
       turPath = xs.ReadSetting(Setting.LastFile, String.Empty);
       RestoreTurnir(turPath);
+      tabControl1.SelectedIndex = xs.ReadSetting(Setting.LastTab, 0);
+      cbTable.SelectedIndex = xs.ReadSetting(Setting.TableIndex, 0);
     }
 
     #endregion
@@ -307,7 +308,10 @@ namespace turnir
     Team GetNewTeam()
     {
       if (teamForm == null)
+      {
         teamForm = new TeamForm(CurTurnir);
+        SetTeamBounds();
+      }
       teamForm.Team = new Team {
         Number = (Byte)(lvCompetitors.Items.Count + 1) };
       if (teamForm.ShowDialog(this) == DialogResult.OK)
@@ -336,7 +340,10 @@ namespace turnir
         if (teamForm != null)
           teamForm.Team = team;
         else
+        {
           teamForm = new TeamForm(team, CurTurnir);
+          SetTeamBounds();
+        }
         teamForm.ShowDialog(this);
         lvi.SubItems[1].Text = team.Name;
       }
@@ -608,10 +615,12 @@ namespace turnir
     private void SaveSettings()
     {
       SavePosAndSize();
-      SaveColumnWidth();
+      //SaveColumnWidth();
       SaveGameBounds();
+      SaveTeamBounds();
       xs.WriteSetting(Setting.LastFile, curFile);
       xs.WriteSetting(Setting.LastTab, tabControl1.SelectedIndex);
+      xs.WriteSetting(Setting.TableIndex, cbTable.SelectedIndex);
       xs.Save();
     }
 
@@ -628,6 +637,8 @@ namespace turnir
       }
     }
 
+    #region Настройки формы партий
+
     /// <summary>
     /// Сохраняет размер и положение формы партий
     /// </summary>
@@ -641,7 +652,7 @@ namespace turnir
         xs.WriteSetting(Setting.GameHeight, gamesForm.Height);
       }
     }
-
+    
     /// <summary>
     /// Задает размер и положение формы партий
     /// </summary>
@@ -652,14 +663,38 @@ namespace turnir
       gamesForm.Width = xs.ReadSetting(Setting.GameWidth, gamesForm.Width);
       gamesForm.Height = xs.ReadSetting(Setting.GameHeight, gamesForm.Height);
     }
+    
+    #endregion
+
+    #region Настройки формы команды
+
+    internal void SaveTeamBounds()
+    {
+      if (teamForm == null) return;
+      xs.WriteSetting(Setting.TeamLeft, teamForm.Left);
+      xs.WriteSetting(Setting.TeamTop, teamForm.Top);
+      xs.WriteSetting(Setting.TeamWidth, teamForm.Width);
+      xs.WriteSetting(Setting.TeamHeight, teamForm.Height);
+    }
+
+    void SetTeamBounds()
+    {
+      teamForm.Left = xs.ReadSetting(Setting.TeamLeft, teamForm.Left);
+      teamForm.Top = xs.ReadSetting(Setting.TeamTop, teamForm.Top);
+      teamForm.Width = xs.ReadSetting(Setting.TeamWidth, teamForm.Width);
+      teamForm.Height = xs.ReadSetting(Setting.TeamHeight, teamForm.Height);
+    }
+
+    #endregion
 
     #region Ширина столбцов таблицы
 
     const char delim = ';';
     
-    void SetColumnWidth()
+    void SetColumnWidth(bool personal)
     {
-      var widths = xs.ReadSetting(Setting.Columns, String.Empty).Split(new char[] { delim });
+      var widths = xs.ReadSetting(personal ? Setting.Columns : Setting.ColumnsTeam,
+        String.Empty).Split(new char[] { delim });
       int width;
 
       for (int i = 0; i < widths.Length; i++)
@@ -669,7 +704,8 @@ namespace turnir
             lvTable.Columns[i].Width = width;
       }
     }
-    void SaveColumnWidth()
+
+    void SaveColumnWidth(bool personal)
     {
        var sb = new StringBuilder();
       for (int i = 0; i < lvTable.Columns.Count; i++)
@@ -677,13 +713,12 @@ namespace turnir
         if (i > 0) sb.Append(delim);
         sb.Append(lvTable.Columns[i].Width);
       }
-      xs.WriteSetting(Setting.Columns, sb.ToString());
+       xs.WriteSetting(personal ? Setting.Columns : Setting.ColumnsTeam,
+        sb.ToString());
     }
 
     #endregion
-
-
-
+    
     #endregion
 
     private void mnuNewTurnir_Click(object sender, EventArgs e)
@@ -792,6 +827,8 @@ namespace turnir
       mnuEditPlayer.Enabled = selected;
     }
 
+    bool tableType;
+
     private void cbTable_SelectedIndexChanged(object sender, EventArgs e)
     {
       var board = CurTurnir.IsTeam() ? cbTable.SelectedIndex : 1;
@@ -799,6 +836,14 @@ namespace turnir
       PrepareTable(board > 0);
       UpdatePlayerTable((Byte)board);
       lvTable.EndUpdate();
+    }
+
+    bool noColumnEvent;
+
+    private void lvTable_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
+    {
+      if (noColumnEvent) return;
+      SaveColumnWidth(tableType);
     }
 
   }
