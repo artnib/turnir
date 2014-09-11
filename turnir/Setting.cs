@@ -30,9 +30,14 @@
     internal const string Maximized = "Maximized";
 
     /// <summary>
-    /// Ширина столбцов таблицы
+    /// Ширина столбцов личной таблицы
     /// </summary>
     internal const string Columns = "Columns";
+
+    /// <summary>
+    /// Ширина столбцов командной таблицы
+    /// </summary>
+    internal const string ColumnsTeam = "ColumnsTeam";
 
     /// <summary>
     /// Файл последнего турнира
@@ -43,6 +48,11 @@
     /// Индекс выбранной вкладки
     /// </summary>
     internal const string LastTab = "TabIndex";
+
+    /// <summary>
+    /// Индекс выбранной таблицы
+    /// </summary>
+    internal const string TableIndex = "TableIndex";
 
     #endregion
 
@@ -67,6 +77,30 @@
     /// Высота формы партий
     /// </summary>
     internal const string GameHeight = "GameHeight";
+
+    #endregion
+
+    #region Форма команды
+
+    /// <summary>
+    /// Расстояние от левого края экрана до формы команды
+    /// </summary>
+    internal const string TeamLeft = "TeamLeft";
+    
+    /// <summary>
+    /// Расстояние от верхнего края экрана до формы команды
+    /// </summary>
+    internal const string TeamTop = "TeamTop";
+    
+    /// <summary>
+    /// Ширина формы команды
+    /// </summary>
+    internal const string TeamWidth = "TeamWidth";
+    
+    /// <summary>
+    /// Высота формы команды
+    /// </summary>
+    internal const string TeamHeight = "TeamHeight";
 
     #endregion
   }
