@@ -132,7 +132,7 @@ namespace turnir
         curFile = turPath;
         UpdateCaption();
       }
-      if (CurTurnir == null) NewTurnir();
+      if (CurTurnir == null) InitNewTurnir();
     }
 
     void CheckTurnirType(Turnir tur)
@@ -151,10 +151,16 @@ namespace turnir
 
     const string defaultCaption = "Турнир";
 
+    void SaveAndInit()
+    {
+      SaveTurnir();
+      InitNewTurnir();
+    }
+
     /// <summary>
     /// Подготовка к работе с новым турниром
     /// </summary>
-    void NewTurnir()
+    void InitNewTurnir()
     {
       curFile = String.Empty;
       CurTurnir = new Turnir();
@@ -242,8 +248,13 @@ namespace turnir
 
     private void lnkNew_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
+      SaveTurnir();
+      InitNewTurnir();
+    }
+
+    private void SaveTurnir()
+    {
       SaveTurnir(curFile);
-      NewTurnir();
     }
  
     private void tbTurnir_TextChanged(object sender, System.EventArgs e)
@@ -723,7 +734,7 @@ namespace turnir
 
     private void mnuNewTurnir_Click(object sender, EventArgs e)
     {
-      NewTurnir();
+      InitNewTurnir();
     }
 
     void SetResults()
