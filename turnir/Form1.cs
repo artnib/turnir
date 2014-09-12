@@ -30,19 +30,19 @@ namespace turnir
     
     #region Турнирная таблица
 
-    void PlayersToListView(List<Player> players)
-    {
-      lvTable.Items.Clear();
-      RemoveTempColumns();
-      lvTable.BeginUpdate();
-      foreach (Player player in players)
-      {
-        AddPlayer(player);
-      }
-      AddPlayerColumns();
-      SetColumnWidth();
-      lvTable.EndUpdate();
-    }
+    //void PlayersToListView(List<Player> players)
+    //{
+    //  lvTable.Items.Clear();
+    //  RemoveTempColumns();
+    //  lvTable.BeginUpdate();
+    //  foreach (Player player in players)
+    //  {
+    //    AddPlayer(player);
+    //  }
+    //  AddPlayerColumns();
+    //  SetColumnWidth();
+    //  lvTable.EndUpdate();
+    //}
 
     /// <summary>
     /// Формирует структуру турнирной таблицы
@@ -50,7 +50,10 @@ namespace turnir
     /// <param name="personal">Признак личного турнира</param>
     void PrepareTable(bool personal)
     {
+      if (tableType == personal) return;
       //lvTable.BeginUpdate();
+      SaveColumnWidth(personal);
+      noColumnEvent = true;
       lvTable.Clear();
       lvTable.Columns.Add("№", columnWidth);
       lvTable.Columns.Add(personal ? "Фамилия, имя" : "Команда", 200);
@@ -68,6 +71,9 @@ namespace turnir
       lvTable.Columns.Add("Место", 50);
       if (personal)
         lvTable.Columns.Add("Шмульян", 60);
+      SetColumnWidth(personal);
+      tableType = personal;
+      noColumnEvent = false;
       //lvTable.EndUpdate();
     }
 
@@ -168,6 +174,7 @@ namespace turnir
       Text = defaultCaption;
       dtDate.Value = DateTime.Now;
       CheckTurnirType(CurTurnir);
+      FillTableCombo();
       lvTable.Items.Clear();
       lvCompetitors.Items.Clear();
       RemoveTempColumns();    
@@ -595,7 +602,7 @@ namespace turnir
       }
       else //командная таблица
       {
-        PrepareTable(false);
+        //PrepareTable(false);
         foreach (Team team in CurTurnir.Teams)
           lvTable.Items.Add(TeamToItem(team));
       }
