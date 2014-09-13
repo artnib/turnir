@@ -40,6 +40,9 @@
       this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.panel1 = new System.Windows.Forms.Panel();
+      this.label4 = new System.Windows.Forms.Label();
+      this.cbTable = new System.Windows.Forms.ComboBox();
       this.tabStart = new System.Windows.Forms.TabPage();
       this.tbSecretary = new System.Windows.Forms.TextBox();
       this.label3 = new System.Windows.Forms.Label();
@@ -73,17 +76,14 @@
       this.mnuResults = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
-      this.cbTable = new System.Windows.Forms.ComboBox();
-      this.label4 = new System.Windows.Forms.Label();
-      this.panel1 = new System.Windows.Forms.Panel();
       this.tabControl1.SuspendLayout();
       this.tabTable.SuspendLayout();
+      this.panel1.SuspendLayout();
       this.tabStart.SuspendLayout();
       this.groupBox1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.numBoard)).BeginInit();
       this.tabReg.SuspendLayout();
       this.menuStrip1.SuspendLayout();
-      this.panel1.SuspendLayout();
       this.SuspendLayout();
       // 
       // lbTurnir
@@ -183,6 +183,37 @@
       // columnHeader6
       // 
       this.columnHeader6.Text = "Шмульян";
+      // 
+      // panel1
+      // 
+      this.panel1.AutoSize = true;
+      this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+      this.panel1.Controls.Add(this.label4);
+      this.panel1.Controls.Add(this.cbTable);
+      this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+      this.panel1.Location = new System.Drawing.Point(3, 3);
+      this.panel1.Name = "panel1";
+      this.panel1.Size = new System.Drawing.Size(720, 27);
+      this.panel1.TabIndex = 8;
+      // 
+      // label4
+      // 
+      this.label4.AutoSize = true;
+      this.label4.Location = new System.Drawing.Point(5, 6);
+      this.label4.Name = "label4";
+      this.label4.Size = new System.Drawing.Size(108, 13);
+      this.label4.TabIndex = 7;
+      this.label4.Text = "Турнирная таблица:";
+      // 
+      // cbTable
+      // 
+      this.cbTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cbTable.FormattingEnabled = true;
+      this.cbTable.Location = new System.Drawing.Point(119, 3);
+      this.cbTable.Name = "cbTable";
+      this.cbTable.Size = new System.Drawing.Size(121, 21);
+      this.cbTable.TabIndex = 6;
+      this.cbTable.SelectedIndexChanged += new System.EventHandler(this.cbTable_SelectedIndexChanged);
       // 
       // tabStart
       // 
@@ -418,21 +449,21 @@
       // mnuSave
       // 
       this.mnuSave.Name = "mnuSave";
-      this.mnuSave.Size = new System.Drawing.Size(141, 22);
+      this.mnuSave.Size = new System.Drawing.Size(152, 22);
       this.mnuSave.Text = "Сохранить...";
       this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
       // 
       // mnuOpen
       // 
       this.mnuOpen.Name = "mnuOpen";
-      this.mnuOpen.Size = new System.Drawing.Size(141, 22);
+      this.mnuOpen.Size = new System.Drawing.Size(152, 22);
       this.mnuOpen.Text = "Открыть...";
       this.mnuOpen.Click += new System.EventHandler(this.mnuOpen_Click);
       // 
       // mnuNewTurnir
       // 
       this.mnuNewTurnir.Name = "mnuNewTurnir";
-      this.mnuNewTurnir.Size = new System.Drawing.Size(141, 22);
+      this.mnuNewTurnir.Size = new System.Drawing.Size(152, 22);
       this.mnuNewTurnir.Text = "Создать...";
       this.mnuNewTurnir.Click += new System.EventHandler(this.mnuNewTurnir_Click);
       // 
@@ -497,37 +528,6 @@
       this.openDlg.Filter = "Турниры|*.tur";
       this.openDlg.Title = "Открытие турнира";
       // 
-      // cbTable
-      // 
-      this.cbTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.cbTable.FormattingEnabled = true;
-      this.cbTable.Location = new System.Drawing.Point(119, 3);
-      this.cbTable.Name = "cbTable";
-      this.cbTable.Size = new System.Drawing.Size(121, 21);
-      this.cbTable.TabIndex = 6;
-      this.cbTable.SelectedIndexChanged += new System.EventHandler(this.cbTable_SelectedIndexChanged);
-      // 
-      // label4
-      // 
-      this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(5, 6);
-      this.label4.Name = "label4";
-      this.label4.Size = new System.Drawing.Size(108, 13);
-      this.label4.TabIndex = 7;
-      this.label4.Text = "Турнирная таблица:";
-      // 
-      // panel1
-      // 
-      this.panel1.AutoSize = true;
-      this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-      this.panel1.Controls.Add(this.label4);
-      this.panel1.Controls.Add(this.cbTable);
-      this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-      this.panel1.Location = new System.Drawing.Point(3, 3);
-      this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(720, 27);
-      this.panel1.TabIndex = 8;
-      // 
       // TurnirForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -543,6 +543,8 @@
       this.tabControl1.ResumeLayout(false);
       this.tabTable.ResumeLayout(false);
       this.tabTable.PerformLayout();
+      this.panel1.ResumeLayout(false);
+      this.panel1.PerformLayout();
       this.tabStart.ResumeLayout(false);
       this.tabStart.PerformLayout();
       this.groupBox1.ResumeLayout(false);
@@ -551,8 +553,6 @@
       this.tabReg.ResumeLayout(false);
       this.menuStrip1.ResumeLayout(false);
       this.menuStrip1.PerformLayout();
-      this.panel1.ResumeLayout(false);
-      this.panel1.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
