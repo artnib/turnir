@@ -129,6 +129,7 @@ namespace turnir
           tbReferee.Text = CurTurnir.Referee;
           tbSecretary.Text = CurTurnir.Secretary;
           CheckTurnirType(CurTurnir);
+          TurChangesEnabled();
           //PlayersToListView(CurTurnir.Players);
           FillTableCombo();
           RestoreCompetitorList();
@@ -144,6 +145,7 @@ namespace turnir
     void CheckTurnirType(Turnir tur)
     {
       bool teamTur = tur.IsTeam();
+      noChange = true;
       if (teamTur)
       {
         rbTeam.Checked = true;
@@ -153,8 +155,10 @@ namespace turnir
       {
         rbPersonal.Checked = true;
       }
+      noChange = false;
     }
 
+    bool noChange;
     const string defaultCaption = "Турнир";
 
     void SaveAndInit()
@@ -516,6 +520,18 @@ namespace turnir
       mnuPlayers.Enabled = tabControl1.SelectedTab == tabReg;
       if (tabControl1.SelectedTab == tabTable)
         UpdatePlayerTable(0);
+      if (tabControl1.SelectedTab == tabReg)
+      {
+        TurChangesEnabled();
+      }
+    }
+
+    private void TurChangesEnabled()
+    {
+      bool changesEnabled = CurTurnir.Started();
+      rbPersonal.Enabled = changesEnabled;
+      rbTeam.Enabled = changesEnabled;
+      numBoard.Enabled = changesEnabled;
     }
 
     private void tbReferee_TextChanged(object sender, EventArgs e)
@@ -786,22 +802,41 @@ namespace turnir
       SetResults();
     }
 
+    #region Сведения о турнире
+
     private void numericUpDown1_ValueChanged(object sender, EventArgs e)
     {
-      CurTurnir.BoardNumber = (Byte)numBoard.Value;
+      SetBoardNumber();
+    }
+
+    private void SetBoardNumber()
+    {
+      CurTurnir.BoardNumber = (Byte)(rbPersonal.Checked ? 1 : numBoard.Value);
+    }
+
+    void TurTypeChanged()
+    {
+      numBoard.Enabled = rbTeam.Checked;
+      colCompetitor.Text = rbTeam.Checked ? "Команда" : "Фамилия, имя";
+      SetBoardNumber();
     }
 
     private void rbPersonal_CheckedChanged(object sender, EventArgs e)
     {
-      numBoard.Enabled = !rbPersonal.Checked;
-      if (rbPersonal.Checked) colCompetitor.Text = "Фамилия, имя";
+      //numBoard.Enabled = !rbPersonal.Checked;
+      //if (rbPersonal.Checked) colCompetitor.Text = "Фамилия, имя";
+      if (noChange) return;
+      TurTypeChanged();
     }
 
     private void rbTeam_CheckedChanged(object sender, EventArgs e)
     {
-      numBoard.Enabled = rbTeam.Checked;
-      if (rbTeam.Checked) colCompetitor.Text = "Команда";
+      if (noChange) return;
+      TurTypeChanged();
+      //if (rbTeam.Checked) colCompetitor.Text = "Команда";
     }
+
+    #endregion
 
     /// <summary>
     /// Восстанавливает список участников/команд на вкладке "Участники"

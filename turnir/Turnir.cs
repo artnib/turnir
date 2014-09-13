@@ -56,6 +56,11 @@ namespace turnir
     /// </summary>
     internal List<Game> Games;
 
+    internal bool Started()
+    {
+      return Teams.Count == 0 && Players.Count == 0;
+    }
+
     internal List<Team> Teams;
 
     internal Turnir()
