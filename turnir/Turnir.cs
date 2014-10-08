@@ -70,6 +70,8 @@ namespace turnir
       Teams = new List<Team>();
     }
 
+    #region Сортировка
+
     internal static int CompareByNumber(Player x, Player y)
     {
       return x.Number - y.Number;
@@ -121,6 +123,8 @@ namespace turnir
       return Math.Sign(ycount - xcount);
     }
 
+    #endregion
+
     /// <summary>
     /// Очищает итоги турнира
     /// </summary>
@@ -164,6 +168,48 @@ namespace turnir
           Teams[i].Place = (Byte)(i + 1);
         Teams.Sort(CompareByNumber);
       }
+    }
+
+    Game FindGame(Player player, byte opponent)
+    {
+      return Games.Find(g => g.Board == player.Board &&
+        ((g.Black == player.Number && g.White == opponent)
+        || (g.Black == opponent && g.White == player.Number)));
+    }
+
+    double GameScore(Game game, Player player)
+    {
+      if (game == null) return Double.NaN;
+      var score = 0.0;
+      switch (game.Result)
+      {
+        case GameResult.Draw:
+          score = 0.5;
+          break;
+        case GameResult.White:
+          if (game.White == player.Number)
+            score = 1.0;
+          break;
+        case GameResult.Black:
+          if (game.Black == player.Number)
+            score = 1.0;
+          break;
+        default:
+          score = Double.NaN;
+          break;
+      }
+      return score;
+    }
+
+    /// <summary>
+    /// Возвращает очки участника, полученные за партию с указанным противником
+    /// </summary>
+    /// <param name="player">Участник</param>
+    /// <param name="opponent">Противник</param>
+    /// <returns>1 (выигрыш), 0 (проигрыш), 0.5 (ничья) или NaN (партия не сыграна)</returns>
+    internal double GameScore(Player player, byte opponent)
+    {
+      return GameScore(FindGame(player, opponent), player);
     }
 
     /// <summary>
