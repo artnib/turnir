@@ -33,6 +33,9 @@ namespace turnir
       playerIndex = index;
     }
 
+    /// <summary>
+    /// Фильтр для отображения партий
+    /// </summary>
     internal object Filter
     {
       set { filter = value; }
