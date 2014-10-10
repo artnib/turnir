@@ -101,8 +101,12 @@ namespace turnir
         p.Board == game.Board && p.Number == game.White).Name;
       var tname = String.Empty;
       if (tur.IsTeam())
+      {
         tname = tur.Teams.Find(t => t.Number == game.White).Name;
-      return String.Format(fmtName, tname, pname);
+        return String.Format(fmtName, tname, pname);
+      }
+      else
+        return pname;
     }
 
     string BlackName(Game game)
@@ -111,8 +115,12 @@ namespace turnir
         p.Board == game.Board && p.Number == game.Black).Name;
       var tname = String.Empty;
       if (tur.IsTeam())
+      {
         tname = tur.Teams.Find(t => t.Number == game.Black).Name;
-      return String.Format(fmtName, tname, pname);
+        return String.Format(fmtName, tname, pname);
+      }
+      else
+        return pname;
     }
 
     RoundRobin rr;
