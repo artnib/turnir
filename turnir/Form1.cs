@@ -598,7 +598,7 @@ namespace turnir
 
     internal void UpdatePlayerTable()
     {
-      UpdatePlayerTable(cbTable.SelectedIndex);
+      UpdatePlayerTable(CurTurnir.IsTeam() ? cbTable.SelectedIndex : 1);
     }
 
     /// <summary>
