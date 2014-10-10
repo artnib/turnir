@@ -58,7 +58,7 @@ namespace turnir
 
     internal bool Started()
     {
-      return Teams.Count == 0 && Players.Count == 0;
+      return Players.Count == 0 && Teams != null;
     }
 
     internal List<Team> Teams;
