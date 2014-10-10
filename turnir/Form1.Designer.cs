@@ -32,14 +32,7 @@
       this.tbTurnir = new System.Windows.Forms.TextBox();
       this.tabControl1 = new System.Windows.Forms.TabControl();
       this.tabTable = new System.Windows.Forms.TabPage();
-      this.lvTable = new System.Windows.Forms.ListView();
-      this.colNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-      this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-      this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-      this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-      this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-      this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-      this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.dgvTable = new System.Windows.Forms.DataGridView();
       this.panel1 = new System.Windows.Forms.Panel();
       this.label4 = new System.Windows.Forms.Label();
       this.cbTable = new System.Windows.Forms.ComboBox();
@@ -78,6 +71,7 @@
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
       this.tabControl1.SuspendLayout();
       this.tabTable.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
       this.panel1.SuspendLayout();
       this.tabStart.SuspendLayout();
       this.groupBox1.SuspendLayout();
@@ -113,76 +107,38 @@
       this.tabControl1.Location = new System.Drawing.Point(0, 24);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
-      this.tabControl1.Size = new System.Drawing.Size(734, 297);
+      this.tabControl1.Size = new System.Drawing.Size(734, 378);
       this.tabControl1.TabIndex = 4;
       this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
       // 
       // tabTable
       // 
       this.tabTable.BackColor = System.Drawing.SystemColors.Control;
-      this.tabTable.Controls.Add(this.lvTable);
+      this.tabTable.Controls.Add(this.dgvTable);
       this.tabTable.Controls.Add(this.panel1);
       this.tabTable.Location = new System.Drawing.Point(4, 22);
       this.tabTable.Name = "tabTable";
       this.tabTable.Padding = new System.Windows.Forms.Padding(3);
-      this.tabTable.Size = new System.Drawing.Size(726, 271);
+      this.tabTable.Size = new System.Drawing.Size(726, 352);
       this.tabTable.TabIndex = 1;
       this.tabTable.Text = "Таблица";
       // 
-      // lvTable
+      // dgvTable
       // 
-      this.lvTable.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colNumber,
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6});
-      this.lvTable.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.lvTable.FullRowSelect = true;
-      this.lvTable.GridLines = true;
-      this.lvTable.HideSelection = false;
-      this.lvTable.Location = new System.Drawing.Point(3, 30);
-      this.lvTable.MultiSelect = false;
-      this.lvTable.Name = "lvTable";
-      this.lvTable.Size = new System.Drawing.Size(720, 238);
-      this.lvTable.TabIndex = 5;
-      this.lvTable.UseCompatibleStateImageBehavior = false;
-      this.lvTable.View = System.Windows.Forms.View.Details;
-      this.lvTable.SelectedIndexChanged += new System.EventHandler(this.lvTable_SelectedIndexChanged);
-      this.lvTable.DoubleClick += new System.EventHandler(this.lvTable_DoubleClick);
-      // 
-      // colNumber
-      // 
-      this.colNumber.Text = "№";
-      this.colNumber.Width = 100;
-      // 
-      // columnHeader1
-      // 
-      this.columnHeader1.Text = "Участник";
-      this.columnHeader1.Width = 200;
-      // 
-      // columnHeader2
-      // 
-      this.columnHeader2.Text = "Откуда";
-      this.columnHeader2.Width = 150;
-      // 
-      // columnHeader3
-      // 
-      this.columnHeader3.Text = "Разряд";
-      // 
-      // columnHeader4
-      // 
-      this.columnHeader4.Text = "Очки";
-      // 
-      // columnHeader5
-      // 
-      this.columnHeader5.Text = "Место";
-      // 
-      // columnHeader6
-      // 
-      this.columnHeader6.Text = "Шмульян";
+      this.dgvTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+      this.dgvTable.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+      this.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+      this.dgvTable.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.dgvTable.Location = new System.Drawing.Point(3, 30);
+      this.dgvTable.MultiSelect = false;
+      this.dgvTable.Name = "dgvTable";
+      this.dgvTable.ReadOnly = true;
+      this.dgvTable.RowHeadersVisible = false;
+      this.dgvTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+      this.dgvTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+      this.dgvTable.ShowEditingIcon = false;
+      this.dgvTable.Size = new System.Drawing.Size(720, 319);
+      this.dgvTable.TabIndex = 9;
       // 
       // panel1
       // 
@@ -232,7 +188,7 @@
       this.tabStart.Location = new System.Drawing.Point(4, 22);
       this.tabStart.Name = "tabStart";
       this.tabStart.Padding = new System.Windows.Forms.Padding(3);
-      this.tabStart.Size = new System.Drawing.Size(726, 271);
+      this.tabStart.Size = new System.Drawing.Size(726, 352);
       this.tabStart.TabIndex = 0;
       this.tabStart.Text = "Турнир";
       // 
@@ -381,7 +337,7 @@
       this.tabReg.Location = new System.Drawing.Point(4, 22);
       this.tabReg.Name = "tabReg";
       this.tabReg.Padding = new System.Windows.Forms.Padding(3);
-      this.tabReg.Size = new System.Drawing.Size(726, 271);
+      this.tabReg.Size = new System.Drawing.Size(726, 352);
       this.tabReg.TabIndex = 2;
       this.tabReg.Text = "Участники";
       this.tabReg.UseVisualStyleBackColor = true;
@@ -400,7 +356,7 @@
       this.lvCompetitors.Location = new System.Drawing.Point(3, 3);
       this.lvCompetitors.MultiSelect = false;
       this.lvCompetitors.Name = "lvCompetitors";
-      this.lvCompetitors.Size = new System.Drawing.Size(720, 265);
+      this.lvCompetitors.Size = new System.Drawing.Size(720, 346);
       this.lvCompetitors.TabIndex = 0;
       this.lvCompetitors.UseCompatibleStateImageBehavior = false;
       this.lvCompetitors.View = System.Windows.Forms.View.Details;
@@ -449,21 +405,21 @@
       // mnuSave
       // 
       this.mnuSave.Name = "mnuSave";
-      this.mnuSave.Size = new System.Drawing.Size(152, 22);
+      this.mnuSave.Size = new System.Drawing.Size(141, 22);
       this.mnuSave.Text = "Сохранить...";
       this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
       // 
       // mnuOpen
       // 
       this.mnuOpen.Name = "mnuOpen";
-      this.mnuOpen.Size = new System.Drawing.Size(152, 22);
+      this.mnuOpen.Size = new System.Drawing.Size(141, 22);
       this.mnuOpen.Text = "Открыть...";
       this.mnuOpen.Click += new System.EventHandler(this.mnuOpen_Click);
       // 
       // mnuNewTurnir
       // 
       this.mnuNewTurnir.Name = "mnuNewTurnir";
-      this.mnuNewTurnir.Size = new System.Drawing.Size(152, 22);
+      this.mnuNewTurnir.Size = new System.Drawing.Size(141, 22);
       this.mnuNewTurnir.Text = "Создать...";
       this.mnuNewTurnir.Click += new System.EventHandler(this.mnuNewTurnir_Click);
       // 
@@ -532,7 +488,7 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(734, 321);
+      this.ClientSize = new System.Drawing.Size(734, 402);
       this.Controls.Add(this.tabControl1);
       this.Controls.Add(this.menuStrip1);
       this.MainMenuStrip = this.menuStrip1;
@@ -543,6 +499,7 @@
       this.tabControl1.ResumeLayout(false);
       this.tabTable.ResumeLayout(false);
       this.tabTable.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).EndInit();
       this.panel1.ResumeLayout(false);
       this.panel1.PerformLayout();
       this.tabStart.ResumeLayout(false);
@@ -579,11 +536,6 @@
     private System.Windows.Forms.DateTimePicker dtDate;
     private System.Windows.Forms.TextBox tbReferee;
     private System.Windows.Forms.Label label1;
-    private System.Windows.Forms.ListView lvTable;
-    private System.Windows.Forms.ColumnHeader colNumber;
-    private System.Windows.Forms.ColumnHeader columnHeader1;
-    private System.Windows.Forms.ColumnHeader columnHeader2;
-    private System.Windows.Forms.ColumnHeader columnHeader3;
     private System.Windows.Forms.MenuStrip menuStrip1;
     private System.Windows.Forms.ToolStripMenuItem турнирToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem mnuPlayers;
@@ -595,11 +547,8 @@
     private System.Windows.Forms.ToolStripMenuItem mnuOpen;
     private System.Windows.Forms.OpenFileDialog openDlg;
     private System.Windows.Forms.ToolStripMenuItem mnuNewTurnir;
-    private System.Windows.Forms.ColumnHeader columnHeader4;
     private System.Windows.Forms.ToolStripMenuItem mnuEditPlayer;
     private System.Windows.Forms.ToolStripMenuItem mnuResults;
-    private System.Windows.Forms.ColumnHeader columnHeader5;
-    private System.Windows.Forms.ColumnHeader columnHeader6;
     private System.Windows.Forms.TextBox tbSecretary;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.GroupBox groupBox1;
@@ -616,6 +565,7 @@
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.ComboBox cbTable;
+    private System.Windows.Forms.DataGridView dgvTable;
   }
 }
 
