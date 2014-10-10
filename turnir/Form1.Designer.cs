@@ -48,8 +48,6 @@
       this.label1 = new System.Windows.Forms.Label();
       this.lbDate = new System.Windows.Forms.Label();
       this.dtDate = new System.Windows.Forms.DateTimePicker();
-      this.lnkTurnirs = new System.Windows.Forms.LinkLabel();
-      this.lnkNew = new System.Windows.Forms.LinkLabel();
       this.tabReg = new System.Windows.Forms.TabPage();
       this.lvCompetitors = new System.Windows.Forms.ListView();
       this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -181,8 +179,6 @@
       this.tabStart.Controls.Add(this.label1);
       this.tabStart.Controls.Add(this.lbDate);
       this.tabStart.Controls.Add(this.dtDate);
-      this.tabStart.Controls.Add(this.lnkTurnirs);
-      this.tabStart.Controls.Add(this.lnkNew);
       this.tabStart.Controls.Add(this.tbTurnir);
       this.tabStart.Controls.Add(this.lbTurnir);
       this.tabStart.Location = new System.Drawing.Point(4, 22);
@@ -310,27 +306,6 @@
       this.dtDate.Size = new System.Drawing.Size(140, 20);
       this.dtDate.TabIndex = 6;
       // 
-      // lnkTurnirs
-      // 
-      this.lnkTurnirs.AutoSize = true;
-      this.lnkTurnirs.Location = new System.Drawing.Point(521, 52);
-      this.lnkTurnirs.Name = "lnkTurnirs";
-      this.lnkTurnirs.Size = new System.Drawing.Size(53, 13);
-      this.lnkTurnirs.TabIndex = 5;
-      this.lnkTurnirs.TabStop = true;
-      this.lnkTurnirs.Text = "Другой...";
-      // 
-      // lnkNew
-      // 
-      this.lnkNew.AutoSize = true;
-      this.lnkNew.Location = new System.Drawing.Point(521, 26);
-      this.lnkNew.Name = "lnkNew";
-      this.lnkNew.Size = new System.Drawing.Size(41, 13);
-      this.lnkNew.TabIndex = 4;
-      this.lnkNew.TabStop = true;
-      this.lnkNew.Text = "Новый";
-      this.lnkNew.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkNew_LinkClicked);
-      // 
       // tabReg
       // 
       this.tabReg.Controls.Add(this.lvCompetitors);
@@ -405,21 +380,21 @@
       // mnuSave
       // 
       this.mnuSave.Name = "mnuSave";
-      this.mnuSave.Size = new System.Drawing.Size(141, 22);
+      this.mnuSave.Size = new System.Drawing.Size(152, 22);
       this.mnuSave.Text = "Сохранить...";
       this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
       // 
       // mnuOpen
       // 
       this.mnuOpen.Name = "mnuOpen";
-      this.mnuOpen.Size = new System.Drawing.Size(141, 22);
+      this.mnuOpen.Size = new System.Drawing.Size(152, 22);
       this.mnuOpen.Text = "Открыть...";
       this.mnuOpen.Click += new System.EventHandler(this.mnuOpen_Click);
       // 
       // mnuNewTurnir
       // 
       this.mnuNewTurnir.Name = "mnuNewTurnir";
-      this.mnuNewTurnir.Size = new System.Drawing.Size(141, 22);
+      this.mnuNewTurnir.Size = new System.Drawing.Size(152, 22);
       this.mnuNewTurnir.Text = "Создать...";
       this.mnuNewTurnir.Click += new System.EventHandler(this.mnuNewTurnir_Click);
       // 
@@ -530,8 +505,6 @@
     private System.Windows.Forms.TabControl tabControl1;
     private System.Windows.Forms.TabPage tabStart;
     private System.Windows.Forms.TabPage tabTable;
-    private System.Windows.Forms.LinkLabel lnkTurnirs;
-    private System.Windows.Forms.LinkLabel lnkNew;
     private System.Windows.Forms.Label lbDate;
     private System.Windows.Forms.DateTimePicker dtDate;
     private System.Windows.Forms.TextBox tbReferee;
