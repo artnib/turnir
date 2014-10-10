@@ -859,5 +859,10 @@ namespace turnir
       for (int i = tempStart + rowCount; i < dgvTable.ColumnCount; i++)
         dgvTable.Columns[i].HeaderText = headers[i - rowCount];
     }
+
+    private void mnuSave_Click_1(object sender, EventArgs e)
+    {
+      SaveTurnir();
+    }
   }
 }

@@ -56,7 +56,7 @@
       this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
       this.турнирToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
+      this.mnuSaveAs = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuOpen = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuNewTurnir = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuPlayers = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,6 +67,7 @@
       this.mnuResults = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
+      this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
       this.tabControl1.SuspendLayout();
       this.tabTable.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
@@ -371,30 +372,31 @@
       // 
       this.турнирToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuSave,
+            this.mnuSaveAs,
             this.mnuOpen,
             this.mnuNewTurnir});
       this.турнирToolStripMenuItem.Name = "турнирToolStripMenuItem";
       this.турнирToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
       this.турнирToolStripMenuItem.Text = "Турнир";
       // 
-      // mnuSave
+      // mnuSaveAs
       // 
-      this.mnuSave.Name = "mnuSave";
-      this.mnuSave.Size = new System.Drawing.Size(152, 22);
-      this.mnuSave.Text = "Сохранить...";
-      this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
+      this.mnuSaveAs.Name = "mnuSaveAs";
+      this.mnuSaveAs.Size = new System.Drawing.Size(162, 22);
+      this.mnuSaveAs.Text = "Сохранить как...";
+      this.mnuSaveAs.Click += new System.EventHandler(this.mnuSave_Click);
       // 
       // mnuOpen
       // 
       this.mnuOpen.Name = "mnuOpen";
-      this.mnuOpen.Size = new System.Drawing.Size(152, 22);
+      this.mnuOpen.Size = new System.Drawing.Size(162, 22);
       this.mnuOpen.Text = "Открыть...";
       this.mnuOpen.Click += new System.EventHandler(this.mnuOpen_Click);
       // 
       // mnuNewTurnir
       // 
       this.mnuNewTurnir.Name = "mnuNewTurnir";
-      this.mnuNewTurnir.Size = new System.Drawing.Size(152, 22);
+      this.mnuNewTurnir.Size = new System.Drawing.Size(162, 22);
       this.mnuNewTurnir.Text = "Создать...";
       this.mnuNewTurnir.Click += new System.EventHandler(this.mnuNewTurnir_Click);
       // 
@@ -459,6 +461,13 @@
       this.openDlg.Filter = "Турниры|*.tur";
       this.openDlg.Title = "Открытие турнира";
       // 
+      // mnuSave
+      // 
+      this.mnuSave.Name = "mnuSave";
+      this.mnuSave.Size = new System.Drawing.Size(162, 22);
+      this.mnuSave.Text = "Сохранить";
+      this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click_1);
+      // 
       // TurnirForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -515,7 +524,7 @@
     private System.Windows.Forms.ToolStripMenuItem mnuAddPlaeyr;
     private System.Windows.Forms.ToolStripMenuItem mnuGames;
     private System.Windows.Forms.ToolStripMenuItem mnuDel;
-    private System.Windows.Forms.ToolStripMenuItem mnuSave;
+    private System.Windows.Forms.ToolStripMenuItem mnuSaveAs;
     private System.Windows.Forms.SaveFileDialog saveDlg;
     private System.Windows.Forms.ToolStripMenuItem mnuOpen;
     private System.Windows.Forms.OpenFileDialog openDlg;
@@ -539,6 +548,7 @@
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.ComboBox cbTable;
     private System.Windows.Forms.DataGridView dgvTable;
+    private System.Windows.Forms.ToolStripMenuItem mnuSave;
   }
 }
 
