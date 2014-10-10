@@ -181,17 +181,6 @@ namespace turnir
 
     #endregion
 
-    private void dgvPlayers_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-    {
-
-    }
-
-    private void lnkNew_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-    {
-      SaveTurnir();
-      InitNewTurnir();
-    }
-
     private void SaveTurnir()
     {
       SaveTurnir(curFile);
@@ -222,18 +211,33 @@ namespace turnir
         if (player == null) return;
         var lvItems = lvCompetitors.Items;
         player.Number = (Byte)(lvItems.Count + 1);
+        competitor = GetItem(player);
         CurTurnir.Players.Add(player);
       }
       else
       {
         var team = GetNewTeam();
         if (team == null) return;
-        competitor = new ListViewItem(new string[] {
-          team.Number.ToString(), team.Name });
-        competitor.Tag = team;
-        lvCompetitors.Items.Add(competitor);
+        competitor = GetItem(team);
         CurTurnir.Teams.Add(team);
       }
+      lvCompetitors.Items.Add(competitor);
+    }
+
+    private static ListViewItem GetItem(Team team)
+    {
+      ListViewItem lvi;
+      lvi = new ListViewItem(new string[] { team.Number.ToString(), team.Name });
+      lvi.Tag = team;
+      return lvi;
+    }
+
+    private static ListViewItem GetItem(Player player)
+    {
+      var lvi = new ListViewItem(new string[] { player.Number.ToString(),
+        player.Name, player.Location, player.Title });
+      lvi.Tag = player;
+      return lvi;
     }
 
     /// <summary>
@@ -577,6 +581,7 @@ namespace turnir
 
     private void mnuOpen_Click(object sender, EventArgs e)
     {
+      SaveTurnir();
       if (openDlg.ShowDialog() == DialogResult.OK)
       {
         curFile = openDlg.FileName;
@@ -726,7 +731,7 @@ namespace turnir
 
     private void mnuNewTurnir_Click(object sender, EventArgs e)
     {
-      InitNewTurnir();
+      SaveAndInit();
     }
 
     void SetResults()
@@ -784,22 +789,15 @@ namespace turnir
     {
       lvCompetitors.BeginUpdate();
       lvCompetitors.Items.Clear();
-      ListViewItem lvi;
       if (CurTurnir.IsPersonal()) //личный турнир
         foreach (Player player in CurTurnir.Players)
         {
-          lvi = new ListViewItem(new string[] {
-            player.Number.ToString(), player.Name });
-          lvi.Tag = player;
-          lvCompetitors.Items.Add(lvi);
+          lvCompetitors.Items.Add(GetItem(player));
         }
       else //командный турнир
         foreach (Team team in CurTurnir.Teams)
         {
-          lvi = new ListViewItem(new string[]{
-            team.Number.ToString(),team.Name});
-          lvi.Tag = team;
-          lvCompetitors.Items.Add(lvi);
+          lvCompetitors.Items.Add(GetItem(team));
         }
       lvCompetitors.EndUpdate();
     }
@@ -849,7 +847,10 @@ namespace turnir
       headers = hdrs.Split(delims);
       var rowCount = CurTurnir.IsTeam() ? CurTurnir.Teams.Count :
         CurTurnir.Players.Count;
-      dgvTable.RowCount = rowCount;
+      if (rowCount == 0)
+        dgvTable.Rows.Clear();
+      else
+        dgvTable.RowCount = rowCount;
       dgvTable.ColumnCount = headers.Length + rowCount;
       for (int i = 0; i < tempStart; i++)
         dgvTable.Columns[i].HeaderText = headers[i];
