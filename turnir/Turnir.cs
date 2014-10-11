@@ -56,6 +56,14 @@ namespace turnir
     /// </summary>
     internal List<Game> Games;
 
+    /// <summary>
+    /// Возвращает количество сыгранных партий
+    /// </summary>
+    internal int PlayedGames
+    {
+      get { return Games.FindAll(g => g.Result != GameResult.None).Count; }
+    }
+
     internal bool Started()
     {
       return Players.Count == 0 && Teams != null;
