@@ -277,8 +277,10 @@ namespace turnir
     private void mnuDel_Click(object sender, EventArgs e)
     {
       var competitor = lvCompetitors.SelectedItems[0].Tag;
-      if(competitor is Team)
+      if (competitor is Team)
         CurTurnir.RemoveTeam((Team)competitor);
+      else
+        CurTurnir.RemovePlayer((Player)competitor);
       RestoreCompetitorList();
     }
 
