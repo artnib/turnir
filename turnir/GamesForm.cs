@@ -178,6 +178,11 @@ namespace turnir
     {
       SetResult(GameResult.Draw);
     }
+    
+    private void clear_Click(object sender, EventArgs e)
+    {
+      SetResult(GameResult.None);
+    }
 
     #endregion
 
