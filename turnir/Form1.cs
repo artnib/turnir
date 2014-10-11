@@ -86,7 +86,7 @@ namespace turnir
           //PlayersToListView(CurTurnir.Players);
           FillTableCombo();
           RestoreCompetitorList();
-          mnuResults.Enabled = CurTurnir.Games.Count > 0;
+          //mnuResults.Enabled = CurTurnir.Games.Count > 0;
         }
         fs.Close();
         curFile = turPath;
@@ -486,11 +486,6 @@ namespace turnir
       item.Tag = player;
     }
 
-    private void lvTable_DoubleClick(object sender, EventArgs e)
-    {
-      EditPlayer();
-    }
-
     private void EditPlayer()
     {
       var selectedItems = lvCompetitors.SelectedItems;
@@ -511,16 +506,10 @@ namespace turnir
     private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
     {
       mnuPlayers.Enabled = tabControl1.SelectedTab == tabReg;
-      //if (tabControl1.SelectedTab == tabTable)
-      //  UpdatePlayerTable(0);
-      //if (tabControl1.SelectedTab == tabStart)
-      //{
-      //  TurChangesEnabled();
-      //}
       switch (tabControl1.SelectedIndex)
       {
         case 0:
-          UpdatePlayerTable(cbTable.SelectedIndex);
+          UpdatePlayerTable();
           break;
         case 1:
           TurChangesEnabled();
@@ -813,7 +802,7 @@ namespace turnir
     private void lvCompetitors_SelectedIndexChanged(object sender, EventArgs e)
     {
       bool selected = lvCompetitors.SelectedItems.Count > 0;
-      mnuDel.Enabled = selected;
+      mnuDel.Enabled = selected && CurTurnir.PlayedGames == 0;
       mnuEditPlayer.Enabled = selected;
     }
 

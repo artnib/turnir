@@ -56,6 +56,7 @@
       this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
       this.турнирToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuSaveAs = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuOpen = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuNewTurnir = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +68,6 @@
       this.mnuResults = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
-      this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
       this.tabControl1.SuspendLayout();
       this.tabTable.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
@@ -379,6 +379,13 @@
       this.турнирToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
       this.турнирToolStripMenuItem.Text = "Турнир";
       // 
+      // mnuSave
+      // 
+      this.mnuSave.Name = "mnuSave";
+      this.mnuSave.Size = new System.Drawing.Size(162, 22);
+      this.mnuSave.Text = "Сохранить";
+      this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click_1);
+      // 
       // mnuSaveAs
       // 
       this.mnuSaveAs.Name = "mnuSaveAs";
@@ -444,7 +451,6 @@
       // 
       // mnuResults
       // 
-      this.mnuResults.Enabled = false;
       this.mnuResults.Name = "mnuResults";
       this.mnuResults.Size = new System.Drawing.Size(52, 20);
       this.mnuResults.Text = "Итоги";
@@ -460,13 +466,6 @@
       // 
       this.openDlg.Filter = "Турниры|*.tur";
       this.openDlg.Title = "Открытие турнира";
-      // 
-      // mnuSave
-      // 
-      this.mnuSave.Name = "mnuSave";
-      this.mnuSave.Size = new System.Drawing.Size(162, 22);
-      this.mnuSave.Text = "Сохранить";
-      this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click_1);
       // 
       // TurnirForm
       // 
