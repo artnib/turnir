@@ -469,6 +469,7 @@
       // 
       // TurnirForm
       // 
+      this.AllowDrop = true;
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(734, 402);
@@ -479,6 +480,8 @@
       this.Text = "Турнир";
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
       this.Load += new System.EventHandler(this.Form1_Load);
+      this.DragDrop += new System.Windows.Forms.DragEventHandler(this.TurnirForm_DragDrop);
+      this.DragEnter += new System.Windows.Forms.DragEventHandler(this.TurnirForm_DragEnter);
       this.tabControl1.ResumeLayout(false);
       this.tabTable.ResumeLayout(false);
       this.tabTable.PerformLayout();

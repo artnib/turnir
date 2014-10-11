@@ -855,5 +855,36 @@ namespace turnir
     {
       SaveTurnir();
     }
+
+    #region Перетаскивание файла
+
+    private void TurnirForm_DragDrop(object sender, DragEventArgs e)
+    {
+      if (!String.IsNullOrEmpty(dropFile))
+      {
+        SaveTurnir();
+        RestoreTurnir(dropFile);
+      }
+    }
+
+    const string extension = ".tur";
+    string dropFile;
+
+    private void TurnirForm_DragEnter(object sender, DragEventArgs e)
+    {
+      dropFile = null;
+      if (e.Data.GetDataPresent(DataFormats.FileDrop))
+      {
+        var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+        if (Path.GetExtension(files[0]).Equals(extension,
+          StringComparison.InvariantCultureIgnoreCase))
+        {
+          e.Effect = DragDropEffects.All;
+          dropFile = files[0];
+        }
+      }
+    }
+
+    #endregion
   }
 }
