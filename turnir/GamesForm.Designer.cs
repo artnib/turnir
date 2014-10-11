@@ -36,6 +36,7 @@
       this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
       this.cmenu = new System.Windows.Forms.ContextMenuStrip(this.components);
       this.white = new System.Windows.Forms.ToolStripMenuItem();
       this.black = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +48,7 @@
       this.label3 = new System.Windows.Forms.Label();
       this.cbTeam = new System.Windows.Forms.ComboBox();
       this.button1 = new System.Windows.Forms.Button();
-      this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+      this.clear = new System.Windows.Forms.ToolStripMenuItem();
       this.cmenu.SuspendLayout();
       this.pnGames.SuspendLayout();
       this.statusStrip1.SuspendLayout();
@@ -121,14 +122,20 @@
       this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
       this.columnHeader3.Width = 70;
       // 
+      // columnHeader4
+      // 
+      this.columnHeader4.Text = "Доска";
+      this.columnHeader4.Width = 50;
+      // 
       // cmenu
       // 
       this.cmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.white,
             this.black,
-            this.draw});
+            this.draw,
+            this.clear});
       this.cmenu.Name = "cmenu";
-      this.cmenu.Size = new System.Drawing.Size(214, 70);
+      this.cmenu.Size = new System.Drawing.Size(214, 114);
       // 
       // white
       // 
@@ -223,10 +230,13 @@
       this.button1.UseVisualStyleBackColor = true;
       this.button1.Click += new System.EventHandler(this.button1_Click);
       // 
-      // columnHeader4
+      // clear
       // 
-      this.columnHeader4.Text = "Доска";
-      this.columnHeader4.Width = 50;
+      this.clear.Name = "clear";
+      this.clear.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+      this.clear.Size = new System.Drawing.Size(213, 22);
+      this.clear.Text = "Очистить";
+      this.clear.Click += new System.EventHandler(this.clear_Click);
       // 
       // GamesForm
       // 
@@ -272,5 +282,6 @@
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.ComboBox cbTeam;
     private System.Windows.Forms.ColumnHeader columnHeader4;
+    private System.Windows.Forms.ToolStripMenuItem clear;
   }
 }
