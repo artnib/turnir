@@ -52,6 +52,17 @@ namespace turnir
     internal List<Player> Players;
 
     /// <summary>
+    /// Удаляет указанного участника
+    /// </summary>
+    /// <param name="player">Участник</param>
+    internal void RemovePlayer(Player player)
+    {
+      var number = player.Number;
+      Players.Remove(player);
+      LiftPlayers(number);
+    }
+
+    /// <summary>
     /// Список партий
     /// </summary>
     internal List<Game> Games;
@@ -403,9 +414,7 @@ namespace turnir
       var nextTeams = Teams.FindAll(t => t.Number > number);
       foreach (Team nextTeam in nextTeams)
         nextTeam.Number--;
-      var nextPlayers = Players.FindAll(p => p.Number > number);
-      foreach (Player nextPlayer in nextPlayers)
-        nextPlayer.Number--;
+      LiftPlayers(number);
     }
 
     #endregion
@@ -467,5 +476,12 @@ namespace turnir
     Dictionary<Player, Double> playerScore;
     Dictionary<Player, List<Game>> playerGame;
     Dictionary<Player, Double> playerShmulyan;
+    
+    void LiftPlayers(byte number)
+    {
+      var nextPlayers = Players.FindAll(p => p.Number > number);
+      foreach (Player nextPlayer in nextPlayers)
+        nextPlayer.Number--;
+    }
   }
 }
