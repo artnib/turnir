@@ -47,7 +47,6 @@
       this.pnPlayer = new System.Windows.Forms.Panel();
       this.label3 = new System.Windows.Forms.Label();
       this.cbTeam = new System.Windows.Forms.ComboBox();
-      this.button1 = new System.Windows.Forms.Button();
       this.clear = new System.Windows.Forms.ToolStripMenuItem();
       this.cmenu.SuspendLayout();
       this.pnGames.SuspendLayout();
@@ -135,7 +134,7 @@
             this.draw,
             this.clear});
       this.cmenu.Name = "cmenu";
-      this.cmenu.Size = new System.Drawing.Size(214, 114);
+      this.cmenu.Size = new System.Drawing.Size(214, 92);
       // 
       // white
       // 
@@ -193,7 +192,6 @@
       // 
       this.pnPlayer.Controls.Add(this.label3);
       this.pnPlayer.Controls.Add(this.cbTeam);
-      this.pnPlayer.Controls.Add(this.button1);
       this.pnPlayer.Controls.Add(this.cbPlayer);
       this.pnPlayer.Controls.Add(this.label1);
       this.pnPlayer.Dock = System.Windows.Forms.DockStyle.Top;
@@ -219,16 +217,6 @@
       this.cbTeam.Size = new System.Drawing.Size(130, 21);
       this.cbTeam.TabIndex = 3;
       this.cbTeam.SelectedIndexChanged += new System.EventHandler(this.cbTeam_SelectedIndexChanged);
-      // 
-      // button1
-      // 
-      this.button1.Location = new System.Drawing.Point(427, 28);
-      this.button1.Name = "button1";
-      this.button1.Size = new System.Drawing.Size(75, 23);
-      this.button1.TabIndex = 2;
-      this.button1.Text = "button1";
-      this.button1.UseVisualStyleBackColor = true;
-      this.button1.Click += new System.EventHandler(this.button1_Click);
       // 
       // clear
       // 
@@ -278,7 +266,6 @@
     private System.Windows.Forms.ToolStripMenuItem draw;
     private System.Windows.Forms.StatusStrip statusStrip1;
     private System.Windows.Forms.ToolStripStatusLabel lbScore;
-    private System.Windows.Forms.Button button1;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.ComboBox cbTeam;
     private System.Windows.Forms.ColumnHeader columnHeader4;
