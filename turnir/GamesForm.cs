@@ -60,7 +60,7 @@ namespace turnir
     {
       if(cbPlayer.Items.Count == 0)
         cbPlayer.Items.AddRange(players.ToArray());
-      if (cbTeam.Items.Count == 0)
+      if (cbTeam.Items.Count == 0 && tur.IsTeam())
         cbTeam.Items.AddRange(tur.Teams.ToArray());
       SetFilter(filter);
     }
@@ -185,11 +185,6 @@ namespace turnir
     }
 
     #endregion
-
-    private void button1_Click(object sender, EventArgs e)
-    {
-      tur.Games.Clear();
-    }
 
     private void cbTeam_SelectedIndexChanged(object sender, EventArgs e)
     {
