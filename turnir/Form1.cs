@@ -886,5 +886,20 @@ namespace turnir
     }
 
     #endregion
+
+    private void mnuHtml_Click(object sender, EventArgs e)
+    {
+      var htmlFile = Path.ChangeExtension(curFile, "htm");
+      var sb = new StringBuilder();
+      var hw = new HtmlWriter(CurTurnir);
+      hw.SaveTable(htmlFile, dgvTable);
+      System.Diagnostics.Process.Start(htmlFile);
+    }
+
+    private void tbTurnir_TextChanged_1(object sender, EventArgs e)
+    {
+      CurTurnir.Name = tbTurnir.Text;
+    }
+
   }
 }

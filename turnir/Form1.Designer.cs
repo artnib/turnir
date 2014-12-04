@@ -68,6 +68,7 @@
       this.mnuResults = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
+      this.mnuHtml = new System.Windows.Forms.ToolStripMenuItem();
       this.tabControl1.SuspendLayout();
       this.tabTable.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
@@ -96,6 +97,7 @@
       this.tbTurnir.ScrollBars = System.Windows.Forms.ScrollBars.Both;
       this.tbTurnir.Size = new System.Drawing.Size(500, 39);
       this.tbTurnir.TabIndex = 1;
+      this.tbTurnir.TextChanged += new System.EventHandler(this.tbTurnir_TextChanged_1);
       // 
       // tabControl1
       // 
@@ -374,7 +376,8 @@
             this.mnuSave,
             this.mnuSaveAs,
             this.mnuOpen,
-            this.mnuNewTurnir});
+            this.mnuNewTurnir,
+            this.mnuHtml});
       this.турнирToolStripMenuItem.Name = "турнирToolStripMenuItem";
       this.турнирToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
       this.турнирToolStripMenuItem.Text = "Турнир";
@@ -467,6 +470,13 @@
       this.openDlg.Filter = "Турниры|*.tur";
       this.openDlg.Title = "Открытие турнира";
       // 
+      // mnuHtml
+      // 
+      this.mnuHtml.Name = "mnuHtml";
+      this.mnuHtml.Size = new System.Drawing.Size(162, 22);
+      this.mnuHtml.Text = "HTML";
+      this.mnuHtml.Click += new System.EventHandler(this.mnuHtml_Click);
+      // 
       // TurnirForm
       // 
       this.AllowDrop = true;
@@ -551,6 +561,7 @@
     private System.Windows.Forms.ComboBox cbTable;
     private System.Windows.Forms.DataGridView dgvTable;
     private System.Windows.Forms.ToolStripMenuItem mnuSave;
+    private System.Windows.Forms.ToolStripMenuItem mnuHtml;
   }
 }
 
