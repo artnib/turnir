@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="GameResult.cs" />
+    <Compile Include="HtmlWriter.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerForm.cs">
       <SubType>Form</SubType>
