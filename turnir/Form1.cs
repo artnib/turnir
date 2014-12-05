@@ -61,6 +61,7 @@ namespace turnir
       CurTurnir.Name = tbTurnir.Text;
       CurTurnir.Referee = tbReferee.Text;
       CurTurnir.Secretary = tbSecretary.Text;
+      CurTurnir.Place = tbPlace.Text;
       CurTurnir.Players.Sort(Turnir.CompareByNumber);
       bf.Serialize(fs, CurTurnir);
       fs.Close();
@@ -81,6 +82,7 @@ namespace turnir
           tbTurnir.Text = CurTurnir.Name;
           tbReferee.Text = CurTurnir.Referee;
           tbSecretary.Text = CurTurnir.Secretary;
+          tbPlace.Text = CurTurnir.Place;
           CheckTurnirType(CurTurnir);
           TurChangesEnabled();
           //PlayersToListView(CurTurnir.Players);
@@ -899,6 +901,11 @@ namespace turnir
     private void tbTurnir_TextChanged_1(object sender, EventArgs e)
     {
       CurTurnir.Name = tbTurnir.Text;
+    }
+
+    private void tbPlace_TextChanged(object sender, EventArgs e)
+    {
+      CurTurnir.Place = tbPlace.Text;
     }
 
   }

@@ -14,6 +14,11 @@ namespace turnir
     public string FileName;
 
     /// <summary>
+    /// Место проведения
+    /// </summary>
+    internal string Place;
+
+    /// <summary>
     /// Количество досок в командном турнире
     /// </summary>
     internal Byte BoardNumber = 1;
