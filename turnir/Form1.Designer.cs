@@ -60,6 +60,7 @@
       this.mnuSaveAs = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuOpen = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuNewTurnir = new System.Windows.Forms.ToolStripMenuItem();
+      this.mnuHtml = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuPlayers = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuAddPlaeyr = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuDel = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,7 +69,8 @@
       this.mnuResults = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
-      this.mnuHtml = new System.Windows.Forms.ToolStripMenuItem();
+      this.tbPlace = new System.Windows.Forms.TextBox();
+      this.label5 = new System.Windows.Forms.Label();
       this.tabControl1.SuspendLayout();
       this.tabTable.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
@@ -175,6 +177,8 @@
       // tabStart
       // 
       this.tabStart.BackColor = System.Drawing.SystemColors.Control;
+      this.tabStart.Controls.Add(this.label5);
+      this.tabStart.Controls.Add(this.tbPlace);
       this.tabStart.Controls.Add(this.tbSecretary);
       this.tabStart.Controls.Add(this.label3);
       this.tabStart.Controls.Add(this.groupBox1);
@@ -213,7 +217,7 @@
       this.groupBox1.Controls.Add(this.numBoard);
       this.groupBox1.Controls.Add(this.rbTeam);
       this.groupBox1.Controls.Add(this.rbPersonal);
-      this.groupBox1.Location = new System.Drawing.Point(6, 140);
+      this.groupBox1.Location = new System.Drawing.Point(6, 179);
       this.groupBox1.Name = "groupBox1";
       this.groupBox1.Size = new System.Drawing.Size(192, 70);
       this.groupBox1.TabIndex = 12;
@@ -410,6 +414,13 @@
       this.mnuNewTurnir.Text = "Создать...";
       this.mnuNewTurnir.Click += new System.EventHandler(this.mnuNewTurnir_Click);
       // 
+      // mnuHtml
+      // 
+      this.mnuHtml.Name = "mnuHtml";
+      this.mnuHtml.Size = new System.Drawing.Size(162, 22);
+      this.mnuHtml.Text = "HTML";
+      this.mnuHtml.Click += new System.EventHandler(this.mnuHtml_Click);
+      // 
       // mnuPlayers
       // 
       this.mnuPlayers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -470,12 +481,22 @@
       this.openDlg.Filter = "Турниры|*.tur";
       this.openDlg.Title = "Открытие турнира";
       // 
-      // mnuHtml
+      // tbPlace
       // 
-      this.mnuHtml.Name = "mnuHtml";
-      this.mnuHtml.Size = new System.Drawing.Size(162, 22);
-      this.mnuHtml.Text = "HTML";
-      this.mnuHtml.Click += new System.EventHandler(this.mnuHtml_Click);
+      this.tbPlace.Location = new System.Drawing.Point(6, 153);
+      this.tbPlace.Name = "tbPlace";
+      this.tbPlace.Size = new System.Drawing.Size(389, 20);
+      this.tbPlace.TabIndex = 15;
+      this.tbPlace.TextChanged += new System.EventHandler(this.tbPlace_TextChanged);
+      // 
+      // label5
+      // 
+      this.label5.AutoSize = true;
+      this.label5.Location = new System.Drawing.Point(3, 137);
+      this.label5.Name = "label5";
+      this.label5.Size = new System.Drawing.Size(102, 13);
+      this.label5.TabIndex = 16;
+      this.label5.Text = "Место проведения";
       // 
       // TurnirForm
       // 
@@ -562,6 +583,8 @@
     private System.Windows.Forms.DataGridView dgvTable;
     private System.Windows.Forms.ToolStripMenuItem mnuSave;
     private System.Windows.Forms.ToolStripMenuItem mnuHtml;
+    private System.Windows.Forms.Label label5;
+    private System.Windows.Forms.TextBox tbPlace;
   }
 }
 
