@@ -49,12 +49,16 @@ namespace turnir
     void SaveTurnir(string turPath)
     {
       if (String.IsNullOrEmpty(turPath)) //несохранённый турнир
+      {
+        saveDlg.Filter = "Турниры|*.tur";
+        saveDlg.DefaultExt = "tur";
         if (saveDlg.ShowDialog(this) == DialogResult.OK)
         {
           turPath = saveDlg.FileName;
         }
         else //отмена сохранения
           return;
+      }
       var fs = new FileStream(turPath, FileMode.Create);
       var bf = new BinaryFormatter();
       CurTurnir.Date = dtDate.Value;
@@ -559,6 +563,8 @@ namespace turnir
 
     private void mnuSave_Click(object sender, EventArgs e)
     {
+      saveDlg.Filter = "Турниры|*.tur";
+      saveDlg.DefaultExt = "tur";
       if (saveDlg.ShowDialog() == DialogResult.OK)
       {
         fs = new FileStream(saveDlg.FileName, FileMode.Create);
@@ -891,11 +897,16 @@ namespace turnir
 
     private void mnuHtml_Click(object sender, EventArgs e)
     {
-      var htmlFile = Path.ChangeExtension(curFile, "htm");
-      var sb = new StringBuilder();
-      var hw = new HtmlWriter(CurTurnir);
-      hw.SaveTable(htmlFile, dgvTable);
-      System.Diagnostics.Process.Start(htmlFile);
+      saveDlg.Filter = "Веб-страница|*.htm";
+      saveDlg.DefaultExt = "htm";
+      saveDlg.FileName = Path.GetFileNameWithoutExtension(curFile);
+      if (saveDlg.ShowDialog() == DialogResult.OK)
+      {
+        var hw = new HtmlWriter(CurTurnir);
+        var htmlFile = saveDlg.FileName;
+        hw.SaveTable(htmlFile, dgvTable);
+        System.Diagnostics.Process.Start(htmlFile);
+      }
     }
 
     private void tbTurnir_TextChanged_1(object sender, EventArgs e)
