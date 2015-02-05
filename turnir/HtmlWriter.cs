@@ -43,7 +43,7 @@ namespace turnir
         sb.Append("<tr>");
         foreach (DataGridViewCell cell in row.Cells)
         {
-          sb.Append(Cell(cell.Value.ToString()));
+          sb.Append(Cell(cell.Value));
         }
         sb.AppendLine("</tr>");
       }
@@ -56,7 +56,7 @@ namespace turnir
       return String.Format("<h{0}>{1}</h{0}>", level, text);
     }
 
-    static string Cell(string content)
+    static string Cell(object content)
     {
       return String.Format("<td>{0}</td>", content);
     }
