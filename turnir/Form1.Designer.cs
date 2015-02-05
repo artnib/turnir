@@ -37,6 +37,8 @@
       this.label4 = new System.Windows.Forms.Label();
       this.cbTable = new System.Windows.Forms.ComboBox();
       this.tabStart = new System.Windows.Forms.TabPage();
+      this.label5 = new System.Windows.Forms.Label();
+      this.tbPlace = new System.Windows.Forms.TextBox();
       this.tbSecretary = new System.Windows.Forms.TextBox();
       this.label3 = new System.Windows.Forms.Label();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -69,8 +71,6 @@
       this.mnuResults = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
-      this.tbPlace = new System.Windows.Forms.TextBox();
-      this.label5 = new System.Windows.Forms.Label();
       this.tabControl1.SuspendLayout();
       this.tabTable.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
@@ -194,6 +194,23 @@
       this.tabStart.Size = new System.Drawing.Size(726, 352);
       this.tabStart.TabIndex = 0;
       this.tabStart.Text = "Турнир";
+      // 
+      // label5
+      // 
+      this.label5.AutoSize = true;
+      this.label5.Location = new System.Drawing.Point(3, 137);
+      this.label5.Name = "label5";
+      this.label5.Size = new System.Drawing.Size(102, 13);
+      this.label5.TabIndex = 16;
+      this.label5.Text = "Место проведения";
+      // 
+      // tbPlace
+      // 
+      this.tbPlace.Location = new System.Drawing.Point(6, 153);
+      this.tbPlace.Name = "tbPlace";
+      this.tbPlace.Size = new System.Drawing.Size(389, 20);
+      this.tbPlace.TabIndex = 15;
+      this.tbPlace.TextChanged += new System.EventHandler(this.tbPlace_TextChanged);
       // 
       // tbSecretary
       // 
@@ -389,36 +406,36 @@
       // mnuSave
       // 
       this.mnuSave.Name = "mnuSave";
-      this.mnuSave.Size = new System.Drawing.Size(162, 22);
+      this.mnuSave.Size = new System.Drawing.Size(189, 22);
       this.mnuSave.Text = "Сохранить";
       this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click_1);
       // 
       // mnuSaveAs
       // 
       this.mnuSaveAs.Name = "mnuSaveAs";
-      this.mnuSaveAs.Size = new System.Drawing.Size(162, 22);
+      this.mnuSaveAs.Size = new System.Drawing.Size(189, 22);
       this.mnuSaveAs.Text = "Сохранить как...";
       this.mnuSaveAs.Click += new System.EventHandler(this.mnuSave_Click);
       // 
       // mnuOpen
       // 
       this.mnuOpen.Name = "mnuOpen";
-      this.mnuOpen.Size = new System.Drawing.Size(162, 22);
+      this.mnuOpen.Size = new System.Drawing.Size(189, 22);
       this.mnuOpen.Text = "Открыть...";
       this.mnuOpen.Click += new System.EventHandler(this.mnuOpen_Click);
       // 
       // mnuNewTurnir
       // 
       this.mnuNewTurnir.Name = "mnuNewTurnir";
-      this.mnuNewTurnir.Size = new System.Drawing.Size(162, 22);
+      this.mnuNewTurnir.Size = new System.Drawing.Size(189, 22);
       this.mnuNewTurnir.Text = "Создать...";
       this.mnuNewTurnir.Click += new System.EventHandler(this.mnuNewTurnir_Click);
       // 
       // mnuHtml
       // 
       this.mnuHtml.Name = "mnuHtml";
-      this.mnuHtml.Size = new System.Drawing.Size(162, 22);
-      this.mnuHtml.Text = "HTML";
+      this.mnuHtml.Size = new System.Drawing.Size(189, 22);
+      this.mnuHtml.Text = "Сохранить таблицу...";
       this.mnuHtml.Click += new System.EventHandler(this.mnuHtml_Click);
       // 
       // mnuPlayers
@@ -480,23 +497,6 @@
       // 
       this.openDlg.Filter = "Турниры|*.tur";
       this.openDlg.Title = "Открытие турнира";
-      // 
-      // tbPlace
-      // 
-      this.tbPlace.Location = new System.Drawing.Point(6, 153);
-      this.tbPlace.Name = "tbPlace";
-      this.tbPlace.Size = new System.Drawing.Size(389, 20);
-      this.tbPlace.TabIndex = 15;
-      this.tbPlace.TextChanged += new System.EventHandler(this.tbPlace_TextChanged);
-      // 
-      // label5
-      // 
-      this.label5.AutoSize = true;
-      this.label5.Location = new System.Drawing.Point(3, 137);
-      this.label5.Name = "label5";
-      this.label5.Size = new System.Drawing.Size(102, 13);
-      this.label5.TabIndex = 16;
-      this.label5.Text = "Место проведения";
       // 
       // TurnirForm
       // 
