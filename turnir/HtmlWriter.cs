@@ -21,7 +21,8 @@ namespace turnir
       sb.AppendLine("</head>");
       sb.AppendLine("<body>");
       sb.AppendLine(Header(tur.Name, 3));
-      sb.AppendFormat("<p>{0}</p>", tur.Date.ToLongDateString());
+      sb.AppendFormat("<p>{0}{1}{2}</p>", tur.Place, Spaces(5),
+        tur.Date.ToLongDateString());
       sb.Append(TableCode(grid));
       sb.AppendFormat("<p>{0}{1}{4}{2}{3}</p>",
         Ref, tur.Referee, Sec, tur.Secretary, Spaces(5));
