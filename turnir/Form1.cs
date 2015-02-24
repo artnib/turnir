@@ -904,7 +904,8 @@ namespace turnir
       {
         var hw = new HtmlWriter(CurTurnir);
         var htmlFile = saveDlg.FileName;
-        hw.SaveTable(htmlFile, dgvTable);
+        hw.SaveTable(htmlFile, dgvTable, cbTable.SelectedIndex > 0
+          ? cbTable.Text : String.Empty);
         System.Diagnostics.Process.Start(htmlFile);
       }
     }

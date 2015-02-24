@@ -13,7 +13,7 @@ namespace turnir
       this.tur = tur;
     }
 
-    internal void SaveTable(string file, DataGridView grid)
+    internal void SaveTable(string file, DataGridView grid, string board = "")
     {
       var sb = new StringBuilder();
       sb.AppendLine("<html><head>");
@@ -23,6 +23,8 @@ namespace turnir
       sb.AppendLine(Header(tur.Name, 3));
       sb.AppendFormat("<p>{0}{1}{2}</p>", tur.Place, Spaces(5),
         tur.Date.ToLongDateString());
+      if (!String.IsNullOrEmpty(board))
+        sb.AppendFormat("<p>{0}</p>", board);
       sb.Append(TableCode(grid));
       sb.AppendFormat("<p>{0}{1}{4}{2}{3}</p>",
         Ref, tur.Referee, Sec, tur.Secretary, Spaces(5));
