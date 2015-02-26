@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using turnir.Properties;
 
 namespace turnir
 {
@@ -54,6 +55,8 @@ namespace turnir
       {
         gridPlayers.Rows[i - 1].Cells[0].Value = i;
       }
+      if (ColTitle.Items.Count == 0)
+        ColTitle.Items.AddRange(Resources.Titles.Split(new char[] { ',' }));
     }
 
     void CheckSaveButton()
@@ -68,11 +71,15 @@ namespace turnir
       DataGridViewRow row;
       Player oldPlayer;
       string pName;
+      string title;
+      object value;
       for (int i = 0; i < gridPlayers.RowCount; i++)
       {
         row = gridPlayers.Rows[i];
         board = (Byte)(i + 1);
         pName = row.Cells[1].Value.ToString();
+        value = row.Cells[2].Value;
+        title = value ==  null ? String.Empty : value.ToString();
         oldPlayer = tur.Players.Find(p =>
           p.Number == team.Number && p.Board == board);
         if (oldPlayer == null)
@@ -81,12 +88,14 @@ namespace turnir
             Number = team.Number,
             Name = pName,
             Board = board,
-            Location = team.Name
+            Location = team.Name,
+            Title = title
           });
         else
         {
           oldPlayer.Name = pName;
           oldPlayer.Location = team.Name;
+          oldPlayer.Title = title;
         }
       }
     }
