@@ -79,17 +79,6 @@
       this.cbTitle.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
       this.cbTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.cbTitle.FormattingEnabled = true;
-      this.cbTitle.Items.AddRange(new object[] {
-            "-",
-            "3 ю.",
-            "2 ю.",
-            "1 ю.",
-            "4",
-            "3",
-            "2",
-            "1",
-            "кмс",
-            "мс"});
       this.cbTitle.Location = new System.Drawing.Point(12, 129);
       this.cbTitle.Name = "cbTitle";
       this.cbTitle.Size = new System.Drawing.Size(200, 21);
