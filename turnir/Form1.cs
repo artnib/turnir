@@ -814,6 +814,10 @@ namespace turnir
       bool selected = lvCompetitors.SelectedItems.Count > 0;
       mnuDel.Enabled = selected && CurTurnir.PlayedGames == 0;
       mnuEditPlayer.Enabled = selected;
+      MoveDown.Enabled = selected &&
+        lvCompetitors.SelectedIndices[0] < (lvCompetitors.Items.Count - 1);
+      MoveUp.Enabled = selected &&
+        lvCompetitors.SelectedIndices[0] > 0;
     }
 
     private void cbTable_SelectedIndexChanged(object sender, EventArgs e)
@@ -918,6 +922,34 @@ namespace turnir
     private void tbPlace_TextChanged(object sender, EventArgs e)
     {
       CurTurnir.Place = tbPlace.Text;
+    }
+
+    private void MoveDown_Click(object sender, EventArgs e)
+    {
+      var competitor = lvCompetitors.SelectedItems[0].Tag;
+      if (competitor is Team)
+      {
+        var team1 = (Team)competitor;
+        var index2 = lvCompetitors.SelectedIndices[0] + 1;
+        var team2 = (Team)lvCompetitors.Items[index2].Tag;
+        CurTurnir.ChangeTeams(team1, team2);
+        CurTurnir.Teams.Sort(Turnir.CompareByNumber);
+      }
+      RestoreCompetitorList();
+    }
+
+    private void MoveUp_Click(object sender, EventArgs e)
+    {
+      var competitor = lvCompetitors.SelectedItems[0].Tag;
+      if (competitor is Team)
+      {
+        var team1 = (Team)competitor;
+        var index2 = lvCompetitors.SelectedIndices[0] - 1;
+        var team2 = (Team)lvCompetitors.Items[index2].Tag;
+        CurTurnir.ChangeTeams(team1, team2);
+        CurTurnir.Teams.Sort(Turnir.CompareByNumber);
+      }
+      RestoreCompetitorList();
     }
 
   }

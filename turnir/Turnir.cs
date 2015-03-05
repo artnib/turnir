@@ -101,7 +101,7 @@ namespace turnir
       return x.Number - y.Number;
     }
 
-    internal int CompareByNumber(Team x, Team y)
+    internal static int CompareByNumber(Team x, Team y)
     {
       return x.Number - y.Number;
     }
@@ -420,6 +420,25 @@ namespace turnir
       foreach (Team nextTeam in nextTeams)
         nextTeam.Number--;
       LiftPlayers(number);
+    }
+
+    /// <summary>
+    /// Меняет между собой номера двух команд
+    /// </summary>
+    /// <param name="team1">Команда 1</param>
+    /// <param name="team2">Команда 2</param>
+    internal void ChangeTeams(Team team1, Team team2)
+    {
+      var num1 = team1.Number;
+      var num2 = team2.Number;
+      team1.Number = num2;
+      team2.Number = num1;
+      var players1 = Players.FindAll(p => p.Number == num1);
+      var players2 = Players.FindAll(p => p.Number == num2);
+      foreach (Player player1 in players1)
+        player1.Number = num2;
+      foreach (Player player2 in players2)
+        player2.Number = num1;
     }
 
     #endregion

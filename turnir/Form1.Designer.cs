@@ -67,6 +67,8 @@
       this.mnuAddPlaeyr = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuDel = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuEditPlayer = new System.Windows.Forms.ToolStripMenuItem();
+      this.MoveUp = new System.Windows.Forms.ToolStripMenuItem();
+      this.MoveDown = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuGames = new System.Windows.Forms.ToolStripMenuItem();
       this.mnuResults = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
@@ -443,7 +445,9 @@
       this.mnuPlayers.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuAddPlaeyr,
             this.mnuDel,
-            this.mnuEditPlayer});
+            this.mnuEditPlayer,
+            this.MoveUp,
+            this.MoveDown});
       this.mnuPlayers.Name = "mnuPlayers";
       this.mnuPlayers.Size = new System.Drawing.Size(77, 20);
       this.mnuPlayers.Text = "Участники";
@@ -472,6 +476,22 @@
       this.mnuEditPlayer.Size = new System.Drawing.Size(173, 22);
       this.mnuEditPlayer.Text = "Редактировать";
       this.mnuEditPlayer.Click += new System.EventHandler(this.mnuEditPlayer_Click);
+      // 
+      // MoveUp
+      // 
+      this.MoveUp.Enabled = false;
+      this.MoveUp.Name = "MoveUp";
+      this.MoveUp.Size = new System.Drawing.Size(173, 22);
+      this.MoveUp.Text = "Вверх";
+      this.MoveUp.Click += new System.EventHandler(this.MoveUp_Click);
+      // 
+      // MoveDown
+      // 
+      this.MoveDown.Enabled = false;
+      this.MoveDown.Name = "MoveDown";
+      this.MoveDown.Size = new System.Drawing.Size(173, 22);
+      this.MoveDown.Text = "Вниз";
+      this.MoveDown.Click += new System.EventHandler(this.MoveDown_Click);
       // 
       // mnuGames
       // 
@@ -585,6 +605,8 @@
     private System.Windows.Forms.ToolStripMenuItem mnuHtml;
     private System.Windows.Forms.Label label5;
     private System.Windows.Forms.TextBox tbPlace;
+    private System.Windows.Forms.ToolStripMenuItem MoveUp;
+    private System.Windows.Forms.ToolStripMenuItem MoveDown;
   }
 }
 
