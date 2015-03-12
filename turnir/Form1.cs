@@ -311,6 +311,39 @@ namespace turnir
       }
     }
 
+    private void MoveDown_Click(object sender, EventArgs e)
+    {
+      MoveCompetitor(false);
+    }
+
+    void MoveCompetitor(bool up)
+    {
+      var competitor = lvCompetitors.SelectedItems[0].Tag;
+      var index2 = up ? lvCompetitors.SelectedIndices[0] - 1
+        : lvCompetitors.SelectedIndices[0] + 1;
+      if (competitor is Team)
+      {
+        var team1 = (Team)competitor;
+        var team2 = (Team)lvCompetitors.Items[index2].Tag;
+        CurTurnir.ChangeTeams(team1, team2);
+        CurTurnir.Teams.Sort(Turnir.CompareByNumber);
+      }
+      else
+      {
+        var player1 = (Player)competitor;
+        var player2 = (Player)lvCompetitors.Items[index2].Tag;
+        CurTurnir.ChangePlayers(player1, player2);
+        CurTurnir.Players.Sort(Turnir.CompareByNumber);
+      }
+      RestoreCompetitorList();
+      lvCompetitors.Items[index2].Selected = true;
+    }
+
+    private void MoveUp_Click(object sender, EventArgs e)
+    {
+      MoveCompetitor(true);
+    }
+
     #endregion
 
     ListViewItem TeamToItem(Team team)
@@ -923,34 +956,5 @@ namespace turnir
     {
       CurTurnir.Place = tbPlace.Text;
     }
-
-    private void MoveDown_Click(object sender, EventArgs e)
-    {
-      var competitor = lvCompetitors.SelectedItems[0].Tag;
-      if (competitor is Team)
-      {
-        var team1 = (Team)competitor;
-        var index2 = lvCompetitors.SelectedIndices[0] + 1;
-        var team2 = (Team)lvCompetitors.Items[index2].Tag;
-        CurTurnir.ChangeTeams(team1, team2);
-        CurTurnir.Teams.Sort(Turnir.CompareByNumber);
-      }
-      RestoreCompetitorList();
-    }
-
-    private void MoveUp_Click(object sender, EventArgs e)
-    {
-      var competitor = lvCompetitors.SelectedItems[0].Tag;
-      if (competitor is Team)
-      {
-        var team1 = (Team)competitor;
-        var index2 = lvCompetitors.SelectedIndices[0] - 1;
-        var team2 = (Team)lvCompetitors.Items[index2].Tag;
-        CurTurnir.ChangeTeams(team1, team2);
-        CurTurnir.Teams.Sort(Turnir.CompareByNumber);
-      }
-      RestoreCompetitorList();
-    }
-
   }
 }

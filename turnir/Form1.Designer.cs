@@ -481,6 +481,7 @@
       // 
       this.MoveUp.Enabled = false;
       this.MoveUp.Name = "MoveUp";
+      this.MoveUp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
       this.MoveUp.Size = new System.Drawing.Size(173, 22);
       this.MoveUp.Text = "Вверх";
       this.MoveUp.Click += new System.EventHandler(this.MoveUp_Click);
@@ -489,6 +490,7 @@
       // 
       this.MoveDown.Enabled = false;
       this.MoveDown.Name = "MoveDown";
+      this.MoveDown.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
       this.MoveDown.Size = new System.Drawing.Size(173, 22);
       this.MoveDown.Text = "Вниз";
       this.MoveDown.Click += new System.EventHandler(this.MoveDown_Click);
