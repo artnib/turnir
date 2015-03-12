@@ -441,6 +441,19 @@ namespace turnir
         player2.Number = num1;
     }
 
+    /// <summary>
+    /// Меняет между собой номера двух участников
+    /// </summary>
+    /// <param name="player1">Участник 1</param>
+    /// <param name="player2">Участник 2</param>
+    internal void ChangePlayers(Player player1, Player player2)
+    {
+      var num1 = player1.Number;
+      var num2 = player2.Number;
+      player1.Number = num2;
+      player2.Number = num1;
+    }
+
     #endregion
 
     /// <summary>
