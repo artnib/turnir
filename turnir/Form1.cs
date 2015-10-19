@@ -218,7 +218,7 @@ namespace turnir
         var lvItems = lvCompetitors.Items;
         player.Number = (Byte)(lvItems.Count + 1);
         competitor = GetItem(player);
-        CurTurnir.Players.Add(player);
+        CurTurnir.AddPlayer(player);
       }
       else
       {
@@ -346,35 +346,6 @@ namespace turnir
 
     #endregion
 
-    ListViewItem TeamToItem(Team team)
-    {
-      var lvi = new ListViewItem(new string[]{
-        team.Number.ToString(), team.Name, String.Empty });
-      var teamCount = CurTurnir.Teams.Count;
-      Double score;
-      Double totalScore = 0.0;
-      for (int i = 1; i <= teamCount; i++)
-        if (i == team.Number) //свой столбец
-          lvi.SubItems.Add("X");
-        else //столбцы противников
-        {
-          score = CurTurnir.TeamScore(team,
-            CurTurnir.Teams.Find(t => t.Number == i));
-          if (Double.IsNaN(score))
-            lvi.SubItems.Add(String.Empty);
-          else //партии сыграны
-          {
-            lvi.SubItems.Add(score.ToString());
-            totalScore += score;
-          }
-         }
-      lvi.SubItems.Add(totalScore.ToString());
-      var place = team.Place;
-      lvi.SubItems.Add(place > 0 ? team.Place.ToString() : String.Empty);
-      lvi.Tag = team;
-      return lvi;
-    }
-
     void FillTableRow(Team team)
     {
       var row = dgvTable.Rows[team.Number - 1];
@@ -416,7 +387,7 @@ namespace turnir
       row.Cells[0].Value = player.Number;
       row.Cells[1].Value = player.Name;
       row.Cells[2].Value = player.Location;
-      row.Cells[3].Value = player.Title;
+      row.Cells[3].Value = player.Grade == null ? player.Title : player.Grade.ShortName;
       var board = player.Board;
       var playerCount = CurTurnir.Players.FindAll(p => p.Board == board).Count;
       int j = 0;
@@ -639,6 +610,14 @@ namespace turnir
     /// <param name="board">Номер доски</param>
     void UpdatePlayerTable(Int32 board)
     {
+      if (Double.IsNaN(CurTurnir.Coefficient(board)))
+        lbCoeff.Visible = false;
+      else
+      {
+        lbCoeff.Text = String.Format("Коэффициент турнира: {0:F2}",
+          CurTurnir.Coefficient(board));
+        lbCoeff.Visible = true;
+      }
       UpdateGrid(board);
       if (board > 0 || CurTurnir.IsPersonal()) //личная таблица или таблица по доскам
       {
@@ -941,8 +920,7 @@ namespace turnir
       {
         var hw = new HtmlWriter(CurTurnir);
         var htmlFile = saveDlg.FileName;
-        hw.SaveTable(htmlFile, dgvTable, cbTable.SelectedIndex > 0
-          ? cbTable.Text : String.Empty);
+        hw.SaveTable(htmlFile, dgvTable, cbTable.SelectedIndex);
         System.Diagnostics.Process.Start(htmlFile);
       }
     }

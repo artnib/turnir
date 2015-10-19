@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Runtime.Serialization;
 
 namespace turnir
 {
@@ -57,6 +58,50 @@ namespace turnir
     internal List<Player> Players;
 
     /// <summary>
+    /// Добавляет участника
+    /// </summary>
+    /// <param name="player">Участник</param>
+    internal void AddPlayer(Player player)
+    {
+      Players.Add(player);
+      if (player.Grade != null)
+        UpdateCoefficient(player.Board);
+    }
+
+    /// <summary>
+    /// Определяет возможность выполнения разрядов
+    /// </summary>
+    /// <returns></returns>
+    bool TitlesObtainable()
+    {
+      if (Players.Count < 10) return false;
+      if (IsTeam() && Teams.Count < 8) return false;
+      return true;
+    }
+
+    /// <summary>
+    /// Пересчитывает коэффициент турнира
+    /// </summary>
+    void UpdateCoefficient(byte board)
+    {
+      if (TitlesObtainable())
+      {
+        double sum = 0.0;
+        var players = Players.FindAll(p => p.Board == board);
+        if (coefficient == null)
+        {
+          coefficient = new List<double>(BoardNumber);
+          for (int i = 0; i < BoardNumber; i++)
+            coefficient.Add(Double.NaN);
+        }
+        foreach (Player player in players)
+          if (player.Grade != null)
+            sum += player.Grade.Coefficient;
+        coefficient[board - 1] = sum / players.Count;
+      }
+    }
+
+    /// <summary>
     /// Удаляет указанного участника
     /// </summary>
     /// <param name="player">Участник</param>
@@ -65,6 +110,7 @@ namespace turnir
       var number = player.Number;
       Players.Remove(player);
       LiftPlayers(number);
+      UpdateCoefficient(player.Board);
     }
 
     /// <summary>
@@ -510,8 +556,28 @@ namespace turnir
       return k;
     }
 
+    /// <summary>
+    /// Возвращает коэффициент турнира для заданной доски
+    /// </summary>
+    /// <param name="board">Номер доски</param>
+    internal Double Coefficient(int board)
+    {
+      if (coefficient == null || board < 1)
+      {
+        return Double.NaN;
+      }
+      else
+        return coefficient[board - 1];
+    }
+    
+    [OptionalField]
+    List<Double> coefficient;
+
+    [NonSerialized]
     Dictionary<Player, Double> playerScore;
+    [NonSerialized]
     Dictionary<Player, List<Game>> playerGame;
+    [NonSerialized]
     Dictionary<Player, Double> playerShmulyan;
     
     void LiftPlayers(byte number)

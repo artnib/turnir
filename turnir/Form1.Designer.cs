@@ -73,6 +73,7 @@
       this.mnuResults = new System.Windows.Forms.ToolStripMenuItem();
       this.saveDlg = new System.Windows.Forms.SaveFileDialog();
       this.openDlg = new System.Windows.Forms.OpenFileDialog();
+      this.lbCoeff = new System.Windows.Forms.Label();
       this.tabControl1.SuspendLayout();
       this.tabTable.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
@@ -149,6 +150,7 @@
       // 
       this.panel1.AutoSize = true;
       this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+      this.panel1.Controls.Add(this.lbCoeff);
       this.panel1.Controls.Add(this.label4);
       this.panel1.Controls.Add(this.cbTable);
       this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -520,6 +522,15 @@
       this.openDlg.Filter = "Турниры|*.tur";
       this.openDlg.Title = "Открытие турнира";
       // 
+      // lbCoeff
+      // 
+      this.lbCoeff.AutoSize = true;
+      this.lbCoeff.Location = new System.Drawing.Point(260, 6);
+      this.lbCoeff.Name = "lbCoeff";
+      this.lbCoeff.Size = new System.Drawing.Size(123, 13);
+      this.lbCoeff.TabIndex = 8;
+      this.lbCoeff.Text = "Коэффициент турнира:";
+      // 
       // TurnirForm
       // 
       this.AllowDrop = true;
@@ -609,6 +620,7 @@
     private System.Windows.Forms.TextBox tbPlace;
     private System.Windows.Forms.ToolStripMenuItem MoveUp;
     private System.Windows.Forms.ToolStripMenuItem MoveDown;
+    private System.Windows.Forms.Label lbCoeff;
   }
 }
 

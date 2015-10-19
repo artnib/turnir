@@ -13,7 +13,7 @@ namespace turnir
       this.tur = tur;
     }
 
-    internal void SaveTable(string file, DataGridView grid, string board = "")
+    internal void SaveTable(string file, DataGridView grid, int board)
     {
       var sb = new StringBuilder();
       sb.AppendLine("<html><head>");
@@ -23,15 +23,23 @@ namespace turnir
       sb.AppendLine(Header(tur.Name, 3));
       sb.AppendFormat("<p>{0}{1}{2}</p>", tur.Place, Spaces(5),
         tur.Date.ToLongDateString());
-      if (!String.IsNullOrEmpty(board))
-        sb.AppendFormat("<p>{0}</p>", board);
+      if (tur.IsTeam() && board > 0)
+        sb.AppendFormat("<p>{0} доска</p>", board);
       sb.Append(TableCode(grid));
+      var coeff = tur.Coefficient(tur.IsPersonal() ? 1 : board);
+      if(!Double.IsNaN(coeff))
+        sb.AppendFormat("<p>Коэффициент турнира: {0:F2}</p>", coeff);
       sb.AppendFormat("<p>{0}{1}{4}{2}{3}</p>",
         Ref, tur.Referee, Sec, tur.Secretary, Spaces(5));
       sb.Append("</body></html>");
       File.WriteAllText(file, sb.ToString());
     }
 
+    /// <summary>
+    /// Формирует код таблицы
+    /// </summary>
+    /// <param name="grid">Таблица</param>
+    /// <returns>HTML-код таблицы</returns>
     internal static string TableCode(DataGridView grid)
     {
       var sb = new StringBuilder();

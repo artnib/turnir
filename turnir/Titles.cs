@@ -1,60 +1,46 @@
-﻿/// <summary>
-/// Квалификация шашиста
-/// </summary>
-enum Titles
-{ 
-  /// <summary>
-  /// Без разряда
-  /// </summary>
-  BR,
+﻿using System.Collections.Generic;
 
+namespace turnir
+{
   /// <summary>
-  /// 3 юношеский разряд
+  /// Разряды по шашкам
   /// </summary>
-  yu3,
+  internal class Titles
+  {
+    internal List<Title> GetTitles()
+    {
+      return titles;
+    }
 
-  /// <summary>
-  /// 2 юношеский разряд
-  /// </summary>
-  yu2,
+    /// <summary>
+    /// Возвращает разряд по умолчанию
+    /// </summary>
+    /// <returns>Первый элемент списка разрядов</returns>
+    internal Title DefaultTitle()
+    {
+      return titles[0];
+    }
 
-  /// <summary>
-  /// 1 юношеский разряд
-  /// </summary>
-  yu1,
+    internal Title GetTitle(string title)
+    {
+      return titles.Find(t => t.ShortName == title);
+    }
 
-  /// <summary>
-  /// 2 разряд
-  /// </summary>
-  sport2,
+    List<Title> titles;
 
-  /// <summary>
-  /// 1 разряд
-  /// </summary>
-  sport1,
-  
-  /// <summary>
-  /// КМС
-  /// </summary>
-  kms,
-  
-  /// <summary>
-  /// Мастер спорта
-  /// </summary>
-  master,
-
-  /// <summary>
-  /// Гроссмейстер
-  /// </summary>
-  gross,
-
-  /// <summary>
-  /// Международный мастер спорта
-  /// </summary>
-  IntMaster,
-
-  /// <summary>
-  /// Международный гроссмейстер
-  /// </summary>
-  IntGross
+    internal Titles()
+    {
+      titles = new List<Title>();
+      titles.Add(new Title { ShortName = "-", FullName = "юноши и девушки без разряда", Coefficient = 6 });
+      titles.Add(new Title { ShortName = "3 ю.", FullName = "3 юношеский разряд", Coefficient = 5 });
+      titles.Add(new Title { ShortName = "2 ю.", FullName = "2 юношеский разряд", Coefficient = 4 });
+      titles.Add(new Title { ShortName = "1 ю.", FullName = "1 юношеский разряд", Coefficient = 3 });
+      titles.Add(new Title { ShortName = "3", FullName = "3 разряд", Coefficient = 3 });
+      titles.Add(new Title { ShortName = "2", FullName = "2 разряд", Coefficient = 2 });
+      titles.Add(new Title { ShortName = "1", FullName = "1 разряд", Coefficient = 1 });
+      titles.Add(new Title { ShortName = "кмс", FullName = "кандидат в мастера спорта", Coefficient = 0 });
+      titles.Add(new Title { ShortName = "мс", FullName = "мастер спорта", Coefficient = -1 });
+      titles.Add(new Title { ShortName = "гр", FullName = "гроссмейстер", Coefficient = -2 });
+    }
+  }
 }

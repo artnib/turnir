@@ -27,32 +27,38 @@ namespace turnir
         {
           name.Text = String.Empty;
           location.Text = String.Empty;
+          cbTitle.SelectedIndex = 0;
         }
         else
         {
           name.Text = value.Name;
           location.Text = value.Location;
-          cbTitle.Text = value.Title;
+          if (value.Grade == null)
+            cbTitle.Text = value.Title;
+          else
+            cbTitle.SelectedItem = value.Grade;
         }
       }
     }
 
     Player player;
 
-
-
     private void save_Click(object sender, EventArgs e)
     {
       var place = location.Text;
       if (player == null)
+      {
         player = new Player {
           Name = name.Text, Location = place, Title=cbTitle.Text };
+      }
       else
       {
         player.Name = name.Text;
         player.Location = place;
         player.Title = cbTitle.Text;
       }
+      if (cbTitle.SelectedItem is Title)
+        player.Grade = (Title)cbTitle.SelectedItem;
       if (place.Length > 0)
       {
         var locations = location.AutoCompleteCustomSource;
@@ -65,7 +71,9 @@ namespace turnir
     private void PlayerForm_Load(object sender, EventArgs e)
     {
       if (cbTitle.Items.Count == 0)
-        cbTitle.Items.AddRange(Resources.Titles.Split(new char[] { ',' }));
+      {
+        cbTitle.Items.AddRange(new Titles().GetTitles().ToArray());
+      }
     }
 
     private void name_TextChanged(object sender, EventArgs e)

@@ -36,9 +36,15 @@ namespace turnir
     internal string Group;
 
     /// <summary>
-    /// Разряд
+    /// Разряд (текст)
     /// </summary>
     internal string Title;
+
+    /// <summary>
+    /// Разряд с коэффициентом
+    /// </summary>
+    [OptionalField]
+    internal Title Grade;
 
     /// <summary>
     /// Место
