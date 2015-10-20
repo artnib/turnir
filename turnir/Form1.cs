@@ -614,8 +614,8 @@ namespace turnir
         lbCoeff.Visible = false;
       else
       {
-        lbCoeff.Text = String.Format("Коэффициент турнира: {0:F2}",
-          CurTurnir.Coefficient(board));
+        lbCoeff.Text = String.Format("Коэффициент турнира: {0:F2}. Можно выполнить: {1}",
+          CurTurnir.Coefficient(board),CurTurnir.HighestTitle(board).ShortName);
         lbCoeff.Visible = true;
       }
       UpdateGrid(board);

@@ -74,6 +74,8 @@ namespace turnir
       {
         cbTitle.Items.AddRange(new Titles().GetTitles().ToArray());
       }
+      if(player == null)
+        cbTitle.SelectedIndex = 0;
     }
 
     private void name_TextChanged(object sender, EventArgs e)

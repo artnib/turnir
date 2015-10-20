@@ -69,39 +69,6 @@ namespace turnir
     }
 
     /// <summary>
-    /// Определяет возможность выполнения разрядов
-    /// </summary>
-    /// <returns></returns>
-    bool TitlesObtainable()
-    {
-      if (Players.Count < 10) return false;
-      if (IsTeam() && Teams.Count < 8) return false;
-      return true;
-    }
-
-    /// <summary>
-    /// Пересчитывает коэффициент турнира
-    /// </summary>
-    void UpdateCoefficient(byte board)
-    {
-      if (TitlesObtainable())
-      {
-        double sum = 0.0;
-        var players = Players.FindAll(p => p.Board == board);
-        if (coefficient == null)
-        {
-          coefficient = new List<double>(BoardNumber);
-          for (int i = 0; i < BoardNumber; i++)
-            coefficient.Add(Double.NaN);
-        }
-        foreach (Player player in players)
-          if (player.Grade != null)
-            sum += player.Grade.Coefficient;
-        coefficient[board - 1] = sum / players.Count;
-      }
-    }
-
-    /// <summary>
     /// Удаляет указанного участника
     /// </summary>
     /// <param name="player">Участник</param>
@@ -556,6 +523,8 @@ namespace turnir
       return k;
     }
 
+    #region Разрядные нормы
+
     /// <summary>
     /// Возвращает коэффициент турнира для заданной доски
     /// </summary>
@@ -569,9 +538,66 @@ namespace turnir
       else
         return coefficient[board - 1];
     }
-    
+
+    /// <summary>
+    /// Возвращает наивысший разряд, который можно выполнить
+    /// </summary>
+    /// <returns></returns>
+    internal Title HighestTitle(int board)
+    {
+      if (titles == null)
+        titles = new Titles().GetTitles();
+      var highest = Math.Floor(coefficient[board - 1]);
+      Title hTitle = null;
+      for (int i = titles.Count - 1; i > 0; i--)
+        if (titles[i].Coefficient >= highest)
+        {
+          hTitle = titles[i];
+          break;
+        }
+      return hTitle;
+    }
+
+    [OptionalField]
+    List<Title> titles;
+
     [OptionalField]
     List<Double> coefficient;
+
+    /// <summary>
+    /// Определяет возможность выполнения разрядов
+    /// </summary>
+    /// <returns></returns>
+    bool TitlesCanBeObtained()
+    {
+      if (Players.Count < 10) return false;
+      if (IsTeam() && Teams.Count < 8) return false;
+      return true;
+    }
+
+    /// <summary>
+    /// Пересчитывает коэффициент турнира
+    /// </summary>
+    void UpdateCoefficient(byte board)
+    {
+      if (TitlesCanBeObtained())
+      {
+        double sum = 0.0;
+        var players = Players.FindAll(p => p.Board == board);
+        if (coefficient == null)
+        {
+          coefficient = new List<double>(BoardNumber);
+          for (int i = 0; i < BoardNumber; i++)
+            coefficient.Add(Double.NaN);
+        }
+        foreach (Player player in players)
+          if (player.Grade != null)
+            sum += player.Grade.Coefficient;
+        coefficient[board - 1] = sum / players.Count;
+      }
+    }
+
+    #endregion
 
     [NonSerialized]
     Dictionary<Player, Double> playerScore;

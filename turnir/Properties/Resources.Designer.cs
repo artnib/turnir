@@ -61,6 +61,30 @@ namespace turnir.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;Titles&gt;
+        ///  &lt;Title coef=&quot;6&quot; short=&quot;-&quot; full=&quot;юноши и девушки без разряда&quot;&gt;
+        ///  &lt;/Title&gt;
+        ///  &lt;Title coef=&quot;5&quot; short=&quot;3 ю.&quot; full=&quot;3 юношеский разряд&quot;&gt;
+        ///    &lt;Norm coef=&quot;6&quot;&gt;60&lt;/Norm&gt;
+        ///    &lt;Norm coef=&quot;5&quot;&gt;50&lt;/Norm&gt;
+        ///    &lt;Norm coef=&quot;4&quot;&gt;35&lt;/Norm&gt;
+        ///    &lt;Norm coef=&quot;3&quot;&gt;20&lt;/Norm&gt;
+        ///    &lt;Norm coef=&quot;2&quot;&gt;5&lt;/Norm&gt;
+        ///  &lt;/Title&gt;
+        ///  &lt;Title coef=&quot;4&quot; short=&quot;2 ю.&quot; full=&quot;2 юношеский разряд&quot;&gt;
+        ///    &lt;Norm coef=&quot;6&quot;&gt;75&lt;/Norm&gt;
+        ///    &lt;Norm coef=&quot;5&quot;&gt;65&lt;/Norm&gt;
+        ///    &lt;Norm coef=&quot;4&quot;&gt;50&lt;/Norm&gt;
+        ///    &lt;Norm coef=&quot; [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string norms {
+            get {
+                return ResourceManager.GetString("norms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на -,3 ю.,2 ю.,1 ю.,3,2,1,кмс,мс.
         /// </summary>
         internal static string Titles {
