@@ -127,7 +127,6 @@ namespace turnir
       if (diff != 0)
         return diff;
       diff = Math.Sign(Shmulyan(y) - Shmulyan(x));
-      //if (diff != 0)
       return diff;
     }
 
@@ -196,6 +195,7 @@ namespace turnir
           player = boardPlayers[j];
           player.Place = (Byte)(j + 1);
           player.Shmulyan = Shmulyan(player);
+          player.Coefficient = Coefficient(player);
         }
       }
       if (IsTeam())
@@ -594,6 +594,31 @@ namespace turnir
           if (player.Grade != null)
             sum += player.Grade.Coefficient;
         coefficient[board - 1] = sum / players.Count;
+      }
+    }
+
+    /// <summary>
+    /// Возвращает турнирный коэффициент участника
+    /// </summary>
+    /// <param name="player">Участник</param>
+    /// <returns>Коэффициент или NaN</returns>
+    Double Coefficient(Player player)
+    {
+      var games = PlayerGames(player);
+      var playedGames = games.FindAll(g => g.Result != GameResult.None);
+      if (IsPersonal() && playedGames.Count < 9)
+        return Double.NaN;
+      else
+      {
+        var sum = 0.0;
+        foreach (Game game in playedGames)
+        {
+          var oppNumber = game.White == player.Number ? game.Black : game.White;
+          var opponent = Players.Find(p => p.Board == player.Board && p.Number == oppNumber);
+          if(opponent.Grade != null)
+            sum += opponent.Grade.Coefficient;
+        }
+        return sum / playedGames.Count;
       }
     }
 

@@ -416,6 +416,7 @@ namespace turnir
       row.Cells[j + 2].Value = place > 0 ? place : null;
       double? shmulyan = player.Shmulyan;
       row.Cells[j + 3].Value = shmulyan != 0.0 ? shmulyan : null;
+      row.Cells[j + 4].Value = player.Coefficient;
     }
 
     /// <summary>
@@ -840,7 +841,7 @@ namespace turnir
     }
 
     const string teamHeaders = "№;Команда;Откуда;Очки;Место";
-    const string playerHeaders = "№;Участник;Откуда;Разряд;Очки;Место;Шмульян";
+    const string playerHeaders = "№;Участник;Откуда;Разряд;Очки;Место;Шмульян;ТК";
     const string boardHeaders = "№;Участник;Команда;Разряд;Очки;Место;Шмульян";
 
     void UpdateGrid(int board)
