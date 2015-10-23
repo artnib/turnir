@@ -47,6 +47,12 @@ namespace turnir
     internal Title Grade;
 
     /// <summary>
+    /// Турнирный коэффициент
+    /// </summary>
+    [OptionalField]
+    internal Double Coefficient;
+
+    /// <summary>
     /// Место
     /// </summary>
     internal Byte Place;
