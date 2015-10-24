@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace turnir
 {
@@ -45,12 +46,24 @@ namespace turnir
     /// </summary>
     [OptionalField]
     internal Title Grade;
+    
+    /// <summary>
+    /// Выполненный разряд
+    /// </summary>
+    [OptionalField]
+    internal Title NewGrade;
 
     /// <summary>
     /// Турнирный коэффициент
     /// </summary>
     [OptionalField]
     internal Double Coefficient;
+
+    /// <summary>
+    /// Разрядные нормы
+    /// </summary>
+    [OptionalField]
+    internal Dictionary<Title, double> Norms;
 
     /// <summary>
     /// Место

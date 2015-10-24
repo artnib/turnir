@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Titles>
+  <Title coef="6" short="-" full="юноши и девушки без разряда">
+  </Title>
+  <Title coef="5" short="3 ю." full="3 юношеский разряд">
+    <Norm coef="6">60</Norm>
+    <Norm coef="5">50</Norm>
+    <Norm coef="4">35</Norm>
+    <Norm coef="3">20</Norm>
+    <Norm coef="2">5</Norm>
+  </Title>
+  <Title coef="4" short="2 ю." full="2 юношеский разряд">
+    <Norm coef="6">75</Norm>
+    <Norm coef="5">65</Norm>
+    <Norm coef="4">50</Norm>
+    <Norm coef="3">35</Norm>
+    <Norm coef="2">20</Norm>
+    <Norm coef="1">5</Norm>
+  </Title>
+  <Title coef="3" short="1 ю." full="1 юношеский разряд">
+    <Norm coef="6">95</Norm>
+    <Norm coef="5">80</Norm>
+    <Norm coef="4">65</Norm>
+    <Norm coef="3">50</Norm>
+    <Norm coef="2">35</Norm>
+    <Norm coef="1">20</Norm>
+    <Norm coef="0">5</Norm>
+  </Title>
+  <Title coef="3" short="3" full="3 разряд">
+    <Norm coef="6">95</Norm>
+    <Norm coef="5">80</Norm>
+    <Norm coef="4">65</Norm>
+    <Norm coef="3">50</Norm>
+    <Norm coef="2">35</Norm>
+    <Norm coef="1">20</Norm>
+    <Norm coef="0">5</Norm>
+  </Title>
+  <Title coef="2" short="2" full="2 разряд">
+    <Norm coef="5">95</Norm>
+    <Norm coef="4">80</Norm>
+    <Norm coef="3">65</Norm>
+    <Norm coef="2">50</Norm>
+    <Norm coef="1">35</Norm>
+    <Norm coef="0">20</Norm>
+    <Norm coef="-1">5</Norm>
+  </Title>
+  <Title coef="1" short="1" full="1 разряд">
+    <Norm coef="4">95</Norm>
+    <Norm coef="3">80</Norm>
+    <Norm coef="2">65</Norm>
+    <Norm coef="1">50</Norm>
+    <Norm coef="0">35</Norm>
+    <Norm coef="-1">20</Norm>
+    <Norm coef="-2">5</Norm>
+  </Title>
+  <Title coef="0" short="кмс" full="кандидат в мастера спорта">
+    <Norm coef="3">95</Norm>
+    <Norm coef="2">80</Norm>
+    <Norm coef="1">65</Norm>
+    <Norm coef="0">50</Norm>
+    <Norm coef="-1">35</Norm>
+    <Norm coef="-2">20</Norm>
+  </Title>
+</Titles>

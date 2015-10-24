@@ -26,9 +26,19 @@ namespace turnir
       if (tur.IsTeam() && board > 0)
         sb.AppendFormat("<p>{0} доска</p>", board);
       sb.Append(TableCode(grid));
-      var coeff = tur.Coefficient(tur.IsPersonal() ? 1 : board);
-      if(!Double.IsNaN(coeff))
+      var bboard = tur.IsPersonal() ? 1 : board;
+      var coeff = tur.Coefficient(bboard);
+      if (!Double.IsNaN(coeff))
+      {
         sb.AppendFormat("<p>Коэффициент турнира: {0:F2}</p>", coeff);
+        var norms = new Dictionary<Title,double>();
+        foreach (Player player in tur.Players.FindAll(p => p.Board == bboard))
+          foreach (Title title in player.Norms.Keys)
+            if (!norms.ContainsKey(title))
+              norms.Add(title, player.Norms[title]);
+        foreach (Title t in norms.Keys)
+          sb.AppendFormat("<p>Норма {0}: {1:F2}</p>", t.ShortName, norms[t]);
+      }
       sb.AppendFormat("<p>{0}{1}{4}{2}{3}</p>",
         Ref, tur.Referee, Sec, tur.Secretary, Spaces(5));
       sb.Append("</body></html>");
