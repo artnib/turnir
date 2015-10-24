@@ -16,6 +16,30 @@ namespace turnir
     }
 
     /// <summary>
+    /// Возвращает нормы для выполнения разряда
+    /// </summary>
+    /// <param name="title">Разряд</param>
+    /// <returns>Словарь "Разрядный коэффициент - очки в % от числа встреч"</returns>
+    internal Dictionary<int, byte> GetNorms(Title title)
+    {
+      return norms[title];
+    }
+
+    /// <summary>
+    /// Возвращает очки в % от числа встреч
+    /// </summary>
+    /// <param name="title">Выполняемый разряд</param>
+    /// <param name="coefficient">Коэффициент соперника</param>
+    /// <returns>Очки в % от числа встреч</returns>
+    internal byte GetNorm(Title title, int coefficient)
+    {
+      if (norms[title].ContainsKey(coefficient))
+        return norms[title][coefficient];
+      else
+        return 0;
+    }
+
+    /// <summary>
     /// Возвращает разряд по умолчанию
     /// </summary>
     /// <returns>Первый элемент списка разрядов</returns>

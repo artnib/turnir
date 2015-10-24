@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Runtime.Serialization;
+using System.Linq;
 
 namespace turnir
 {
@@ -195,7 +196,7 @@ namespace turnir
           player = boardPlayers[j];
           player.Place = (Byte)(j + 1);
           player.Shmulyan = Shmulyan(player);
-          player.Coefficient = Coefficient(player);
+          CheckNorms(player);
         }
       }
       if (IsTeam())
@@ -545,8 +546,7 @@ namespace turnir
     /// <returns></returns>
     internal Title HighestTitle(int board)
     {
-      if (titles == null)
-        titles = new Titles().GetTitles();
+      CheckTitles();
       var highest = Math.Floor(coefficient[board - 1]);
       Title hTitle = null;
       for (int i = titles.Count - 1; i > 0; i--)
@@ -556,6 +556,18 @@ namespace turnir
           break;
         }
       return hTitle;
+    }
+
+    [NonSerialized]
+    Titles TitlesAndNorms;
+
+    private void CheckTitles()
+    {
+      if (TitlesAndNorms == null)
+      {
+        TitlesAndNorms = new Titles();
+        titles = TitlesAndNorms.GetTitles();
+      }
     }
 
     [OptionalField]
@@ -598,27 +610,51 @@ namespace turnir
     }
 
     /// <summary>
-    /// Возвращает турнирный коэффициент участника
+    /// Проверяет возможность выполнения разрядных норм для участника
     /// </summary>
     /// <param name="player">Участник</param>
-    /// <returns>Коэффициент или NaN</returns>
-    Double Coefficient(Player player)
+    void CheckNorms(Player player)
     {
       var games = PlayerGames(player);
       var playedGames = games.FindAll(g => g.Result != GameResult.None);
       if (IsPersonal() && playedGames.Count < 9)
-        return Double.NaN;
+        return;
       else
       {
-        var sum = 0.0;
+        var playerNorms = new Dictionary<Title, double>();
+        CheckTitles();
+        var obtainableTitles = titles.FindAll(t =>
+          t.Coefficient >= Math.Floor(player.Coefficient) &&
+          TitlesAndNorms.GetNorms(t).Count > 0);
+        foreach (Title ot in obtainableTitles)
+          playerNorms.Add(ot, 0.0);
+        var coeffSum = 0.0;
         foreach (Game game in playedGames)
         {
           var oppNumber = game.White == player.Number ? game.Black : game.White;
           var opponent = Players.Find(p => p.Board == player.Board && p.Number == oppNumber);
-          if(opponent.Grade != null)
-            sum += opponent.Grade.Coefficient;
+          if (opponent.Grade != null)
+          {
+            var oppCoeff = opponent.Grade.Coefficient;
+            coeffSum += oppCoeff;
+            foreach (Title ot in obtainableTitles)
+              playerNorms[ot] += TitlesAndNorms.GetNorm(ot, oppCoeff) / 100.0;
+          }
         }
-        return sum / playedGames.Count;
+        player.Coefficient = coeffSum / playedGames.Count;
+        //foreach (Title title in obtainableTitles)
+        //  playerNorms[title] /= playedGames.Count;
+        player.Norms = playerNorms;
+        foreach (Title nt in playerNorms.Keys.OrderByDescending(tt => tt.Coefficient))
+        {
+          player.NewGrade = null;
+          if (player.Grade.Coefficient >= nt.Coefficient && PlayerScore(player) >= player.Norms[nt])
+          {
+            player.NewGrade = nt;
+            break;
+          }
+        }
+            
       }
     }
 
