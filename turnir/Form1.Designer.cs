@@ -412,14 +412,14 @@
       this.mnuSave.Name = "mnuSave";
       this.mnuSave.Size = new System.Drawing.Size(189, 22);
       this.mnuSave.Text = "Сохранить";
-      this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click_1);
+      this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
       // 
       // mnuSaveAs
       // 
       this.mnuSaveAs.Name = "mnuSaveAs";
       this.mnuSaveAs.Size = new System.Drawing.Size(189, 22);
       this.mnuSaveAs.Text = "Сохранить как...";
-      this.mnuSaveAs.Click += new System.EventHandler(this.mnuSave_Click);
+      this.mnuSaveAs.Click += new System.EventHandler(this.mnuSaveAs_Click);
       // 
       // mnuOpen
       // 

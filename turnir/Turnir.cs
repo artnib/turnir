@@ -16,6 +16,17 @@ namespace turnir
     public string FileName;
 
     /// <summary>
+    /// Определяет, является ли турнир пустым
+    /// </summary>
+    /// <returns><code>true</code>, если список участников пуст и не заданы
+    /// название, главный судья и секретарь</returns>
+    internal bool IsEmpty()
+    {
+      return Players.Count == 0 && string.IsNullOrEmpty(Name) &&
+        String.IsNullOrEmpty(Referee) && String.IsNullOrEmpty(Secretary);
+    }
+
+    /// <summary>
     /// Место проведения
     /// </summary>
     internal string Place;

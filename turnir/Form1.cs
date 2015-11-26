@@ -122,7 +122,8 @@ namespace turnir
 
     void SaveAndInit()
     {
-      SaveTurnir();
+      if (!CurTurnir.IsEmpty())
+        SaveTurnir();
       InitNewTurnir();
     }
 
@@ -133,7 +134,7 @@ namespace turnir
     {
       curFile = String.Empty;
       CurTurnir = new Turnir();
-      tbTurnir.Text = "Турнир";
+      //tbTurnir.Text = "Турнир";
       Text = defaultCaption;
       dtDate.Value = DateTime.Now;
       CheckTurnirType(CurTurnir);
@@ -192,20 +193,6 @@ namespace turnir
       SaveTurnir(curFile);
     }
  
-    private void tbTurnir_TextChanged(object sender, System.EventArgs e)
-    {
-      if (!String.IsNullOrEmpty(tbTurnir.Text))
-      {
-        tbTurnir.Text = "У турнира должно быть название";
-        tbTurnir.ForeColor = Color.Red;
-      }
-      else
-      {
-        tbTurnir.ForeColor = Color.Black;
-        Text = tbTurnir.Text;
-      }
-    }
-
     #region Меню "Участники"
 
     private void mnuAddPlaeyr_Click(object sender, EventArgs e)
@@ -566,8 +553,13 @@ namespace turnir
     BinaryFormatter bf;
     FileStream fs;
     string curFile;
-
+    
     private void mnuSave_Click(object sender, EventArgs e)
+    {
+      SaveTurnir();
+    }
+
+    private void mnuSaveAs_Click(object sender, EventArgs e)
     {
       saveDlg.Filter = "Турниры|*.tur";
       saveDlg.DefaultExt = "tur";
@@ -586,7 +578,8 @@ namespace turnir
 
     private void mnuOpen_Click(object sender, EventArgs e)
     {
-      SaveTurnir();
+      if (!CurTurnir.IsEmpty())
+        SaveTurnir();
       if (openDlg.ShowDialog() == DialogResult.OK)
       {
         curFile = openDlg.FileName;
@@ -877,18 +870,14 @@ namespace turnir
         dgvTable.Columns[i].HeaderText = headers[i - rowCount];
     }
 
-    private void mnuSave_Click_1(object sender, EventArgs e)
-    {
-      SaveTurnir();
-    }
-
     #region Перетаскивание файла
 
     private void TurnirForm_DragDrop(object sender, DragEventArgs e)
     {
       if (!String.IsNullOrEmpty(dropFile))
       {
-        SaveTurnir();
+        if (!CurTurnir.IsEmpty())
+          SaveTurnir();
         RestoreTurnir(dropFile);
       }
     }
