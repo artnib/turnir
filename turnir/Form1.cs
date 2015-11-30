@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
 using System.Drawing;
@@ -89,16 +90,21 @@ namespace turnir
           tbPlace.Text = CurTurnir.Place;
           CheckTurnirType(CurTurnir);
           TurChangesEnabled();
-          //PlayersToListView(CurTurnir.Players);
           FillTableCombo();
           RestoreCompetitorList();
-          //mnuResults.Enabled = CurTurnir.Games.Count > 0;
         }
         fs.Close();
         curFile = turPath;
         UpdateCaption();
       }
       if (CurTurnir == null) InitNewTurnir();
+      UpdateGameForm();
+    }
+
+    private void UpdateGameForm()
+    {
+      if (gamesForm != null)
+        gamesForm.SetTurnir(CurTurnir);
     }
 
     void CheckTurnirType(Turnir tur)
@@ -134,15 +140,13 @@ namespace turnir
     {
       curFile = String.Empty;
       CurTurnir = new Turnir();
-      //tbTurnir.Text = "Турнир";
       Text = defaultCaption;
       dtDate.Value = DateTime.Now;
       CheckTurnirType(CurTurnir);
       FillTableCombo();
-      //lvTable.Items.Clear();
       dgvTable.Rows.Clear();
-      //dgvTable.Columns.Clear();
       lvCompetitors.Items.Clear();
+      UpdateGameForm();
     }
 
     /// <summary>
