@@ -14,14 +14,28 @@ namespace turnir
     internal GamesForm(Turnir tur)
       : this()
     {
-      this.tur = tur;
-      players = tur.Players;
+      SetTurnir(tur);
     }
 
     internal GamesForm(Turnir tur, TurnirForm mainForm)
       : this(tur)
     {
       this.mainForm = mainForm;
+    }
+
+    /// <summary>
+    /// Задаёт турнир
+    /// </summary>
+    /// <param name="turnir">Турнир</param>
+    internal void SetTurnir(Turnir turnir)
+    {
+      tur = turnir;
+      players = tur.Players;
+      cbPlayer.Items.Clear();
+      cbPlayer.Text = String.Empty;
+      cbPlayer.Items.AddRange(players.ToArray());
+      rr = null;
+      lvGames.Items.Clear();
     }
 
     /// <summary>
@@ -58,8 +72,7 @@ namespace turnir
 
     private void GamesForm_Load(object sender, EventArgs e)
     {
-      if(cbPlayer.Items.Count == 0)
-        cbPlayer.Items.AddRange(players.ToArray());
+      
       if (cbTeam.Items.Count == 0 && tur.IsTeam())
         cbTeam.Items.AddRange(tur.Teams.ToArray());
       SetFilter(filter);
