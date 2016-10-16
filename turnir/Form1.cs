@@ -404,11 +404,27 @@ namespace turnir
       if (j > 0)
         row.Cells[j + 1].Value = totalScore;
       byte? place = player.Place;
+      row.DefaultCellStyle.BackColor =RowColor(player.Place);
       row.Cells[j + 2].Value = place > 0 ? place : null;
       double? shmulyan = player.Shmulyan;
       row.Cells[j + 3].Value = shmulyan != 0.0 ? shmulyan : null;
       //if (player.NewGrade != null)
         row.Cells[j + 4].Value = player.NewGrade;
+    }
+
+    static Color RowColor(byte place)
+    {
+      switch (place)
+      {
+        case 1:
+          return Color.Gold;
+        case 2:
+          return Color.Silver;
+        case 3:
+          return Color.RosyBrown;
+        default:
+          return SystemColors.Window;
+      }
     }
 
     /// <summary>
