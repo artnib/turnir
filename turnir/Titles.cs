@@ -65,16 +65,6 @@ namespace turnir
       InitNorms();
       foreach (Title t in norms.Keys)
         titles.Add(t);
-      //titles.Add(new Title { ShortName = "-", FullName = "юноши и девушки без разряда", Coefficient = 6 });
-      //titles.Add(new Title { ShortName = "3 ю.", FullName = "3 юношеский разряд", Coefficient = 5 });
-      //titles.Add(new Title { ShortName = "2 ю.", FullName = "2 юношеский разряд", Coefficient = 4 });
-      //titles.Add(new Title { ShortName = "1 ю.", FullName = "1 юношеский разряд", Coefficient = 3 });
-      //titles.Add(new Title { ShortName = "3", FullName = "3 разряд", Coefficient = 3 });
-      //titles.Add(new Title { ShortName = "2", FullName = "2 разряд", Coefficient = 2 });
-      //titles.Add(new Title { ShortName = "1", FullName = "1 разряд", Coefficient = 1 });
-      //titles.Add(new Title { ShortName = "кмс", FullName = "кандидат в мастера спорта", Coefficient = 0 });
-      //titles.Add(new Title { ShortName = "мс", FullName = "мастер спорта", Coefficient = -1 });
-      //titles.Add(new Title { ShortName = "гр", FullName = "гроссмейстер", Coefficient = -2 });
     }
 
     void InitNorms()
