@@ -226,14 +226,16 @@ namespace turnir
         || (g.Black == opponent && g.White == player.Number)));
     }
 
-    double GameScore(Game game, Player player)
+    double GameScore(Game game, Player player, out string display)
     {
+      display = String.Empty;
       if (game == null) return Double.NaN;
       var score = 0.0;
       switch (game.Result)
       {
         case GameResult.Draw:
           score = 0.5;
+          display = "½";
           break;
         case GameResult.White:
           if (game.White == player.Number)
@@ -242,6 +244,24 @@ namespace turnir
         case GameResult.Black:
           if (game.Black == player.Number)
             score = 1.0;
+          break;
+        case GameResult.WhiteForfeit:
+          if (game.Black == player.Number)
+          {
+            display = "+";
+            score = 1.0;
+          }
+          else
+            display = "-";
+          break;
+        case GameResult.BlackForfeit:
+          if (game.White == player.Number)
+          {
+            display = "+";
+            score = 1.0;
+          }
+          else
+            display = "-";
           break;
         default:
           score = Double.NaN;
@@ -255,10 +275,11 @@ namespace turnir
     /// </summary>
     /// <param name="player">Участник</param>
     /// <param name="opponent">Противник</param>
+    /// <param name="display">Строка, отображаемая в турнирной таблице</param>
     /// <returns>1 (выигрыш), 0 (проигрыш), 0.5 (ничья) или NaN (партия не сыграна)</returns>
-    internal double GameScore(Player player, byte opponent)
+    internal double GameScore(Player player, byte opponent, out string display)
     {
-      return GameScore(FindGame(player, opponent), player);
+      return GameScore(FindGame(player, opponent), player, out display);
     }
 
     /// <summary>
