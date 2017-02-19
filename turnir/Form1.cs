@@ -384,6 +384,7 @@ namespace turnir
       int j = 0;
       double score;
       double totalScore = 0.0;
+      string display;
       for (byte i = 1; i <= playerCount; i++)
       {
         j = 3 + i;
@@ -391,12 +392,13 @@ namespace turnir
           row.Cells[j].Value = "X";
         else
         {
-          score = CurTurnir.GameScore(player, i);
+          score = CurTurnir.GameScore(player, i, out display);
           if (Double.IsNaN(score))
             row.Cells[j].Value = null;
           else
           {
-            row.Cells[j].Value = score;
+            row.Cells[j].Value = String.IsNullOrEmpty(display) ?
+              score.ToString(): display;
             totalScore += score;
           }
         }
@@ -856,7 +858,7 @@ namespace turnir
 
     const string teamHeaders = "№;Команда;Откуда;Очки;Место";
     const string playerHeaders = "№;Участник;Откуда;Разряд;Очки;Место;Шмульян;Квал.";
-    const string boardHeaders = "№;Участник;Команда;Разряд;Очки;Место;Шмульян";
+    const string boardHeaders = "№;Участник;Команда;Разряд;Очки;Место;Шмульян;Квал.";
 
     void UpdateGrid(int board)
     {

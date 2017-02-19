@@ -20,6 +20,14 @@
     /// <summary>
     /// Ничья
     /// </summary>
-    Draw
+    Draw,
+    /// <summary>
+    /// Неявка/опоздание белых
+    /// </summary>
+    WhiteForfeit,
+    /// <summary>
+    /// Неявка/опоздание чёрных
+    /// </summary>
+    BlackForfeit
   }
 }
