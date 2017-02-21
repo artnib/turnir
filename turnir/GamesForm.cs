@@ -167,6 +167,10 @@ namespace turnir
           return "1-0";
         case GameResult.Draw:
           return "=";
+        case GameResult.WhiteForfeit:
+          return "-/+";
+        case GameResult.BlackForfeit:
+          return "+/-";
         default:
           return String.Empty;
       }
@@ -196,6 +200,16 @@ namespace turnir
     {
       SetResult(GameResult.None);
     }
+    
+    private void whiteForfeit_Click(object sender, EventArgs e)
+    {
+      SetResult(GameResult.WhiteForfeit);
+    }
+
+    private void blackForfeit_Click(object sender, EventArgs e)
+    {
+      SetResult(GameResult.BlackForfeit);
+    }
 
     #endregion
 
@@ -207,6 +221,6 @@ namespace turnir
       var games = tur.TeamGames(team);
       ShowGames(games);
     }
-
+    
   }
 }

@@ -41,13 +41,15 @@
       this.white = new System.Windows.Forms.ToolStripMenuItem();
       this.black = new System.Windows.Forms.ToolStripMenuItem();
       this.draw = new System.Windows.Forms.ToolStripMenuItem();
+      this.clear = new System.Windows.Forms.ToolStripMenuItem();
       this.pnGames = new System.Windows.Forms.Panel();
       this.statusStrip1 = new System.Windows.Forms.StatusStrip();
       this.lbScore = new System.Windows.Forms.ToolStripStatusLabel();
       this.pnPlayer = new System.Windows.Forms.Panel();
       this.label3 = new System.Windows.Forms.Label();
       this.cbTeam = new System.Windows.Forms.ComboBox();
-      this.clear = new System.Windows.Forms.ToolStripMenuItem();
+      this.whiteForfeit = new System.Windows.Forms.ToolStripMenuItem();
+      this.blackForfeit = new System.Windows.Forms.ToolStripMenuItem();
       this.cmenu.SuspendLayout();
       this.pnGames.SuspendLayout();
       this.statusStrip1.SuspendLayout();
@@ -132,15 +134,17 @@
             this.white,
             this.black,
             this.draw,
-            this.clear});
+            this.clear,
+            this.whiteForfeit,
+            this.blackForfeit});
       this.cmenu.Name = "cmenu";
-      this.cmenu.Size = new System.Drawing.Size(214, 92);
+      this.cmenu.Size = new System.Drawing.Size(307, 158);
       // 
       // white
       // 
       this.white.Name = "white";
       this.white.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
-      this.white.Size = new System.Drawing.Size(213, 22);
+      this.white.Size = new System.Drawing.Size(306, 22);
       this.white.Text = "Выигрыш белых";
       this.white.Click += new System.EventHandler(this.white_Click);
       // 
@@ -148,7 +152,7 @@
       // 
       this.black.Name = "black";
       this.black.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D0)));
-      this.black.Size = new System.Drawing.Size(213, 22);
+      this.black.Size = new System.Drawing.Size(306, 22);
       this.black.Text = "Выигрыш чёрных";
       this.black.Click += new System.EventHandler(this.black_Click);
       // 
@@ -156,9 +160,17 @@
       // 
       this.draw.Name = "draw";
       this.draw.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
-      this.draw.Size = new System.Drawing.Size(213, 22);
+      this.draw.Size = new System.Drawing.Size(306, 22);
       this.draw.Text = "Ничья";
       this.draw.Click += new System.EventHandler(this.draw_Click);
+      // 
+      // clear
+      // 
+      this.clear.Name = "clear";
+      this.clear.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+      this.clear.Size = new System.Drawing.Size(306, 22);
+      this.clear.Text = "Очистить";
+      this.clear.Click += new System.EventHandler(this.clear_Click);
       // 
       // pnGames
       // 
@@ -218,13 +230,21 @@
       this.cbTeam.TabIndex = 3;
       this.cbTeam.SelectedIndexChanged += new System.EventHandler(this.cbTeam_SelectedIndexChanged);
       // 
-      // clear
+      // whiteForfeit
       // 
-      this.clear.Name = "clear";
-      this.clear.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-      this.clear.Size = new System.Drawing.Size(213, 22);
-      this.clear.Text = "Очистить";
-      this.clear.Click += new System.EventHandler(this.clear_Click);
+      this.whiteForfeit.Name = "whiteForfeit";
+      this.whiteForfeit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
+      this.whiteForfeit.Size = new System.Drawing.Size(306, 22);
+      this.whiteForfeit.Text = "Неявка/опоздание белых";
+      this.whiteForfeit.Click += new System.EventHandler(this.whiteForfeit_Click);
+      // 
+      // blackForfeit
+      // 
+      this.blackForfeit.Name = "blackForfeit";
+      this.blackForfeit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
+      this.blackForfeit.Size = new System.Drawing.Size(306, 22);
+      this.blackForfeit.Text = "Неявка/опоздание чёрных";
+      this.blackForfeit.Click += new System.EventHandler(this.blackForfeit_Click);
       // 
       // GamesForm
       // 
@@ -270,5 +290,7 @@
     private System.Windows.Forms.ComboBox cbTeam;
     private System.Windows.Forms.ColumnHeader columnHeader4;
     private System.Windows.Forms.ToolStripMenuItem clear;
+    private System.Windows.Forms.ToolStripMenuItem whiteForfeit;
+    private System.Windows.Forms.ToolStripMenuItem blackForfeit;
   }
 }
