@@ -31,12 +31,12 @@
       this.cancel = new System.Windows.Forms.Button();
       this.save = new System.Windows.Forms.Button();
       this.gridPlayers = new System.Windows.Forms.DataGridView();
-      this.ColBoard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.ColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.ColTitle = new System.Windows.Forms.DataGridViewComboBoxColumn();
       this.name = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
+      this.ColBoard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ColTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
       ((System.ComponentModel.ISupportInitialize)(this.gridPlayers)).BeginInit();
       this.SuspendLayout();
       // 
@@ -78,29 +78,13 @@
             this.ColName,
             this.ColTitle});
       this.gridPlayers.Location = new System.Drawing.Point(12, 73);
+      this.gridPlayers.MultiSelect = false;
       this.gridPlayers.Name = "gridPlayers";
+      this.gridPlayers.ReadOnly = true;
+      this.gridPlayers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
       this.gridPlayers.Size = new System.Drawing.Size(401, 150);
       this.gridPlayers.TabIndex = 1;
-      this.gridPlayers.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.gridPlayers_CellValidating);
-      this.gridPlayers.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridPlayers_RowValidated);
-      // 
-      // ColBoard
-      // 
-      this.ColBoard.HeaderText = "Доска";
-      this.ColBoard.Name = "ColBoard";
-      this.ColBoard.ReadOnly = true;
-      this.ColBoard.Width = 50;
-      // 
-      // ColName
-      // 
-      this.ColName.HeaderText = "Фамилия, имя";
-      this.ColName.Name = "ColName";
-      this.ColName.Width = 200;
-      // 
-      // ColTitle
-      // 
-      this.ColTitle.HeaderText = "Разряд";
-      this.ColTitle.Name = "ColTitle";
+      this.gridPlayers.KeyUp += new System.Windows.Forms.KeyEventHandler(this.gridPlayers_KeyUp);
       // 
       // name
       // 
@@ -127,6 +111,28 @@
       this.label2.Size = new System.Drawing.Size(90, 13);
       this.label2.TabIndex = 13;
       this.label2.Text = "Члены команды";
+      // 
+      // ColBoard
+      // 
+      this.ColBoard.HeaderText = "Доска";
+      this.ColBoard.Name = "ColBoard";
+      this.ColBoard.ReadOnly = true;
+      this.ColBoard.Width = 50;
+      // 
+      // ColName
+      // 
+      this.ColName.HeaderText = "Фамилия, имя";
+      this.ColName.Name = "ColName";
+      this.ColName.ReadOnly = true;
+      this.ColName.Width = 200;
+      // 
+      // ColTitle
+      // 
+      this.ColTitle.HeaderText = "Разряд";
+      this.ColTitle.Name = "ColTitle";
+      this.ColTitle.ReadOnly = true;
+      this.ColTitle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+      this.ColTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
       // 
       // TeamForm
       // 
@@ -156,11 +162,11 @@
     private System.Windows.Forms.Button cancel;
     private System.Windows.Forms.Button save;
     private System.Windows.Forms.DataGridView gridPlayers;
-    private System.Windows.Forms.DataGridViewTextBoxColumn ColBoard;
-    private System.Windows.Forms.DataGridViewTextBoxColumn ColName;
-    private System.Windows.Forms.DataGridViewComboBoxColumn ColTitle;
     private System.Windows.Forms.TextBox name;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ColBoard;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ColName;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ColTitle;
   }
 }
