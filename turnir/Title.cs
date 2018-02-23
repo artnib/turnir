@@ -25,5 +25,16 @@
     {
       return ShortName;
     }
+
+    public override bool Equals(object obj)
+    {
+      if (obj is Title)
+      {
+        var t = (Title)obj;
+        return t.Coefficient == Coefficient && t.ShortName == ShortName;
+      }
+      else
+        return false;
+    }
   }
 }

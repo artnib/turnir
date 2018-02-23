@@ -31,12 +31,12 @@
       this.cancel = new System.Windows.Forms.Button();
       this.save = new System.Windows.Forms.Button();
       this.gridPlayers = new System.Windows.Forms.DataGridView();
-      this.name = new System.Windows.Forms.TextBox();
-      this.label1 = new System.Windows.Forms.Label();
-      this.label2 = new System.Windows.Forms.Label();
       this.ColBoard = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.ColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.ColTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.name = new System.Windows.Forms.TextBox();
+      this.label1 = new System.Windows.Forms.Label();
+      this.label2 = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.gridPlayers)).BeginInit();
       this.SuspendLayout();
       // 
@@ -86,6 +86,28 @@
       this.gridPlayers.TabIndex = 1;
       this.gridPlayers.KeyUp += new System.Windows.Forms.KeyEventHandler(this.gridPlayers_KeyUp);
       // 
+      // ColBoard
+      // 
+      this.ColBoard.HeaderText = "Доска";
+      this.ColBoard.Name = "ColBoard";
+      this.ColBoard.ReadOnly = true;
+      this.ColBoard.Width = 50;
+      // 
+      // ColName
+      // 
+      this.ColName.HeaderText = "Фамилия, имя";
+      this.ColName.Name = "ColName";
+      this.ColName.ReadOnly = true;
+      this.ColName.Width = 200;
+      // 
+      // ColTitle
+      // 
+      this.ColTitle.HeaderText = "Разряд";
+      this.ColTitle.Name = "ColTitle";
+      this.ColTitle.ReadOnly = true;
+      this.ColTitle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+      this.ColTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+      // 
       // name
       // 
       this.name.Location = new System.Drawing.Point(12, 25);
@@ -112,28 +134,6 @@
       this.label2.TabIndex = 13;
       this.label2.Text = "Члены команды";
       // 
-      // ColBoard
-      // 
-      this.ColBoard.HeaderText = "Доска";
-      this.ColBoard.Name = "ColBoard";
-      this.ColBoard.ReadOnly = true;
-      this.ColBoard.Width = 50;
-      // 
-      // ColName
-      // 
-      this.ColName.HeaderText = "Фамилия, имя";
-      this.ColName.Name = "ColName";
-      this.ColName.ReadOnly = true;
-      this.ColName.Width = 200;
-      // 
-      // ColTitle
-      // 
-      this.ColTitle.HeaderText = "Разряд";
-      this.ColTitle.Name = "ColTitle";
-      this.ColTitle.ReadOnly = true;
-      this.ColTitle.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-      this.ColTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-      // 
       // TeamForm
       // 
       this.AcceptButton = this.save;
@@ -147,6 +147,7 @@
       this.Controls.Add(this.gridPlayers);
       this.Controls.Add(this.cancel);
       this.Controls.Add(this.save);
+      this.MaximizeBox = false;
       this.Name = "TeamForm";
       this.Text = "Команда";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TeamForm_FormClosing);

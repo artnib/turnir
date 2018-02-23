@@ -77,7 +77,7 @@ namespace turnir
         oldPlayer = tur.Players.Find(p =>
           p.Number == team.Number && p.Board == board);
         if (oldPlayer == null)
-          tur.Players.Add(new Player
+          tur.AddPlayer(new Player
           {
             Number = team.Number,
             Name = player.Name,
@@ -89,7 +89,11 @@ namespace turnir
         {
           oldPlayer.Name = player.Name;
           oldPlayer.Location = team.Name;
-          oldPlayer.Grade = player.Grade;
+          if (oldPlayer.Grade != player.Grade)
+          {
+            oldPlayer.Grade = player.Grade;
+            tur.UpdateCoefficient(player.Board);
+          }
         }
       }
     }
@@ -106,11 +110,6 @@ namespace turnir
       return true;
     }
 
-    private void gridPlayers_RowValidated(object sender, DataGridViewCellEventArgs e)
-    {
-      CheckSaveButton();
-    }
-
     private void name_TextChanged(object sender, EventArgs e)
     {
       CheckSaveButton();
@@ -119,11 +118,6 @@ namespace turnir
     private void cancel_Click(object sender, EventArgs e)
     {
       team = null;
-    }
-
-    private void gridPlayers_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-    {
-
     }
 
     private void TeamForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -147,9 +141,9 @@ namespace turnir
           else
             playerForm.Player = player ?? new Player { Location = name.Text };
           playerForm.ShowDialog(this);
-          row.Tag = playerForm.Player;
-          if (row.Tag != null)
+          if (playerForm.Player != null)
           {
+            row.Tag = playerForm.Player;
             row.Cells[ColName.Index].Value = playerForm.Player.Name;
             row.Cells[ColTitle.Index].Value = playerForm.Player.Grade.ShortName;
           }
