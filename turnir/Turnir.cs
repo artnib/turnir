@@ -460,8 +460,9 @@ namespace turnir
       var number = team.Number;
       Teams.Remove(team);
       Players.RemoveAll(p => p.Number == number);
-      
-      //"поднмаем вверх" команды, находящиеся в списке ниже удаляемой команды
+      for (byte i = 1; i <= BoardNumber; i++)
+        UpdateCoefficient(i);
+      //"поднимаем вверх" команды, находящиеся в списке ниже удаляемой команды
       var nextTeams = Teams.FindAll(t => t.Number > number);
       foreach (Team nextTeam in nextTeams)
         nextTeam.Number--;
@@ -620,9 +621,10 @@ namespace turnir
     }
 
     /// <summary>
-    /// Пересчитывает коэффициент турнира
+    /// Пересчитывает коэффициент турнира на заданной доске
     /// </summary>
-    void UpdateCoefficient(byte board)
+    /// <param name="board">Номер доски</param>
+    internal void UpdateCoefficient(byte board)
     {
       if (TitlesCanBeObtained())
       {

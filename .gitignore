@@ -1,0 +1,4 @@
+# файлы и папки Visual Studio
+bin
+obj
+*.suo

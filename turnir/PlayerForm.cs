@@ -23,6 +23,7 @@ namespace turnir
       set 
       {
         player = value;
+        CheckTitles();
         if (value == null)
         {
           name.Text = String.Empty;
@@ -34,7 +35,7 @@ namespace turnir
           name.Text = value.Name;
           location.Text = value.Location;
           if (value.Grade == null)
-            cbTitle.Text = value.Title;
+            cbTitle.SelectedIndex = 0;
           else
             cbTitle.SelectedItem = value.Grade;
         }
@@ -70,12 +71,17 @@ namespace turnir
 
     private void PlayerForm_Load(object sender, EventArgs e)
     {
+      CheckTitles();
+      if(player == null)
+        cbTitle.SelectedIndex = 0;
+    }
+
+    private void CheckTitles()
+    {
       if (cbTitle.Items.Count == 0)
       {
         cbTitle.Items.AddRange(new Titles().GetTitles().ToArray());
       }
-      if(player == null)
-        cbTitle.SelectedIndex = 0;
     }
 
     private void name_TextChanged(object sender, EventArgs e)

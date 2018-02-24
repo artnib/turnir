@@ -39,7 +39,8 @@ namespace turnir
           index = board - 1;
           row = gridPlayers.Rows[index];
           row.Cells[1].Value = player.Name;
-          row.Cells[2].Value = player.Title;
+          row.Cells[2].Value = player.Grade.ShortName;
+          row.Tag = player;
         }
       }
     }
@@ -55,8 +56,6 @@ namespace turnir
       {
         gridPlayers.Rows[i - 1].Cells[0].Value = i;
       }
-      if (ColTitle.Items.Count == 0)
-        ColTitle.Items.AddRange(Resources.Titles.Split(new char[] { ',' }));
     }
 
     void CheckSaveButton()
@@ -69,33 +68,32 @@ namespace turnir
       team.Name = name.Text;
       Byte board;
       DataGridViewRow row;
-      Player oldPlayer;
-      string pName;
-      string title;
-      object value;
+      Player oldPlayer, player;
       for (int i = 0; i < gridPlayers.RowCount; i++)
       {
         row = gridPlayers.Rows[i];
+        player = (Player)row.Tag;
         board = (Byte)(i + 1);
-        pName = row.Cells[1].Value.ToString();
-        value = row.Cells[2].Value;
-        title = value ==  null ? String.Empty : value.ToString();
         oldPlayer = tur.Players.Find(p =>
           p.Number == team.Number && p.Board == board);
         if (oldPlayer == null)
-          tur.Players.Add(new Player
+          tur.AddPlayer(new Player
           {
             Number = team.Number,
-            Name = pName,
+            Name = player.Name,
             Board = board,
             Location = team.Name,
-            Title = title
+            Grade = player.Grade
           });
         else
         {
-          oldPlayer.Name = pName;
+          oldPlayer.Name = player.Name;
           oldPlayer.Location = team.Name;
-          oldPlayer.Title = title;
+          if (oldPlayer.Grade != player.Grade)
+          {
+            oldPlayer.Grade = player.Grade;
+            tur.UpdateCoefficient(player.Board);
+          }
         }
       }
     }
@@ -112,11 +110,6 @@ namespace turnir
       return true;
     }
 
-    private void gridPlayers_RowValidated(object sender, DataGridViewCellEventArgs e)
-    {
-      CheckSaveButton();
-    }
-
     private void name_TextChanged(object sender, EventArgs e)
     {
       CheckSaveButton();
@@ -127,24 +120,36 @@ namespace turnir
       team = null;
     }
 
-    private void gridPlayers_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-    {
-      if(e.ColumnIndex != 1) return;
-      var cell = gridPlayers.Rows[e.RowIndex].Cells[1];
-      object value = e.FormattedValue;
-      e.Cancel = false;
-      cell.ErrorText = String.Empty;
-      if (value == null || value.ToString().Length == 0)
-      {
-        e.Cancel = true;
-        cell.ErrorText = "Укажите фамилию, имя";
-      }
-    }
-
     private void TeamForm_FormClosing(object sender, FormClosingEventArgs e)
     {
       //e.Cancel = true;
       //Hide();
+    }
+    
+    PlayerForm playerForm;
+
+    private void gridPlayers_KeyUp(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.F4)
+      {
+        var row = gridPlayers.CurrentRow;
+        if (row != null)
+        {
+          var player = (Player)row.Tag;
+          if (playerForm == null)
+            playerForm = new PlayerForm(player ?? new Player { Location = name.Text });
+          else
+            playerForm.Player = player ?? new Player { Location = name.Text };
+          playerForm.ShowDialog(this);
+          if (playerForm.Player != null)
+          {
+            row.Tag = playerForm.Player;
+            row.Cells[ColName.Index].Value = playerForm.Player.Name;
+            row.Cells[ColTitle.Index].Value = playerForm.Player.Grade.ShortName;
+          }
+          CheckSaveButton();
+        }
+      }
     }
   }
 }
