@@ -653,8 +653,14 @@ namespace turnir
       var playedGames = games.FindAll(g => g.Result != GameResult.None);
       var playerNorms = new Dictionary<Title, double>();
       player.Norms = playerNorms;
-      if (IsPersonal() && playedGames.Count < 9)
+      const byte MinPersonalGames = 9;
+      const byte MinTeamGames = 7;
+      var gameCount = playedGames.Count;
+      if ((IsPersonal() && gameCount < MinPersonalGames) ||
+        (IsTeam() && gameCount < MinTeamGames))
+      {
         return;
+      }
       else
       {
         CheckTitles();
@@ -679,7 +685,7 @@ namespace turnir
         player.Coefficient = coeffSum / playedGames.Count;
         //foreach (Title title in obtainableTitles)
         //  playerNorms[title] /= playedGames.Count;
-        
+
         foreach (Title nt in playerNorms.Keys.OrderByDescending(tt => tt.Coefficient))
         {
           player.NewGrade = null;
@@ -689,7 +695,7 @@ namespace turnir
             break;
           }
         }
-            
+
       }
     }
 
