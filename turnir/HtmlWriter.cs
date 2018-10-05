@@ -52,18 +52,24 @@ namespace turnir
     /// <returns>HTML-код таблицы</returns>
     internal static string TableCode(DataGridView grid)
     {
+      int placeCol = -1;
       var sb = new StringBuilder();
       sb.AppendLine("<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">");
       sb.Append("<tr>");
       foreach (DataGridViewColumn col in grid.Columns)
+      {
         sb.Append(Cell(col.HeaderText));
+        if (col.HeaderText == TurnirForm.PLACE)
+          placeCol = col.Index;
+      }
       sb.AppendLine("</tr>");
       foreach (DataGridViewRow row in grid.Rows)
       {
         sb.Append("<tr>");
         foreach (DataGridViewCell cell in row.Cells)
         {
-          sb.Append(Cell(cell.Value));
+          sb.Append(Cell(cell.Value,
+            cell.ColumnIndex == placeCol && PrizePlace(cell.Value)));
         }
         sb.AppendLine("</tr>");
       }
@@ -71,14 +77,19 @@ namespace turnir
       return sb.ToString();
     }
 
+    static bool PrizePlace(object place)
+    {
+      return (byte)place <= 3;
+    }
+
     internal static string Header(string text, byte level)
     {
       return String.Format("<h{0}>{1}</h{0}>", level, text);
     }
 
-    static string Cell(object content)
+    static string Cell(object content, bool bold = false)
     {
-      return String.Format("<td>{0}</td>", content);
+      return String.Format(bold ? "<td><b>{0}</b></td>" : "<td>{0}</td>", content);
     }
 
     static string Spaces(int number)

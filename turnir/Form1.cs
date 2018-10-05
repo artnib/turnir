@@ -856,9 +856,10 @@ namespace turnir
       UpdatePlayerTable((Byte)board);
     }
 
-    const string teamHeaders = "№;Команда;Откуда;Очки;Место";
-    const string playerHeaders = "№;Участник;Откуда;Разряд;Очки;Место;Шмульян;Квал.";
-    const string boardHeaders = "№;Участник;Команда;Разряд;Очки;Место;Шмульян;Квал.";
+    internal const string PLACE = "Место";
+    const string teamHeaders = "№;Команда;Откуда;Очки;" + PLACE;
+    const string playerHeaders = "№;Участник;Откуда;Разряд;Очки;" + PLACE + ";Шмульян;Квал.";
+    const string boardHeaders = "№;Участник;Команда;Разряд;Очки;" +  PLACE + ";Шмульян;Квал.";
 
     void UpdateGrid(int board)
     {
