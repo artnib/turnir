@@ -784,6 +784,7 @@ namespace turnir
     private void SetBoardNumber()
     {
       CurTurnir.BoardNumber = (Byte)(rbPersonal.Checked ? 1 : numBoard.Value);
+      FillTableCombo();
     }
 
     void TurTypeChanged()
