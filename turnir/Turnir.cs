@@ -265,7 +265,7 @@ namespace turnir
           break;
         default:
           score = Double.NaN;
-          break;
+          break;  
       }
       return score;
     }
@@ -615,7 +615,8 @@ namespace turnir
     /// <returns></returns>
     bool TitlesCanBeObtained()
     {
-      if (Players.Count < 10) return false;
+      const byte MinPlayerCount = 8;
+      if (Players.Count < MinPlayerCount) return false;
       if (IsTeam() && Teams.Count < 8) return false;
       return true;
     }
@@ -653,11 +654,9 @@ namespace turnir
       var playedGames = games.FindAll(g => g.Result != GameResult.None);
       var playerNorms = new Dictionary<Title, double>();
       player.Norms = playerNorms;
-      const byte MinPersonalGames = 9;
-      const byte MinTeamGames = 7;
+      const byte MinGameCount= 7;
       var gameCount = playedGames.Count;
-      if ((IsPersonal() && gameCount < MinPersonalGames) ||
-        (IsTeam() && gameCount < MinTeamGames))
+      if (gameCount < MinGameCount)
       {
         return;
       }
