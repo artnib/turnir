@@ -187,7 +187,8 @@ namespace turnir
       turPath = xs.ReadSetting(Setting.LastFile, String.Empty);
       RestoreTurnir(turPath);
       tabControl1.SelectedIndex = xs.ReadSetting(Setting.LastTab, 0);
-      cbTable.SelectedIndex = xs.ReadSetting(Setting.TableIndex, 0);
+      var ti = xs.ReadSetting(Setting.TableIndex, 0);
+      cbTable.SelectedIndex = ti < cbTable.Items.Count ? ti : 0;
     }
 
     #endregion
