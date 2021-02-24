@@ -117,6 +117,9 @@ namespace turnir
       Players = new List<Player>();
       Games = new List<Game>();
       Teams = new List<Team>();
+      coefficient = new List<double>(BoardNumber);
+      for (int i = 0; i < BoardNumber; i++)
+        coefficient.Add(Double.NaN);
     }
 
     #region Сортировка
@@ -610,38 +613,20 @@ namespace turnir
     List<Double> coefficient;
 
     /// <summary>
-    /// Определяет возможность выполнения разрядов
-    /// </summary>
-    /// <returns></returns>
-    bool TitlesCanBeObtained()
-    {
-      const byte MinPlayerCount = 8;
-      if (Players.Count < MinPlayerCount) return false;
-      if (IsTeam() && Teams.Count < 8) return false;
-      return true;
-    }
-
-    /// <summary>
     /// Пересчитывает коэффициент турнира на заданной доске
     /// </summary>
     /// <param name="board">Номер доски</param>
     internal void UpdateCoefficient(byte board)
     {
-      if (TitlesCanBeObtained())
-      {
-        double sum = 0.0;
-        var players = Players.FindAll(p => p.Board == board);
-        if (coefficient == null)
-        {
-          coefficient = new List<double>(BoardNumber);
-          for (int i = 0; i < BoardNumber; i++)
-            coefficient.Add(Double.NaN);
-        }
-        foreach (Player player in players)
-          if (player.Grade != null)
-            sum += player.Grade.Coefficient;
-        coefficient[board - 1] = sum / players.Count;
-      }
+      double sum = 0.0;
+      var players = Players.FindAll(p => p.Board == board);
+      coefficient[board - 1] = Double.NaN;
+      const byte MinPlayerCount = 8;
+      if (players.Count < MinPlayerCount) return;
+      foreach (Player player in players)
+        if (player.Grade != null)
+          sum += player.Grade.Coefficient;
+      coefficient[board - 1] = sum / players.Count;
     }
 
     /// <summary>
