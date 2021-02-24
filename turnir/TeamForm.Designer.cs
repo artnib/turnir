@@ -69,9 +69,9 @@
       // 
       this.gridPlayers.AllowUserToAddRows = false;
       this.gridPlayers.AllowUserToDeleteRows = false;
-      this.gridPlayers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+      this.gridPlayers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                  | System.Windows.Forms.AnchorStyles.Left)
+                  | System.Windows.Forms.AnchorStyles.Right)));
       this.gridPlayers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
       this.gridPlayers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColBoard,
@@ -149,6 +149,7 @@
       this.Controls.Add(this.save);
       this.MaximizeBox = false;
       this.Name = "TeamForm";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
       this.Text = "Команда";
       this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TeamForm_FormClosing);
       this.Load += new System.EventHandler(this.TeamForm_Load);
