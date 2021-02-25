@@ -404,35 +404,35 @@ namespace turnir
     /// </summary>
     /// <param name="team">Команда</param>
     /// <param name="opponent">Команда-противник</param>
-    /// <returns></returns>
+    /// <returns>Количество очков или NaN</returns>
     internal Double TeamScore(Team team, Team opponent)
     {
-      double score = Double.NaN;
+      var score = Double.NaN;
       var games = TeamGames(team, opponent);
-      if (games.Count > 0)
-        score = 0.0;
+      double gs;
       foreach (Game game in games)
       {
-        score += GameScore(game, team);
+        gs = GameScore(game, team);
+        if (Double.IsNaN(gs)) continue;
+        if (Double.IsNaN(score)) score = 0.0;
+        score += gs;
       }
       return score;
     }
 
     Double GameScore(Game game, Team team)
     {
-      var score = 0.0;
+      var score = Double.NaN;
       switch (game.Result)
       {
         case GameResult.Draw:
           score = 0.5;
           break;
         case GameResult.White:
-          if (game.White == team.Number)
-            score = 1.0;
+          score = game.White == team.Number ? 1.0 : 0.0;
           break;
         case GameResult.Black:
-          if (game.Black == team.Number)
-            score = 1.0;
+          score = game.Black == team.Number ? 1.0 : 0.0;
           break;
       }
       return score;
