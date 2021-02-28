@@ -88,7 +88,9 @@ namespace turnir
           tbReferee.Text = CurTurnir.Referee;
           tbSecretary.Text = CurTurnir.Secretary;
           tbPlace.Text = CurTurnir.Place;
+          noChange = true;
           CheckTurnirType(CurTurnir);
+          noChange = false;
           TurChangesEnabled();
           FillTableCombo();
           RestoreCompetitorList();
@@ -110,7 +112,7 @@ namespace turnir
     void CheckTurnirType(Turnir tur)
     {
       bool teamTur = tur.IsTeam();
-      noChange = true;
+      //noChange = true;
       if (teamTur)
       {
         rbTeam.Checked = true;
@@ -120,7 +122,7 @@ namespace turnir
       {
         rbPersonal.Checked = true;
       }
-      noChange = false;
+      //noChange = false;
     }
 
     bool noChange;
@@ -142,8 +144,10 @@ namespace turnir
       CurTurnir = new Turnir();
       Text = defaultCaption;
       dtDate.Value = DateTime.Now;
+      noChange = true;
       CheckTurnirType(CurTurnir);
       FillTableCombo();
+      noChange = false;
       dgvTable.Rows.Clear();
       lvCompetitors.Items.Clear();
       UpdateGameForm();
@@ -853,6 +857,8 @@ namespace turnir
 
     private void cbTable_SelectedIndexChanged(object sender, EventArgs e)
     {
+      if (noChange) return;
+      if (tabControl1.SelectedTab != tabTable) return;
       var board = CurTurnir.IsTeam() ? cbTable.SelectedIndex : 1;
       UpdateGrid(board);
       UpdatePlayerTable((Byte)board);

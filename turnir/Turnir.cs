@@ -117,9 +117,7 @@ namespace turnir
       Players = new List<Player>();
       Games = new List<Game>();
       Teams = new List<Team>();
-      coefficient = new List<double>(BoardNumber);
-      for (int i = 0; i < BoardNumber; i++)
-        coefficient.Add(Double.NaN);
+      
     }
 
     #region Сортировка
@@ -568,12 +566,20 @@ namespace turnir
     /// <param name="board">Номер доски</param>
     internal Double Coefficient(int board)
     {
-      if (coefficient == null || board < 1)
-      {
+      CheckCoeff();
+      if (board < 1)
         return Double.NaN;
+      return coefficient[board - 1];
+    }
+
+    private void CheckCoeff()
+    {
+      if (coefficient == null)
+      {
+        coefficient = new List<double>(BoardNumber);
+        for (int i = 0; i < BoardNumber; i++)
+          coefficient.Add(Double.NaN);
       }
-      else
-        return coefficient[board - 1];
     }
 
     /// <summary>
@@ -620,6 +626,7 @@ namespace turnir
     {
       double sum = 0.0;
       var players = Players.FindAll(p => p.Board == board);
+      CheckCoeff();
       coefficient[board - 1] = Double.NaN;
       const byte MinPlayerCount = 8;
       if (players.Count < MinPlayerCount) return;
