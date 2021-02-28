@@ -132,23 +132,28 @@ namespace turnir
     {
       if (e.KeyCode == Keys.F4)
       {
-        var row = gridPlayers.CurrentRow;
-        if (row != null)
+        EditRow();
+      }
+    }
+
+    private void EditRow()
+    {
+      var row = gridPlayers.CurrentRow;
+      if (row != null)
+      {
+        var player = (Player)row.Tag;
+        if (playerForm == null)
+          playerForm = new PlayerForm(player ?? new Player { Location = name.Text });
+        else
+          playerForm.Player = player ?? new Player { Location = name.Text };
+        playerForm.ShowDialog(this);
+        if (playerForm.Player != null)
         {
-          var player = (Player)row.Tag;
-          if (playerForm == null)
-            playerForm = new PlayerForm(player ?? new Player { Location = name.Text });
-          else
-            playerForm.Player = player ?? new Player { Location = name.Text };
-          playerForm.ShowDialog(this);
-          if (playerForm.Player != null)
-          {
-            row.Tag = playerForm.Player;
-            row.Cells[ColName.Index].Value = playerForm.Player.Name;
-            row.Cells[ColTitle.Index].Value = playerForm.Player.Grade.ShortName;
-          }
-          CheckSaveButton();
+          row.Tag = playerForm.Player;
+          row.Cells[ColName.Index].Value = playerForm.Player.Name;
+          row.Cells[ColTitle.Index].Value = playerForm.Player.Grade.ShortName;
         }
+        CheckSaveButton();
       }
     }
   }

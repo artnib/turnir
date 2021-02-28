@@ -37,6 +37,7 @@
       this.name = new System.Windows.Forms.TextBox();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
+      this.label3 = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.gridPlayers)).BeginInit();
       this.SuspendLayout();
       // 
@@ -134,6 +135,15 @@
       this.label2.TabIndex = 13;
       this.label2.Text = "Члены команды";
       // 
+      // label3
+      // 
+      this.label3.AutoSize = true;
+      this.label3.Location = new System.Drawing.Point(199, 57);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(214, 13);
+      this.label3.TabIndex = 14;
+      this.label3.Text = "Нажмите F4 для редактирования строки";
+      // 
       // TeamForm
       // 
       this.AcceptButton = this.save;
@@ -141,6 +151,7 @@
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.cancel;
       this.ClientSize = new System.Drawing.Size(430, 276);
+      this.Controls.Add(this.label3);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.name);
@@ -170,5 +181,6 @@
     private System.Windows.Forms.DataGridViewTextBoxColumn ColBoard;
     private System.Windows.Forms.DataGridViewTextBoxColumn ColName;
     private System.Windows.Forms.DataGridViewTextBoxColumn ColTitle;
+    private System.Windows.Forms.Label label3;
   }
 }
