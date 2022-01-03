@@ -591,7 +591,7 @@ namespace turnir
       CheckTitles();
       var highest = Math.Floor(coefficient[board - 1]);
       Title hTitle = null;
-      for (int i = titles.Count - 1; i > 0; i--)
+      for (int i = titles.Count - 1; i >= 0; i--)
         if (titles[i].Coefficient >= highest)
         {
           hTitle = titles[i];
